@@ -1,4 +1,4 @@
-#include "tuples.h"
+#include "../declarations/tuple.h"
 
 t_tuple point(double x, double y, double z)
 {
@@ -20,31 +20,31 @@ int equal(double a, double b)
         return 0;
 }
 
-t_tuple add(t_tuple a, t_tuple b)
+t_tuple add_tuple(t_tuple a, t_tuple b)
 {
     t_tuple sum = {a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w};
     if (sum.w > 1.0)
-        printf("Error: addition of two points.\n");
+        printf("Error: add_tuple two points.\n");
     return sum;
 }
 
-t_tuple sub(t_tuple a, t_tuple b)
+t_tuple sub_tuple(t_tuple a, t_tuple b)
 {
     t_tuple diff = {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
     if (diff.w < 0.0)
-        printf("Error: substracting a point from a vector.\n");
+        printf("Error: sub_tuple point to vector.\n");
     return diff;
 }
 
-t_tuple neg(t_tuple a)
+t_tuple neg_tuple(t_tuple a)
 {
-    t_tuple neg = {-a.x, -a.y, -a.z, -a.w};
-    return neg;
+    t_tuple neg_tuple = {-a.x, -a.y, -a.z, -a.w};
+    return neg_tuple;
 }
 
-t_tuple scalar(t_tuple a, double scalar)
+t_tuple scalar_tuple(t_tuple a, double scalar_tuple)
 {
-    t_tuple product = {a.x * scalar, a.y * scalar, a.z * scalar, a.w * scalar};
+    t_tuple product = {a.x * scalar_tuple, a.y * scalar_tuple, a.z * scalar_tuple, a.w * scalar_tuple};
     return product;
 }
 
@@ -64,7 +64,7 @@ t_tuple norm(t_tuple a)
 double dot(t_tuple a, t_tuple b)
 {
     if (a.w == 1.0 || b.w == 1.0)
-        printf("Error: dot product: passing point a vector operation.\n");
+        printf("Error: dot product: passing point  to vector operation.\n");
     double dot_product = a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
     return dot_product;
 }
@@ -72,7 +72,7 @@ double dot(t_tuple a, t_tuple b)
 t_tuple cross(t_tuple a, t_tuple b)
 {
     if (a.w == 1.0 || b.w == 1.0)
-        printf("Error: cross product: passing point a vector operation.\n");
+        printf("Error: cross product: passing point to vector operation.\n");
     t_tuple cross_product = vector(a.y * b.z - a.z * b.y,
                                     a.z * b.x - a.x * b.z,
                                     a.x * b.y - a.y * b.x);

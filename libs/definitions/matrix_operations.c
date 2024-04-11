@@ -27,9 +27,9 @@ int is_square(const t_matrix m)
     return m.rows == m.cols;
 }
 
-t_matrix mult_matrices(const t_matrix a, const t_matrix b)
+t_matrix *mult_matrices(const t_matrix a, const t_matrix b)
 {
-    t_matrix result;
+    t_matrix *result;
     int i;
     int j;
     int k;
@@ -37,11 +37,11 @@ t_matrix mult_matrices(const t_matrix a, const t_matrix b)
     if (a.cols != b.rows)
     {
         printf("Error: mult_matrices: incompatible matrices.\n");
-        return (t_matrix){0};
+        return NULL;
     }
     result = matrix(a.rows, b.cols);
-    if (!result.m)
-        return (t_matrix){0};
+    if (!result)
+       return (NULL);
     i = 0;
     while (i < a.rows)
     {
@@ -51,7 +51,7 @@ t_matrix mult_matrices(const t_matrix a, const t_matrix b)
             k = 0;
             while (k < a.cols)
             {
-                result.m[i][j] += a.m[i][k] * b.m[k][j];
+                result->m[i][j] += a.m[i][k] * b.m[k][j];
                 k++;
             }
             j++;
@@ -61,22 +61,22 @@ t_matrix mult_matrices(const t_matrix a, const t_matrix b)
     return result;
 }
 
-t_matrix transpose(const t_matrix m)
+t_matrix *transpose(const t_matrix m)
 {
-    t_matrix result;
+    t_matrix *result;
     int i;
     int j;
 
     result = matrix(m.cols, m.rows);
-    if (!result.m)
-        return (t_matrix){0};
+    if (!result)
+        return NULL;
     i = 0;
     while (i < m.rows)
     {
         j = 0;
         while (j < m.cols)
         {
-            result.m[j][i] = m.m[i][j];
+            result->m[j][i] = m.m[i][j];
             j++;
         }
         i++;
@@ -119,26 +119,26 @@ double cofactor(const t_matrix m, const int row, const int col)
 
 double minor(t_matrix m, int row, int col)
 {
-    t_matrix sub;
+    t_matrix *sub;
     double result;
 
     sub = submatrix(m, row, col);
-    result = determinant(sub);
+    result = determinant(*sub);
     free_matrix(sub);
     return result;
 }
 
-t_matrix submatrix(const t_matrix m, const int row, const int col)
+t_matrix *submatrix(const t_matrix m, const int row, const int col)
 {
-    t_matrix sub;
+    t_matrix *sub;
     int i;
     int j;
     int i_sub;
     int j_sub;
 
     sub =  matrix(m.rows - 1, m.cols - 1);
-    if (!sub.m)
-        return (t_matrix){0};
+    if (!sub)
+        return NULL;
     i = 0;
     i_sub = 0;
     while(i < m.rows)
@@ -155,7 +155,7 @@ t_matrix submatrix(const t_matrix m, const int row, const int col)
                     j++;
                 else
                 {
-                    sub.m[i_sub][j_sub] = m.m[i][j];
+                    sub->m[i_sub][j_sub] = m.m[i][j];
                     j++;
                     j_sub++;
                 }
@@ -167,19 +167,19 @@ t_matrix submatrix(const t_matrix m, const int row, const int col)
     return sub;
 }
 
-t_matrix inverse(const t_matrix m)
+t_matrix *inverse(const t_matrix m)
 {
     double det;
     double cof;
     int i;
     int j;
-    t_matrix inv;
+    t_matrix *inv;
 
     det = determinant(m);
     if (!is_square(m) || det == 0 )
     {
         printf("Stop: inverse: matrix is not invertible.\n");
-        return (t_matrix){0};
+        return NULL;
     }
     inv = matrix(m.rows, m.cols);
     i = 0;
@@ -189,7 +189,7 @@ t_matrix inverse(const t_matrix m)
         while (j < m.cols)
         {
             cof = cofactor(m, i, j);
-            inv.m[j][i] = cof / det;
+            inv->m[j][i] = cof / det;
             j++;
         }
         i++;
@@ -197,26 +197,3 @@ t_matrix inverse(const t_matrix m)
     return inv;
 }
 
-t_matrix identity(const unsigned int size)
-{
-    t_matrix id;
-    int i;
-    int j;
-
-    id = matrix(size, size);
-    if (!id.m)
-        return (t_matrix){0};
-    i = 0;
-    while (i < size)
-    {
-        j = 0;
-        while (j < size)
-        {
-            if (i == j)
-                id.m[i][j] = 1;
-            j++;
-        }
-        i++;
-    }
-    return id;
-}

@@ -22,7 +22,7 @@ t_matrix *matrix(const int rows, const int cols)
         if (!matrix->m[i])
         {
             printf("Error: matrix: memory allocation failed.\n");
-            free_matrix(matrix);
+            free_matrix(&matrix);
             return (NULL);
         }
         i++;
@@ -50,21 +50,21 @@ void print_matrix(const t_matrix matrix)
     }
 }
 
-void free_matrix(t_matrix *matrix)
+void free_matrix(t_matrix **matrix)
 {
     int i;
 
     i = 0;   
-    while (i < matrix->rows)
+    while (i < (*matrix)->rows)
     {
-        free(matrix->m[i]);
-        matrix->m[i] = NULL;
+        free((*matrix)->m[i]);
+        (*matrix)->m[i] = NULL;
         i++;
     }
-    free(matrix->m);
-    matrix->m = NULL;
-    free(matrix);
-    matrix = NULL;
+    free((*matrix)->m);
+    (*matrix)->m = NULL;
+    free(*matrix);
+    *matrix = NULL;
 }
 
 t_matrix *tuple_to_matrix(const t_tuple t)

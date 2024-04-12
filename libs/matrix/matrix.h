@@ -20,7 +20,7 @@ typedef struct s_matrix {
 t_matrix *matrix(int rows, int cols);
 t_matrix *tuple_to_matrix(const t_tuple t);
 void print_matrix(const t_matrix);
-void  free_matrix(t_matrix *m);
+void  free_matrix(t_matrix **m);
 double degrees_to_radians(double degrees);
 
 

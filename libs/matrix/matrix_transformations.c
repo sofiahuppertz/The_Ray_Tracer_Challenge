@@ -129,8 +129,8 @@ t_matrix *chain_transformations(t_matrix* initial, ...)
         if (next_transform == NULL)
             break;
         temp = mult_matrices(*result, *next_transform);
-        free_matrix(result);
-        free_matrix(next_transform);
+        free_matrix(&result);
+        free_matrix(&next_transform);
         result = temp;
     }
     va_end(args);

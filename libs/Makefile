@@ -1,9 +1,11 @@
 NAME = librt.a
 
 SUBDIRS = color \
+		intersection \
 		matrix \
 		mlx_helpers \
 		ray \
+		sphere \
 		tuple \
 
 LIBS = $(addsuffix /$@, $(SUBDIRS))

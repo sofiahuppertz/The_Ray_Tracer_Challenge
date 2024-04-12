@@ -5,19 +5,27 @@
 
 int main(void){
 
-    //Ray tests
+    t_tuple *p1;
+	t_tuple *p2;
+	t_ray *r;
+	t_sphere *s;
+	t_intersection **i;
 
-	t_tuple *origin = point(2,3,4);
-	t_tuple *direction = vector(1, 0, 0);
-	t_ray *r = ray(*origin, *direction);
-	print_tuple((const t_tuple)(*r->di));
-	t_tuple *p = position(*r, 0);
-	print_tuple(*p);
+	p1 = point(0, 1, -5);
+	p2 = vector(0, 0, 1);
+	r = ray((const t_tuple)(*p1), (const t_tuple)(*p2));
+	s = sphere();
+	i = i_ray_sphere((*s), (*r));
+	printf("solutions: %d\n", count_solutions(i));
+	printf("Intersection ray-sphere: %f %f\n", i[0]->t, i[1]->t);
+	printf("Intersection ray-sphere: %d %d\n", i[0]->object, i[1]->object);
+	free(p1);
+	free(p2);
+	free_ray(&r);
+	free_sphere(s);
 
-	free_ray(r);
-	free(origin);
-	free(direction);
-	free(p);
+
+
 
 
     return 0;

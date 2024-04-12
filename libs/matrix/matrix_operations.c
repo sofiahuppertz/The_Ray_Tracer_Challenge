@@ -124,7 +124,7 @@ double minor(t_matrix m, int row, int col)
 
     sub = submatrix(m, row, col);
     result = determinant(*sub);
-    free_matrix(sub);
+    free_matrix(&sub);
     return result;
 }
 

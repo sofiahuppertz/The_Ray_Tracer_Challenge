@@ -136,3 +136,23 @@ t_matrix *chain_transformations(t_matrix* initial, ...)
     va_end(args);
     return result;
 }
+
+t_tuple *transform_tuple(const t_tuple t, const t_matrix transformation)
+{
+    t_matrix *temp;
+    t_matrix *res;
+    t_tuple *new_tuple;
+
+    temp = tuple_to_matrix(t);
+    if (!temp)
+        return NULL;
+    res = mult_matrices(transformation, (const t_matrix)*temp); 
+    if (!res)
+        return NULL;
+    new_tuple = matrix_to_tuple((const t_matrix)*res);
+    if (!new_tuple)
+        return NULL;
+    free_matrix(&temp);
+    free_matrix(&res);
+    return new_tuple;
+}

@@ -18,6 +18,7 @@ typedef struct s_tuple
 } t_tuple;
 
 
+t_tuple *tuple(const double x, const double y, const double z, const double w);
 t_tuple *point(const double x, const double y, const double z);
 t_tuple *vector(const double x, const double y, const double z);
 t_tuple *add_tuple(const t_tuple a, const t_tuple b);
@@ -32,7 +33,7 @@ int equal(const double a, const double b);
 
 double dot(const t_tuple a, const t_tuple b);
 double mag(const t_tuple a);
-void print_tuple(const t_tuple a);
+void print_tuple(const t_tuple *a);
 
 
 

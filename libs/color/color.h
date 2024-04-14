@@ -2,14 +2,16 @@
 #define COLOR_H
 
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct s_color {
-    double r;
-    double g;
-    double b;
+    unsigned int r;
+    unsigned int g;
+    unsigned int b;
 } t_color;
 
 
+t_color *color(double r, double g, double b);
 t_color add_color(t_color c1, t_color c2);
 t_color sub_color(t_color c1, t_color c2);
 t_color scalar_color(t_color c1, double scalar);

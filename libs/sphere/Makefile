@@ -4,18 +4,18 @@ SRC = sphere.c \
 
 OBJ = $(SRC:.c=.o)
 
-TUPLE_DIR = ../tuple
+MATRIX_DIR = ../MATRIX
 
 .SECONDARY: $(OBJ)
 
 %.o: %.c
 	cc -Wall -Wextra -Werror -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(TUPLE_DIR)/tuple.a
+$(NAME): $(OBJ) $(MATRIX_DIR)/matrix.a
 	ar rcs $(NAME) $(OBJ)
 
-$(TUPLE_DIR)/tuple.a:
-	$(MAKE) -C $(TUPLE_DIR)
+$(MATRIX_DIR)/matrix.a:
+	$(MAKE) -C $(MATRIX_DIR)
 
 all: $(NAME)
 
@@ -26,6 +26,6 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(TUPLE_DIR) fclean
+	$(MAKE) -C $(MATRIX_DIR) fclean
 
 .PHONY: clean re fclean all

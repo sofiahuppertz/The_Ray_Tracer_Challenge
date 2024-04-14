@@ -19,7 +19,8 @@ typedef struct s_matrix {
 // Basic matrix functions
 t_matrix *matrix(int rows, int cols);
 t_matrix *tuple_to_matrix(const t_tuple t);
-void print_matrix(const t_matrix);
+t_tuple *matrix_to_tuple(const t_matrix m);
+void print_matrix(const t_matrix *matrix);
 void  free_matrix(t_matrix **m);
 double degrees_to_radians(double degrees);
 
@@ -37,6 +38,7 @@ double cofactor(const t_matrix m, int row, int col);
 
 
 //Matrix transformations
+t_tuple *transform_tuple(const t_tuple t, const t_matrix transformation);
 t_matrix *identity(unsigned int size);
 t_matrix *translation(double x, double y, double z);
 t_matrix *scaling(double x, double y, double z);

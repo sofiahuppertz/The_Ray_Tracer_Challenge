@@ -17,27 +17,32 @@ static double calculate_discriminant(double *a, double *b, double *c, const t_ra
 
 t_intersection *i_ray_sphere(const t_sphere s, const t_ray r)
 {
-    t_intersection **xs;
-    t_intersection *ptr;
+    t_intersection *xs;
+    t_matrix *inverse_transform;
+    t_ray *transformed_ray;
     double a;
     double b;
     double c;
     double d;
 
     xs = NULL;
-    d = calculate_discriminant(&a, &b, &c, r, (*s.o));
-    if (d < 0)
-        printf("Intersection ray-sphere: no solutions\n");
-    else
+    inverse_transform = inverse((const t_matrix)(*s.transform));
+    if (!inverse_transform)
+        return NULL;
+    transformed_ray = transform_ray(r, (const t_matrix)(*inverse_transform));
+    if (!transformed_ray)
     {
-        xs = (t_intersection **)calloc(2, sizeof(t_intersection));
+        free_matrix(&inverse_transform);
+        return NULL;
+    }
+    d = calculate_discriminant(&a, &b, &c, (const t_ray)*transformed_ray, (*s.o));
+    free_ray(&transformed_ray);
+    free_matrix(&inverse_transform);
+    if (d > 0)
+    {
+        xs = intersections(intersection((-b - sqrt(d)) / (2 * a), SPHERE), intersection((-b + sqrt(d)) / (2 * a), SPHERE), NULL);
         if (!xs)
-            printf("Error: could not allocate memory for intersections\n");
-        else
-        {
-            xs[0] = intersection((-b - sqrt(d)) / (2 * a), SPHERE);
-            xs[1] = intersection((-b + sqrt(d)) / (2 * a), SPHERE);
-        }
+            printf("Error: something went wrong with i_ray_sphere.\n");
     }
     return xs;
 }
@@ -55,18 +60,132 @@ t_intersection *intersection(const double t, const t_object object)
     }
     i->t = t;
     i->object = object;
+    i->next = NULL;
     return i;
 }
 
-int count_solutions(t_intersection **xs)
+static t_intersection *merge(t_intersection **first, t_intersection **next)
 {
+    t_intersection *temp;
+    t_intersection *prev;
+    t_intersection *last_next;
+
+    temp = *first;
+    prev = NULL;
+    last_next = NULL;
+    while (temp && (*next))
+    {
+        if ((*next)->t < temp->t)
+        {
+            if (prev != NULL)
+                prev->next = (*next);
+            else
+                *first = *next;
+            last_next = *next; 
+            while (last_next->next)
+                last_next = last_next->next;
+            last_next->next = temp;
+            break;
+        }
+        prev = temp;
+        temp = temp->next;
+    }
+    if (!temp && (*next))
+    {
+        if (prev)
+            prev->next = (*next);
+        else   
+            *first = *next;
+    }
+    return *first;
+}
+
+t_intersection *intersections(t_intersection *initial, ...)
+{
+    t_intersection *first;
+    t_intersection *next;
+    va_list args;
+
+    va_start(args, initial);
+    first = initial;
+    if (first ==  NULL)
+        printf("Error: first arg of intersections is NULL\n");
+    else
+    {
+        while (1)
+        {
+            next = (t_intersection *)va_arg(args, t_intersection*);
+            if (next == NULL)
+                break;
+            first = merge(&first, &next);
+        }  
+    }
+    return first;
+}
+
+int count_intersections(t_intersection *xs)
+{
+    t_intersection *temp;
     int count;
 
+    temp = xs;
     count = 0;
-    if (xs)
+    if (temp)
     {
-        while (xs[count])
+        while (temp)
+        {
+            temp = temp->next;
             count++;
+        }
     }
     return count;
+}
+
+t_intersection *hit(t_intersection **xs)
+{
+    t_intersection *hit;
+
+    if (!xs || !(*xs))
+        return NULL;
+    hit = *xs;
+    if (hit->t < 0)
+    {
+        while (hit) 
+        {
+            hit = hit->next;
+            if (hit && hit->t >= 0)
+                return hit;
+        }
+        return NULL;
+    }
+    else
+        return hit;
+}
+
+void print_intersection(const t_intersection *i)
+{
+    if (!i)
+    {
+        printf("Error: print_intersection: i is NULL\n");
+        return;
+    }
+    printf("t: %f\nobject: %d\n", i->t, i->object);
+}
+
+void free_intersections(t_intersection **initial)
+{
+    t_intersection *temp;
+    t_intersection *next;
+
+    if (!initial || !(*initial))
+        return;
+    temp = *initial;
+    while (temp->next)
+    {
+        next = temp->next;
+        free(temp);
+        temp = next;
+    }
+    free(temp);
+    temp = NULL;
 }

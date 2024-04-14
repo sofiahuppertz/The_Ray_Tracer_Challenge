@@ -19,12 +19,34 @@ t_ray *ray(const t_tuple origin, const t_tuple direction)
     return r;
 }
 
-void print_ray(const t_ray r)
+t_ray *transform_ray(const t_ray r, const t_matrix transformation)
+{
+    t_ray *new_ray;
+    t_tuple *new_origin;
+    t_tuple *new_direction;
+    
+    new_origin = transform_tuple((const t_tuple)(*r.o), transformation);
+    if (!new_origin)
+        return NULL;
+    new_direction = transform_tuple((const t_tuple)(*r.di), transformation);
+    if (!new_direction)
+    {
+        free(new_origin);
+        return NULL;
+    }
+    new_ray = ray((const t_tuple)(*new_origin), (const t_tuple)(*new_direction));
+    free(new_origin);
+    free(new_direction);
+    return new_ray;
+}
+
+
+void print_ray(const t_ray *r)
 {
     printf("Ray origin:\n");
-    print_tuple((const t_tuple)(*r.o));
+    print_tuple((const t_tuple*)(r->o));
     printf("Ray direction:\n");
-    print_tuple((const t_tuple)(*r.di));
+    print_tuple((const t_tuple*)(r->di));
 
 }
 

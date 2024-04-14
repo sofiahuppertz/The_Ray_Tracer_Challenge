@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "color.h": "c",
-        "tuple.h": "c",
-        "sphere.h": "c"
-    }
-}

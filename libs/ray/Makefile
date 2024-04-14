@@ -4,19 +4,19 @@ SRC = ray.c
 
 OBJ = $(SRC:.c=.o)
 
-TUPLE_DIR = ../tuple
+MATRIX_DIR = ../matrix
 
 .SECONDARY: $(OBJ)
 
 %.o: %.c
 	cc -Wall -Wextra -Werror -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(TUPLE_DIR)/tuple.a
+$(NAME): $(OBJ) $(MATRIX_DIR)/matrix.a
 	ar rcs $(NAME) $(OBJ)
 
 
-$(TUPLE_DIR)/tuple.a:
-	$(MAKE) -C $(TUPLE_DIR)
+$(MATRIX_DIR)/matrix.a:
+	$(MAKE) -C $(MATRIX_DIR)
 all: $(NAME)
 
 re : fclean all

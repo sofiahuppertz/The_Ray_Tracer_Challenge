@@ -1,5 +1,24 @@
 #include "tuple.h"
 
+
+t_tuple *tuple(const double x, const double y, const double z, const double w)
+{
+    t_tuple *tuple;
+    
+    tuple = (t_tuple*)calloc(1, sizeof(t_tuple));
+    if (!tuple)
+    {
+        printf("Error: tuple memory allocation failed.\n");
+        return NULL;
+    }
+    tuple->x = x;
+    tuple->y = y;
+    tuple->z = z;
+    tuple->w = w;
+    return tuple;
+}
+
+
 t_tuple *point(const double x, const double y, const double z)
 {
     t_tuple *point;
@@ -153,7 +172,7 @@ t_tuple *cross(const t_tuple a, const t_tuple b)
     return prod;
 }
 
-void print_tuple(const t_tuple a)
+void print_tuple(const t_tuple *a)
 {
-    printf("x: %f, y: %f, z: %f, w: %f\n", a.x, a.y, a.z, a.w);
+    printf("x: %f, y: %f, z: %f, w: %f\n", a->z, a->y, a->z, a->w);
 }

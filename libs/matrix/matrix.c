@@ -31,18 +31,18 @@ t_matrix *matrix(const int rows, const int cols)
     return matrix;
 }
 
-void print_matrix(const t_matrix matrix)
+void print_matrix(const t_matrix *matrix)
 {
     int i;
     int j;
 
     i = 0;
-    while (i < matrix.rows)
+    while (i < matrix->rows)
     {
         j = 0;
-        while (j < matrix.cols)
+        while (j < matrix->cols)
         {
-            printf("%f ", matrix.m[i][j]);
+            printf("%f ", matrix->m[i][j]);
             j++;
         }
         printf("\n");
@@ -84,4 +84,14 @@ t_matrix *tuple_to_matrix(const t_tuple t)
 double degrees_to_radians(double degrees)
 {
     return degrees * M_PI / 180;
+}
+
+t_tuple *matrix_to_tuple(const t_matrix m)
+{
+    if (m.rows != 4 || m.cols != 1)
+    {
+        printf("Error: matrix_to_tuple: matrix is not a 4x1 matrix.\n");
+        return NULL;
+    }
+    return tuple(m.m[0][0], m.m[1][0], m.m[2][0], m.m[3][0]);
 }

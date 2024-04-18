@@ -2,9 +2,11 @@ NAME = librt.a
 
 SUBDIRS = color \
 		intersection \
+		light \
 		matrix \
 		mlx_helpers \
 		ray \
+		space \
 		sphere \
 		tuple \
 

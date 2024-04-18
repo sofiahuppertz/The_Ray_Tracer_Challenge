@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "__locale": "c",
+        "ios": "c",
+        "__node_handle": "c",
+        "color.h": "c",
+        "sphere.h": "c",
+        "stdlib.h": "c",
+        "intersection.h": "c"
+    }
+}

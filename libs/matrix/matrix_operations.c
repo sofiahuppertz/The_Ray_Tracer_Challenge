@@ -61,27 +61,34 @@ t_matrix *mult_matrices(const t_matrix a, const t_matrix b)
     return result;
 }
 
-t_matrix *transpose(const t_matrix m)
+void transpose(t_matrix **m)
 {
-    t_matrix *result;
+    t_matrix *before;
+    t_matrix *after;
     int i;
     int j;
 
-    result = matrix(m.cols, m.rows);
-    if (!result)
-        return NULL;
+    before = *m;
+    after = matrix(before->cols, before->rows);
+    if (!after)
+    {
+        free(*m);
+        printf("Error: transpose: memory allocation failed.\n");
+        return;
+    }
     i = 0;
-    while (i < m.rows)
+    while (i < before->rows)
     {
         j = 0;
-        while (j < m.cols)
+        while (j < before->cols)
         {
-            result->m[j][i] = m.m[i][j];
+            after->m[j][i] = before->m[i][j];
             j++;
         }
         i++;
     }
-    return result;
+    free_matrix(m);
+    *m = after;
 }
 
 double determinant(const t_matrix m)
@@ -197,3 +204,29 @@ t_matrix *inverse(const t_matrix m)
     return inv;
 }
 
+
+t_matrix *matrixcpy(const t_matrix m)
+{
+    t_matrix *copy;
+    int i;
+    int j;
+
+    copy = matrix(m.rows, m.cols);
+    if (!copy)
+    {
+        printf("Error: matrixcpy: memory allocation failed.\n");
+        return NULL;
+    }
+    i = 0;
+    while (i < m.rows)
+    {
+        j = 0;
+        while (j < m.cols)
+        {
+            copy->m[i][j] = m.m[i][j];
+            j++;
+        }
+        i++;
+    }
+    return copy;
+}

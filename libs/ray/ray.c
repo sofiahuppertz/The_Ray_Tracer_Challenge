@@ -19,21 +19,30 @@ t_ray *ray(const t_tuple origin, const t_tuple direction)
     return r;
 }
 
-t_ray *transform_ray(const t_ray r, const t_matrix transformation)
+t_ray *transform_ray(const t_ray r, t_matrix *transformation)
 {
     t_ray *new_ray;
     t_tuple *new_origin;
     t_tuple *new_direction;
+    t_matrix *t;
     
-    new_origin = transform_tuple((const t_tuple)(*r.o), transformation);
+    if (!transformation)
+    {
+        printf("Error: transform_ray: transformation matrix is NULL.\n");
+        return NULL;
+    }
+    new_origin = tuplecpy((const t_tuple)(*r.o));
     if (!new_origin)
         return NULL;
-    new_direction = transform_tuple((const t_tuple)(*r.di), transformation);
+    t = matrixcpy((const t_matrix)(*transformation));
+    transform_tuple(new_origin, transformation);
+    new_direction = tuplecpy((const t_tuple)(*r.di));
     if (!new_direction)
     {
         free(new_origin);
         return NULL;
     }
+    transform_tuple(new_direction, t);
     new_ray = ray((const t_tuple)(*new_origin), (const t_tuple)(*new_direction));
     free(new_origin);
     free(new_direction);
@@ -55,7 +64,8 @@ t_tuple *position(const t_ray r, const double t)
     t_tuple *position;
     t_tuple *temp;
 
-    temp = scalar_tuple((const t_tuple)(*r.di), t);
+    temp = tuplecpy((const t_tuple)(*r.di));
+    scalar_tuple(temp, t);
     if (!temp)
     {
         printf("Error: position memory allocation failed.\n");

@@ -29,7 +29,7 @@ t_intersection *i_ray_sphere(const t_sphere s, const t_ray r)
     inverse_transform = inverse((const t_matrix)(*s.transform));
     if (!inverse_transform)
         return NULL;
-    transformed_ray = transform_ray(r, (const t_matrix)(*inverse_transform));
+    transformed_ray = transform_ray(r, inverse((const t_matrix)(*s.transform)));
     if (!transformed_ray)
     {
         free_matrix(&inverse_transform);
@@ -188,4 +188,17 @@ void free_intersections(t_intersection **initial)
     }
     free(temp);
     temp = NULL;
+}
+
+t_tuple *position_at(const double t, const t_ray r)
+{
+    t_tuple *position;
+    t_tuple *temp;
+
+    temp = tuplecpy((const t_tuple)(*r.di));
+    scalar_tuple(temp, t);
+
+    position = add_tuple((const t_tuple)(*r.o), (const t_tuple)(*temp));
+    free(temp);
+    return position;
 }

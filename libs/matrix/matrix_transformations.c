@@ -137,22 +137,31 @@ t_matrix *chain_transformations(t_matrix* initial, ...)
     return result;
 }
 
-t_tuple *transform_tuple(const t_tuple t, const t_matrix transformation)
-{
-    t_matrix *temp;
-    t_matrix *res;
-    t_tuple *new_tuple;
 
-    temp = tuple_to_matrix(t);
-    if (!temp)
-        return NULL;
-    res = mult_matrices(transformation, (const t_matrix)*temp); 
-    if (!res)
-        return NULL;
-    new_tuple = matrix_to_tuple((const t_matrix)*res);
-    if (!new_tuple)
-        return NULL;
-    free_matrix(&temp);
-    free_matrix(&res);
-    return new_tuple;
+// Apply transformation to tuple: If anything fails the function frees transformation matrix and returns without modifying the tuple.å
+void transform_tuple(t_tuple *t, t_matrix *transformation)
+{
+    t_matrix *before;
+    t_matrix *after;
+
+    before = NULL;
+    after = NULL;
+    if (!transformation || !t )
+        return;
+    before = tuple_to_matrix((const t_tuple)*t);
+    if (!before)
+    {
+        free_matrix(&transformation);
+        printf("Error: transform_tuple failed.\n");
+    }
+    after = mult_matrices((const t_matrix)*transformation, (const t_matrix)*before); 
+    free_matrix(&transformation);
+    free_matrix(&before);
+    if (!after)
+        printf("Error: transform_tuple failed.\n");
+    t->x = after->m[0][0];
+    t->y = after->m[1][0];
+    t->z = after->m[2][0];
+    t->w = after->m[3][0];
+    free_matrix(&after);
 }

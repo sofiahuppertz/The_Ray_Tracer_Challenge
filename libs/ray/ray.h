@@ -10,7 +10,7 @@ typedef struct s_ray {
 } t_ray;
 
 t_ray *ray(const t_tuple origin, const t_tuple direction);
-t_ray *transform_ray(const t_ray r, const t_matrix transformation);
+t_ray *transform_ray(const t_ray r, t_matrix *transformation);
 
 void print_ray(const t_ray *r);
 void free_ray(t_ray **r);

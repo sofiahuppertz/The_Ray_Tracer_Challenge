@@ -11,32 +11,102 @@ t_color *color(double r, double g, double b)
 }
 
 
-t_color add_color(t_color c1, t_color c2)
+t_color *sum_color(const t_color c1, const t_color c2)
 {
-    t_color sum = {c1.r + c2.r, c1.g + c2.g, c1.b + c2.b};
+    t_color *sum;
+
+    sum = NULL;
+    sum = color(c1.r + c2.r, c1.g + c2.g, c1.b + c2.b);
+    if (!sum)
+        printf("Error: sum_color: failed.\n");
     return sum;
 }
 
-t_color sub_color(t_color c1, t_color c2)
+t_color *add_colors(t_color *initial, ...)
 {
-    t_color diff = {c1.r - c2.r, c1.g - c2.g, c1.b - c2.b};
+    t_color *result;
+    t_color *next_add;
+    va_list args;
+
+    if (!initial)
+    {
+        printf("Error: add_colors: initial null pointer.\n");
+        return (NULL);
+    }
+    result = colorcpy(*initial);
+    va_start(args, initial);
+    while (1)
+    {
+        next_add = va_arg(args, t_color *);
+        if (next_add == NULL)
+            break;
+        result->r += next_add->r;
+        result->g += next_add->g;
+        result->b += next_add->b;
+        free(next_add);
+    }
+    va_end(args);
+    free(initial);
+    return result;
+}
+
+t_color *sub_color(t_color c1, t_color c2)
+{
+    t_color *diff;
+
+    diff = NULL;
+    diff = color(c1.r - c2.r, c1.g - c2.g, c1.b - c2.b);
+    if (!diff)
+        printf("Error: sub_color: failed.\n");
     return diff;
 }
 
-t_color scalar_color(t_color c1, double scalar)
-{
-    print_color(c1);
-    t_color product = {c1.r * scalar, c1.g * scalar, c1.b * scalar};
+t_color *scalar_color(t_color c1, double scalar)
+{ 
+    t_color *product;
+
+    product = NULL;
+    product = color(c1.r * scalar, c1.g * scalar, c1.b * scalar);
+    if (!product)
+        printf("Error: scalar_color: failed.\n");
     return product;
 }
 
-t_color shur_product(t_color c1, t_color c2)
+t_color *shur_product(t_color c1, t_color c2)
 {
-    t_color product = {c1.r * c2.r, c1.g * c2.g, c1.b * c2.b};
+    t_color *product;
+    
+    product = NULL;
+    product = color(c1.r * c2.r, c1.g * c2.g, c1.b * c2.b);
+    if (!product)
+    {
+        printf("Error: shur_product: failed.\n");
+    }
     return product;
 }
 
 void print_color(t_color c)
 {
-    printf("(%u, %u, %u)\n", c.r, c.g, c.b);
+    printf("(%f, %f, %f)\n", c.r, c.g, c.b);
+}
+
+t_color *colorcpy(t_color c)
+{
+    t_color *cpy;
+    
+    cpy = (t_color *)calloc(1, sizeof(t_color));
+    if (!cpy)
+    {
+        printf("Error: colorcpy: unable to allocate memory.\n");
+        return (NULL);
+    }
+    cpy->r = c.r;
+    cpy->g = c.g;
+    cpy->b = c.b;
+    return cpy;
+}
+
+t_color *black(void)
+{
+    return color(0, 0, 0);
 }

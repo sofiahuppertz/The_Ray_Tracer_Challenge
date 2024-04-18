@@ -25,6 +25,8 @@ t_intersection *intersection(const double t, const t_object object);
 t_intersection *intersections(t_intersection *initial, ...);
 t_intersection *hit(t_intersection **xs);
 
+t_tuple *position_at(const double t, const t_ray r);
+
 int count_intersections(t_intersection *xs);
 
 void free_intersections(t_intersection **initial);

@@ -97,38 +97,30 @@ t_tuple *sub_tuple(const t_tuple a, const t_tuple b)
     return diff;
 }
 
-t_tuple *neg_tuple(const t_tuple a)
+void neg_tuple(t_tuple *neg)
 {
-    t_tuple *neg;
-    
-    neg = (t_tuple *)calloc(1, sizeof(t_tuple));
     if (!neg)
     {
-        printf("Error: neg_tuple memory allocation failed.\n");
-        return NULL;
+        printf("Error: neg_tuple: null pointer.\n");
+        return;
     }
-    neg->x = -a.x;
-    neg->y = -a.y;
-    neg->z = -a.z;
-    neg->w = -a.w;
-    return neg;
+    neg->x = -neg->x;
+    neg->y = -neg->y;
+    neg->z = -neg->z;
+    neg->w = -neg->w;
 }
 
-t_tuple *scalar_tuple(const t_tuple a, const double scalar_tuple)
+void scalar_tuple(t_tuple *a, const double scalar)
 {
-    t_tuple *product;
-
-    product = (t_tuple *)calloc(1, sizeof(t_tuple));
-    if (!product)
+    if (!a)
     {
-        printf("Error: scalar_tuple memory allocation failed.\n");
-        return NULL;
+        printf("Error: scalar_tuple: null pointer.\n");
+        return;
     }
-    product->x = a.x * scalar_tuple;
-    product->y = a.y * scalar_tuple;
-    product->z = a.z * scalar_tuple;
-    product->w = a.w * scalar_tuple;
-    return product;
+    a->x *= scalar;
+    a->y *= scalar;
+    a->z *= scalar;
+    a->w *= scalar;
 }
 
 double mag(const t_tuple a)
@@ -137,19 +129,19 @@ double mag(const t_tuple a)
     return magnitude;
 }
 
-t_tuple *norm(const t_tuple a)
+void norm(t_tuple *a)
 {
     double m;
-    t_tuple *norm;
-    
-    m = mag(a);
-    norm = scalar_tuple(a, 1 / m);
-    if (!norm)
+
+    if (!a)
     {
-        printf("Error: norm failed.\n");
-        return NULL;
+        printf("Error: norm: null pointer.\n");
+        return;
     }
-    return norm;
+    m = mag(*a);
+    scalar_tuple(a, 1 / m);
+    if (!a)
+        printf("Error: norm: operation failed.\n");
 }
 
 double dot(const t_tuple a, const t_tuple b)
@@ -174,5 +166,29 @@ t_tuple *cross(const t_tuple a, const t_tuple b)
 
 void print_tuple(const t_tuple *a)
 {
-    printf("x: %f, y: %f, z: %f, w: %f\n", a->z, a->y, a->z, a->w);
+    printf("x: %f, y: %f, z: %f, w: %f\n", a->x, a->y, a->z, a->w);
+}
+
+
+t_tuple *tuplecpy(const t_tuple a)
+{
+    t_tuple *dup;
+    dup = tuple(a.x, a.y, a.z, a.w);
+    if (!dup)
+        printf("Error: tuplecpy: operation failed.\n");
+    return dup;
+}
+
+t_tuple *reflection(const t_tuple in, const t_tuple normal)
+{
+    t_tuple *reflect;
+    t_tuple *temp;
+    double dot_product;
+
+    dot_product = dot(in, normal);
+    temp = tuplecpy(normal);
+    scalar_tuple(temp, 2 * dot_product);
+    reflect = sub_tuple(in, (const t_tuple)*temp);
+    free(temp);
+    return reflect;
 }

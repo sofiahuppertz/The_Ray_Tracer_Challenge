@@ -25,11 +25,18 @@ void  free_matrix(t_matrix **m);
 double degrees_to_radians(double degrees);
 
 
-// Matrix operations
-t_matrix *mult_matrices(const t_matrix a, const t_matrix b);
-t_matrix *transpose(const t_matrix m);
-t_matrix *submatrix(const t_matrix m, int row, int col);
+// Matrix operations that change the matrix
+void transpose(t_matrix **m);
+
+
+// Matrix operations that return a new matrix
 t_matrix *inverse(const t_matrix m);
+t_matrix *matrixcpy(const t_matrix m);
+t_matrix *mult_matrices(const t_matrix a, const t_matrix b);
+t_matrix *submatrix(const t_matrix m, int row, int col);
+
+
+// Matrix operations that return a value
 int equal_matrices(const t_matrix a, const t_matrix b);
 int is_square(const t_matrix m);
 double determinant(const t_matrix m);
@@ -38,7 +45,6 @@ double cofactor(const t_matrix m, int row, int col);
 
 
 //Matrix transformations
-t_tuple *transform_tuple(const t_tuple t, const t_matrix transformation);
 t_matrix *identity(unsigned int size);
 t_matrix *translation(double x, double y, double z);
 t_matrix *scaling(double x, double y, double z);
@@ -47,6 +53,10 @@ t_matrix *rotation_y(double rad);
 t_matrix *rotation_z(double rad);
 t_matrix *shearing(double xy, double xz, double yx, double yz, double zx, double zy);
 t_matrix *chain_transformations(t_matrix *initial, ...);
+
+
+//Apply transformation to tuple
+void transform_tuple(t_tuple *t, t_matrix *transformation);
 
 
 # endif

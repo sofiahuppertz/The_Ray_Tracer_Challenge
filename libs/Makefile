@@ -9,6 +9,7 @@ SUBDIRS = color \
 		space \
 		sphere \
 		tuple \
+		world \
 
 LIBS = $(addsuffix /$@, $(SUBDIRS))
 

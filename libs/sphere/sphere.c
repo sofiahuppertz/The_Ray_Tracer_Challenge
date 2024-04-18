@@ -24,6 +24,7 @@ t_sphere *sphere( void )
         return NULL;
     }
     s->material = default_material();
+    s->next = NULL;
     return s;
 }
 
@@ -40,20 +41,25 @@ void print_sphere( const t_sphere *s )
     print_material((const t_material)*(s->material));
 }
 
-void free_sphere( t_sphere **s )
+void free_sphere(t_sphere **s)
 {
     t_sphere *ptr;
+    t_sphere *next;
 
     ptr = *s;
-    free(ptr->o);
-    ptr->o = NULL;
-    free_matrix(&(ptr->transform));
-    ptr->transform = NULL;
-    free_material(&(ptr->material));
-    free(ptr);
-    ptr = NULL;
+    while (ptr != NULL)
+    {
+        next = ptr->next; 
+        free(ptr->o);
+        ptr->o = NULL;
+        free_matrix(&(ptr->transform));
+        ptr->transform = NULL;
+        free_material(&(ptr->material));
+        free(ptr);
+        ptr = next; 
+    }
+    *s = NULL;
 }
-
 void set_transform(t_sphere *s, t_matrix *transformation)
 {
     if (s->transform)

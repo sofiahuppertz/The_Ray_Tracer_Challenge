@@ -10,5 +10,6 @@
 #include "space/space.h"
 #include "sphere/sphere.h"
 #include "tuple/tuple.h"
+#include "world/world.h"
 
 #endif

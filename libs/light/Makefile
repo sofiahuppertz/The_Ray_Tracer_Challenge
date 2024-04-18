@@ -33,5 +33,7 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
+	$(MAKE) -C $(TUPLE_DIR) fclean
+	$(MAKE) -C $(COLOR_DIR) fclean
 
 .PHONY: clean re fclean all

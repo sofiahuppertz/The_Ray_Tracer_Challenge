@@ -16,6 +16,6 @@ typedef struct s_space
     double half;
 } t_space;
 
-void draw_sphere(const t_space space, t_canvas *canvas, const t_sphere sp);
+void draw_sphere(const t_space space, t_canvas *canvas, const t_sphere *sp);
 
 #endif

@@ -8,19 +8,20 @@
 
 typedef struct s_sphere {
     int id;
+    double radius;
     t_tuple *o;
     t_matrix *transform;
-    double radius;
     t_material *material;
+    struct s_sphere *next;
 } t_sphere;
 
 
-// COnstructors destructors
+// Constructors destructors
 t_sphere *sphere( void );
 void free_sphere(t_sphere **s);
 void print_sphere(const t_sphere *s);
 
-//Settert
+//Setter
 void set_transform(t_sphere *s, t_matrix *transformation);
 void set_material(t_sphere *s, t_material *m);
 

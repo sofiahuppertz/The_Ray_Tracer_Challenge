@@ -1,54 +1,7 @@
 #include "intersection.h"
 
-static double calculate_discriminant(double *a, double *b, double *c, const t_ray r, const t_tuple s_o)
-{
-    t_tuple *sphere_to_ray;
-    double d;
 
-    sphere_to_ray = sub_tuple((*r.o), s_o);
-    *a = dot((*r.di), (*r.di));
-    *b = 2 * dot((*r.di), (*sphere_to_ray));
-    *c = dot((*sphere_to_ray), (*sphere_to_ray)) - 1;
-    d = *b * *b - 4 * *a * *c;
-    free(sphere_to_ray);
-    return d;
-}
-
-
-t_intersection *i_ray_sphere(const t_sphere s, const t_ray r)
-{
-    t_intersection *xs;
-    t_matrix *inverse_transform;
-    t_ray *transformed_ray;
-    double a;
-    double b;
-    double c;
-    double d;
-
-    xs = NULL;
-    inverse_transform = inverse((const t_matrix)(*s.transform));
-    if (!inverse_transform)
-        return NULL;
-    transformed_ray = transform_ray(r, inverse((const t_matrix)(*s.transform)));
-    if (!transformed_ray)
-    {
-        free_matrix(&inverse_transform);
-        return NULL;
-    }
-    d = calculate_discriminant(&a, &b, &c, (const t_ray)*transformed_ray, (*s.o));
-    free_ray(&transformed_ray);
-    free_matrix(&inverse_transform);
-    if (d > 0)
-    {
-        xs = intersections(intersection((-b - sqrt(d)) / (2 * a), SPHERE), intersection((-b + sqrt(d)) / (2 * a), SPHERE), NULL);
-        if (!xs)
-            printf("Error: something went wrong with i_ray_sphere.\n");
-    }
-    return xs;
-}
-
-
-t_intersection *intersection(const double t, const t_object object)
+t_intersection *intersection(const double t, const t_object object, void *object_ptr)
 {
     t_intersection *i;
 
@@ -60,45 +13,32 @@ t_intersection *intersection(const double t, const t_object object)
     }
     i->t = t;
     i->object = object;
+    i->object_ptr = object_ptr;
     i->next = NULL;
     return i;
 }
 
-static t_intersection *merge(t_intersection **first, t_intersection **next)
+t_intersection *merge_sorted(t_intersection **first, t_intersection **next)
 {
-    t_intersection *temp;
-    t_intersection *prev;
-    t_intersection *last_next;
 
-    temp = *first;
-    prev = NULL;
-    last_next = NULL;
-    while (temp && (*next))
+    if (*first == NULL) return *next;
+    if (*next == NULL) return *first;
+
+    t_intersection *result = NULL;
+
+    if ((*first)->t <= (*next)->t) 
     {
-        if ((*next)->t < temp->t)
-        {
-            if (prev != NULL)
-                prev->next = (*next);
-            else
-                *first = *next;
-            last_next = *next; 
-            while (last_next->next)
-                last_next = last_next->next;
-            last_next->next = temp;
-            break;
-        }
-        prev = temp;
-        temp = temp->next;
-    }
-    if (!temp && (*next))
+        result = *first;
+        result->next = merge_sorted(&((*first)->next), next);
+    } 
+    else 
     {
-        if (prev)
-            prev->next = (*next);
-        else   
-            *first = *next;
+        result = *next;
+        result->next = merge_sorted(first, &((*next)->next));
     }
-    return *first;
+    return result;
 }
+
 
 t_intersection *intersections(t_intersection *initial, ...)
 {
@@ -117,7 +57,7 @@ t_intersection *intersections(t_intersection *initial, ...)
             next = (t_intersection *)va_arg(args, t_intersection*);
             if (next == NULL)
                 break;
-            first = merge(&first, &next);
+            first = merge_sorted(&first, &next);
         }  
     }
     return first;
@@ -162,14 +102,21 @@ t_intersection *hit(t_intersection **xs)
         return hit;
 }
 
-void print_intersection(const t_intersection *i)
+void print_intersections(const t_intersection *i)
 {
+    t_intersection *tmp;
+
+    tmp = (t_intersection *)i;
     if (!i)
     {
         printf("Error: print_intersection: i is NULL\n");
         return;
     }
-    printf("t: %f\nobject: %d\n", i->t, i->object);
+    while (tmp)
+    {
+        printf("t: %f\nobject: %d\n", tmp->t, tmp->object);
+        tmp = tmp->next;
+    }
 }
 
 void free_intersections(t_intersection **initial)

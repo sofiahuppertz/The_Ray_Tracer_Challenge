@@ -1,7 +1,7 @@
 #include "space.h"
 
 
-static t_color *compute_shade(t_intersection _hit, const t_ray *r, const t_sphere sp, const t_point_light light)
+static t_color *compute_shade(t_intersection _hit, const t_ray *r, const t_sphere *sp, const t_point_light light)
 {
     t_tuple *hit_pos;
     t_tuple *normalv;
@@ -9,10 +9,10 @@ static t_color *compute_shade(t_intersection _hit, const t_ray *r, const t_spher
     t_color *_color;
 
     hit_pos = position_at(_hit.t, *r);
-    normalv = normal_at(sp, *hit_pos);
+    normalv = normal_at(*sp, *hit_pos);
     eyev = tuplecpy(*r->di);
     neg_tuple(eyev);
-    _color = lighting(*sp.material, light, *hit_pos, *eyev, *normalv);
+    _color = lighting(*sp->material, light, *hit_pos, *eyev, *normalv);
     free(hit_pos);
     free(normalv);
     free(eyev);
@@ -20,7 +20,7 @@ static t_color *compute_shade(t_intersection _hit, const t_ray *r, const t_spher
 }
 
 
-static void compute_hit(const t_coordinates cor, t_space space, t_canvas *_canvas, const t_sphere sp, const t_point_light light, const t_tuple position)
+static void compute_hit(const t_coordinates cor, t_space space, t_canvas *_canvas, const t_sphere *sp, const t_point_light light, const t_tuple position)
 {
     t_tuple *ray_dir;
     t_ray *r;
@@ -44,7 +44,7 @@ static void compute_hit(const t_coordinates cor, t_space space, t_canvas *_canva
     free_intersections(&xs);
 }
 
-void draw_sphere(const t_space space, t_canvas *_canvas, const t_sphere sp)
+void draw_sphere(const t_space space, t_canvas *_canvas, const t_sphere *sp)
 {
     t_coordinates cor;
     t_tuple *position;

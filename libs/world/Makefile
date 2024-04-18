@@ -1,6 +1,6 @@
-NAME = space.a
+NAME = world.a
 
-SRC = draw_sphere.c \
+SRC = world.c \
 
 OBJ = $(SRC:.c=.o)
 

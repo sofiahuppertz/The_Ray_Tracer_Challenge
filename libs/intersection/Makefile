@@ -1,6 +1,7 @@
 NAME = intersection.a
 
 SRC = intersection.c \
+	sphere_intersection.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -31,5 +32,6 @@ fclean: clean
 clean:
 	rm -f $(OBJ)
 	$(MAKE) -C $(TUPLE_DIR) fclean
+	$(MAKE) -C $(SPHERE_DIR) fclean
 
 .PHONY: clean re fclean all

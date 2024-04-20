@@ -25,15 +25,16 @@ typedef struct s_canvas {
 	t_data img;
 	void *mlx;
 	void *mlx_win;
-	double pixel_size;
 } t_canvas;
 
+
 typedef struct s_coordinates {
-	int x;
-	int y;
+	double x;
+	double y;
 } t_coordinates;
 
 void	draw_pixel(t_data *data, int x, int y, const t_color *color);
-t_canvas *canvas(int width, int height, double wall_size);
+t_canvas *canvas(int width, int height);
+void display_image(t_canvas *canvas);
 
 #endif

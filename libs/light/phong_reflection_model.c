@@ -31,6 +31,6 @@ t_color *lighting(const t_material material, const t_point_light light, const t_
         }
     }
     free(effective_color);
-    free_tuples(lightv, reflectv, NULL);
+    free_tuples(&lightv, &reflectv, NULL);
     return add_colors(contributions[0], contributions[1], contributions[2], NULL);
 }

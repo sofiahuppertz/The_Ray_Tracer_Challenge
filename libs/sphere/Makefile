@@ -13,7 +13,7 @@ TUPLE_DIR = ../tuple
 .SECONDARY: $(OBJ)
 
 %.o: %.c
-	cc -Wall -Wextra -Werror -I. -c $< -o $@
+	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
 $(NAME): $(OBJ) $(LIGHT_DIR)/light.a $(MATRIX_DIR)/matrix.a $(TUPLE_DIR)/tuple.a
 	ar rcs $(NAME) $(OBJ)

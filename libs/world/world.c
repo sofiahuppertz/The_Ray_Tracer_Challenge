@@ -1,5 +1,16 @@
 #include "world.h"
 
+
+t_world *empty_world( void )
+{
+    t_world *w;
+
+    w = (t_world *)calloc(sizeof(t_world), 1);
+    if (!w)
+        return NULL;
+    return w;
+}
+
 t_world *default_world( void )
 {
     t_world *w;
@@ -24,7 +35,6 @@ t_world *default_world( void )
         free_world(&w);
         return NULL;
     }
-    //transform_sphere(s2, scaling(0.5, 0.5, 0.5));
     set_transform(SPHERE, (void *)s2,  scaling(0.5, 0.5, 0.5));
     add_sphere_to_world(w, s2);
     return w;

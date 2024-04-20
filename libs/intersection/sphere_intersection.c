@@ -18,7 +18,6 @@ static double calculate_discriminant(double *a, double *b, double *c, const t_ra
 t_intersection *i_ray_sphere(const t_sphere *s, const t_ray r)
 {
     t_intersection *xs;
-    t_matrix *inverse_transform;
     t_ray *transformed_ray;
     double a;
     double b;
@@ -26,19 +25,12 @@ t_intersection *i_ray_sphere(const t_sphere *s, const t_ray r)
     double d;
 
     xs = NULL;
-    inverse_transform = inverse(*s->tr);
-    if (!inverse_transform)
-        return NULL;
     transformed_ray = raycpy(r);
     if (!transformed_ray)
-    {
-        free_matrix(&inverse_transform);
         return NULL;
-    }
-    transform_ray(transformed_ray, inverse(*s->tr));
+    set_transform(RAY, (void *)transformed_ray, inverse(*s->tr));
     d = calculate_discriminant(&a, &b, &c, *transformed_ray, (*s->o));
     free_ray(&transformed_ray);
-    free_matrix(&inverse_transform);
     if (d > 0)
     {
         xs = intersections(intersection((-b - sqrt(d)) / (2 * a), SPHERE, (void *)s), 

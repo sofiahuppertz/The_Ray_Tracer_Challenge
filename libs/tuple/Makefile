@@ -10,7 +10,7 @@ OBJ = $(SRC:.c=.o)
 .SECONDARY: $(OBJ)
 
 %.o: %.c
-	cc -Wall -Wextra -Werror -I. -c $< -o $@
+	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
 $(NAME): $(OBJ) $(MATRIX_DIR)/matrix.a
 	ar rcs $(NAME) $(OBJ)

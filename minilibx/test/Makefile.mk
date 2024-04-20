@@ -15,25 +15,25 @@ LFLAGS = -L.. -lmlx -L$(INCLIB) -lXext -lX11 -lm
 
 ifeq ($(UNAME), Darwin)
 	# mac
-	CC = clang
+	cc = clang
 else ifeq ($(UNAME), FreeBSD)
 	# FreeBSD
-	CC = clang
+	cc = clang
 else
 	#Linux and others...
-	CC	= gcc
+	cc	= gcc
 	LFLAGS += -lbsd
 endif
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS)  > /dev/null 2>&1
+	@$(cc) -o $(NAME) $(OBJ) $(LFLAGS)  > /dev/null 2>&1
 
 show:
 	@printf "UNAME		: $(UNAME)\n"
 	@printf "NAME  		: $(NAME)\n"
-	@printf "CC		: $(CC)\n"
+	@printf "cc		: $(cc)\n"
 	@printf "CFLAGS		: $(CFLAGS)\n"
 	@printf "LFLAGS		: $(LFLAGS)\n"
 	@printf "SRC		:\n	$(SRC)\n"

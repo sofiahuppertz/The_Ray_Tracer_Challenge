@@ -7,7 +7,6 @@ SUBDIRS = camera \
 		matrix \
 		mlx_helpers \
 		ray \
-		space \
 		sphere \
 		tuple \
 		world \

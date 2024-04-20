@@ -114,7 +114,7 @@ t_matrix *shearing(double xy, double xz, double yx, double yz, double zx, double
     return shearing;
 }
 
-t_matrix *chain_transformations(t_matrix* initial, ...)
+t_matrix *chain_tfs(t_matrix* initial, ...)
 {
     va_list args;
     t_matrix *next_transform;

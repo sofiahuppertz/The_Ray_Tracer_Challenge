@@ -12,7 +12,7 @@ RAY_DIR = ../ray
 .SECONDARY: $(OBJ)
 
 %.o: %.c
-	cc -Wall -Wextra -Werror -I. -c $< -o $@
+	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
 $(NAME): $(OBJ) $(TUPLE_DIR)/tuple.a $(SPHERE_DIR)/sphere.a $(RAY_DIR)/ray.a
 	ar rcs $(NAME) $(OBJ)

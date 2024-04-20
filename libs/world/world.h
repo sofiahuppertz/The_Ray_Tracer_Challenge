@@ -23,6 +23,7 @@ typedef struct s_comps
 
 // Constructors
 t_world *default_world( void );
+t_world *empty_world( void );
 t_comps *prepare_computations(const t_intersection i, const t_ray r);
 
 // Setters -ish

@@ -44,12 +44,12 @@ t_matrix *view_transformation(t_tuple *from, t_tuple *to, t_tuple *up)
     true_up = cross(*left, *forward);
     m = matrix(4, 4);
     fill_orientation(m, *left, *true_up, *forward);
-    m = chain_transformations(translation(-from->x, -from->y, -from->z), m, NULL);
-    free_tuples(from, to, up, forward, upn, left, true_up, NULL);
+    m = chain_tfs(m, translation(-from->x, -from->y, -from->z), NULL);
+    free_tuples(&from, &to, &up, &forward, &upn, &left, &true_up, NULL);
     return m;
 }
 
-t_camera *camera(unsigned int hsize, unsigned int vsize, double field_of_view)
+t_camera *camera(double hsize, double vsize, double field_of_view)
 {
     t_camera *cam;
 
@@ -59,13 +59,13 @@ t_camera *camera(unsigned int hsize, unsigned int vsize, double field_of_view)
         printf("Error: camera: calloc failed.\n");
         return NULL;
     }
-    cam->hsize = (double)hsize;
-    cam->vsize = (double)vsize;
+    cam->hsize = hsize;
+    cam->vsize = vsize;
     cam->field_of_view = field_of_view;
     pixel_size(cam);
     cam->vt = identity(4);
     cam->tf.type = CAMERA;
-    cam->tf.transform = NULL;
+    cam->tf.transform = transform_camera;
     return cam;
 }
 
@@ -103,14 +103,14 @@ t_ray *ray_for_pixel(t_camera *cam, double pixel_x, double pixel_y)
     t_tuple *origin;
     t_tuple *direction;
     t_tuple *pixel;
-    double world_cords[2];
+    t_coordinates world_cords;
 
     // Calculate the world coordinates of the pixel
-    world_cords[0] = cam->half_width - (pixel_x + 0.5) * cam->pixel_size;
-    world_cords[1] = cam->half_height - (pixel_y + 0.5) * cam->pixel_size;
+    world_cords.x = cam->half_width - (pixel_x + 0.5) * cam->pixel_size;
+    world_cords.y = cam->half_height - (pixel_y + 0.5) * cam->pixel_size;
 
     // Transform the pixel in world coordinates to camera coordinates
-    pixel = point(world_cords[0], world_cords[1], -1);
+    pixel = point(world_cords.x, world_cords.y, -1);
     set_transform(POINT, (void*)pixel, inverse(*cam->vt));
 
     // Create the ray: origin is the camera, direction is the normed vector from the camera to the pixel
@@ -122,4 +122,81 @@ t_ray *ray_for_pixel(t_camera *cam, double pixel_x, double pixel_y)
     free(pixel);
 
     return r;
+}
+
+void transform_camera(void *cam, t_matrix *vt)
+{
+    t_camera *c;
+
+    c = (t_camera *)cam;
+    if (c->vt)
+        free_matrix(&c->vt);
+    c->vt = vt;
+}
+
+
+t_canvas *render(t_camera *cam, t_world *w)
+{
+    t_canvas *_canvas;
+    t_color *color;
+    t_coordinates coord;
+    t_ray *ray;
+
+    _canvas = canvas((int)cam->hsize, (int)cam->vsize);
+    coord.y = 0;
+    while (coord.y < cam->vsize - 1)
+    {
+        coord.x = 0;
+        while (coord.x < cam->hsize - 1)
+        {
+            ray = ray_for_pixel(cam, (double)coord.x, (double)coord.y);
+            color = color_at(*w, *ray);
+            draw_pixel(&_canvas->img, (int)coord.x, (int)coord.y, color);
+            coord.x++;
+            free_ray(&ray);
+            free(color);
+        }
+        coord.y++;
+    }
+    return _canvas;
+}
+
+void print_camera(const t_camera *cam)
+{
+    printf("Camera:\n");
+    printf("hsize: %f\n", cam->hsize);
+    printf("vsize: %f\n", cam->vsize);
+    printf("half_width: %f\n", cam->half_width);
+    printf("half_height: %f\n", cam->half_height);
+    printf("field_of_view: %f\n", cam->field_of_view);
+    printf("pixel_size: %f\n", cam->pixel_size);
+    print_matrix(cam->vt);
+}
+
+
+t_color *pixel_at(t_canvas *c, int x, int y)
+{
+    t_data *data;
+    char *src;
+    unsigned int _color;
+    t_color *color;
+
+    color = NULL;
+    color = (t_color *)calloc(1, sizeof(t_color));
+    if (!color)
+    {
+        printf("Error: pixel_at: calloc failed.\n");
+        return color;
+    }
+    data = &c->img;
+    src = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+    _color = *(unsigned int *)src;
+
+    color->b = (_color & 0xFF) / 255.0;
+    color->g = ((_color >> 8) & 0xFF) / 255.0;
+    color->r = ((_color >> 16) & 0xFF) / 255.0;
+
+    (void)x;
+    (void)y;
+    return color;
 }

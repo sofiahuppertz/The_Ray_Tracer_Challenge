@@ -5,6 +5,7 @@ t_tuple *tuple(const double x, const double y, const double z, const double w)
 {
     t_tuple *tuple;
     
+    tuple =  NULL;
     tuple = (t_tuple*)calloc(1, sizeof(t_tuple));
     if (!tuple)
     {
@@ -97,8 +98,7 @@ void neg_tuple(t_tuple *neg)
     neg->x = -neg->x;
     neg->y = -neg->y;
     neg->z = -neg->z;
-    if (neg->w != 0.0 && neg->w != 1.0)
-        neg->w = -neg->w;
+    neg->w = -neg->w;
 }
 
 void scalar_tuple(t_tuple *a, const double scalar)
@@ -111,6 +111,7 @@ void scalar_tuple(t_tuple *a, const double scalar)
     a->x *= scalar;
     a->y *= scalar;
     a->z *= scalar;
+    a->w *= scalar;
 }
 
 double mag(const t_tuple a)
@@ -194,20 +195,23 @@ void tupletype(t_tuple *a)
         a->tf.type = VECTOR;
     else 
         a->tf.type = IDK;
+    if (a->tf.type == IDK)
+        print_tuple(a);
 }
 
-void free_tuples(t_tuple *initial, ...)
+void free_tuples(t_tuple **initial, ...)
 {
     va_list args;
-    t_tuple *t;
+    t_tuple **t;
 
     va_start(args, initial);
     t = initial;
     while (t)
     {
-        free(t);
-        t = (t_tuple *)va_arg(args, t_tuple*);
-        if (!t)
+        free(*t);
+        t = NULL;
+        t = (t_tuple **)va_arg(args, t_tuple**);
+        if (!t || !*t)
             break;
     }
     va_end(args);

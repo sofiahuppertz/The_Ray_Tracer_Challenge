@@ -12,7 +12,7 @@ LIGHT_DIR = ../light
 .SECONDARY: $(OBJ)
 
 %.o: %.c
-	cc -Wall -Wextra -Werror -I. -c $< -o $@
+	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
 $(NAME): $(OBJ) $(INTERSECTION_DIR)/intersection.a $(MLX_HELP_DIR)/mlx_helpers.a $(LIGHT_DIR)/light.a 
 	ar rcs $(NAME) $(OBJ)

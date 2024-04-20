@@ -4,6 +4,7 @@ t_ray *ray(t_tuple *origin, t_tuple *direction)
 {
     t_ray *r;
 
+    r = NULL;
     r = (t_ray *)calloc(1, sizeof(t_ray));
     if (!r)
     {
@@ -11,9 +12,9 @@ t_ray *ray(t_tuple *origin, t_tuple *direction)
         return NULL;
     }
     if (origin->w != 1.0)
-        printf("Error: ray origin is not a point.\n");
+        printf("Warning: ray origin is not a point.\n");
     if (direction->w != 0.0)
-        printf("Error: ray direction is not a vector.\n");
+        printf("Warning: ray direction is not a vector.\n");
     r->o = origin;
     r->di = direction;
     r->tf.type = RAY;
@@ -24,7 +25,7 @@ t_ray *ray(t_tuple *origin, t_tuple *direction)
 void transform_ray(void *ray, t_matrix *transformation)
 {
     t_ray *r;
-    t_matrix *t;
+    t_matrix *t_copy;
     
     r = (t_ray *)ray;
     if (!transformation)
@@ -32,15 +33,15 @@ void transform_ray(void *ray, t_matrix *transformation)
         printf("Error: transform_ray: transformation matrix is NULL.\n");
         return;
     }
-    t = matrixcpy((const t_matrix)(*transformation));
-    if (!t)
+    t_copy = matrixcpy((const t_matrix)(*transformation));
+    if (!t_copy)
     {
         free_matrix(&transformation);
         printf("Error: transform_ray: matrixcpy failed: couldn't tranform ray.\n");
         return;
     }
-    set_transform(POINT, (void *)r->o, t);
-    set_transform(VECTOR, (void *)r->di, t);
+    set_transform(POINT, (void *)r->o, transformation);
+    set_transform(VECTOR, (void *)r->di, t_copy);
 }
 
 

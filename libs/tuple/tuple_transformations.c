@@ -25,10 +25,10 @@ void transform_tuple(void *tuple, t_matrix *transformation)
         free_matrices(transformation, before, NULL);
         printf("Error 2: transform_tuple failed.\n");
     }
-    free(t);
-    t = matrix_to_tuple(*after);
-    if (!t)
-        printf("Error 3: transform_tuple failed.\n");
+    t->x = after->m[0][0];
+    t->y = after->m[1][0];
+    t->z = after->m[2][0];
+    t->w = after->m[3][0];
     free_matrices(transformation, before, after, NULL);
 }
 

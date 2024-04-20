@@ -39,7 +39,7 @@ t_tuple *matrix_to_tuple(const t_matrix m);
 void transform_tuple(void *tuple, t_matrix *transformation);
 
 void print_tuple(const t_tuple *a);
-void free_tuples(t_tuple *initial, ...);
+void free_tuples(t_tuple **initial, ...);
 
 
 #endif

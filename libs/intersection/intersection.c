@@ -106,12 +106,12 @@ void print_intersections(const t_intersection *i)
 {
     t_intersection *tmp;
 
-    tmp = (t_intersection *)i;
     if (!i)
     {
-        printf("Error: print_intersection: i is NULL\n");
+        //printf("Error: print_intersection: i is NULL\n");
         return;
     }
+    tmp = (t_intersection *)i;
     while (tmp)
     {
         printf("t: %f\nobject: %d\n", tmp->t, tmp->object);

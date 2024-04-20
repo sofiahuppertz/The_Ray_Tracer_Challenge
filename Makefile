@@ -12,10 +12,10 @@ RT_PATH = libs
 
 
 %.o: %.c
-	cc -Wall -Wextra -Werror $(INCLUDE) -c $< -o $@
+	cc -g -Wall -Wextra -Werror  $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJ) $(MLX_PATH)/libmlx.a $(RT_PATH)/librt.a
-	cc -g -o $(NAME) $(OBJ) $(MLX_FLAGS) $(RT_FLAGS)
+	gcc -o $(NAME) $(OBJ) $(MLX_FLAGS) $(RT_FLAGS)
 
 
 $(MLX_PATH)/libmlx.a:

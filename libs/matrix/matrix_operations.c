@@ -211,6 +211,7 @@ t_matrix *matrixcpy(const t_matrix m)
     int i;
     int j;
 
+    copy = NULL;
     copy = matrix(m.rows, m.cols);
     if (!copy)
     {

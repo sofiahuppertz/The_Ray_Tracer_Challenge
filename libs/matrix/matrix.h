@@ -74,7 +74,7 @@ t_matrix *rotation_x(double rad);
 t_matrix *rotation_y(double rad);
 t_matrix *rotation_z(double rad);
 t_matrix *shearing(double xy, double xz, double yx, double yz, double zx, double zy);
-t_matrix *chain_transformations(t_matrix *initial, ...);
+t_matrix *chain_tfs(t_matrix *initial, ...);
 
 // Utility functions
 int equal(const double a, const double b);

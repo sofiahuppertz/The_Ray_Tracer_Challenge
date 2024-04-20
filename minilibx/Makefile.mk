@@ -14,9 +14,9 @@
 INC	=%%%%
 
 UNAME = $(shell uname)
-CC	= gcc
+cc	= gcc -g
 ifeq ($(UNAME),FreeBSD)
-	CC = clang
+	cc = clang
 endif
 
 NAME		= libmlx.a
@@ -49,7 +49,7 @@ $(OBJ_DIR)/%.o: 	%.c
 					@$(eval CURRENT_INDEX=$(shell echo $$(($(CURRENT_INDEX)+1))))
 					@$(eval PERCENT=$(shell echo $$(($(CURRENT_INDEX) * 100 / $(TOTAL_FILES)))))
 					@printf "\r$(YELLOW)🔧 $(GREEN)%3d%% $(YELLOW)$(BOLD)Compiling: $(RESET)$(BLUE)$(ITALIC)%-50s $(MAGENTA)[%3d/%3d]$(RESET)" $(PERCENT) "$<" $(CURRENT_INDEX) $(TOTAL_FILES)
-					@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@  > /dev/null 2>&1
+					@$(cc) $(CFLAGS) $(IFLAGS) -c $< -o $@  > /dev/null 2>&1
 
 $(NAME)	: 			$(OBJ)
 					@ar -r $(NAME) $(OBJ) > /dev/null 2>&1
@@ -63,7 +63,7 @@ check: 				all
 show:
 					@printf "NAME  		: $(NAME)\n"
 					@printf "NAME_UNAME	: $(NAME_UNAME)\n"
-					@printf "CC		: $(CC)\n"
+					@printf "cc		: $(cc)\n"
 					@printf "CFLAGS		: $(CFLAGS)\n"
 					@printf "SRC		:\n	$(SRC)\n"
 					@printf "OBJ		:\n	$(OBJ)\n"

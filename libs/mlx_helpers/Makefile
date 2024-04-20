@@ -9,7 +9,7 @@ COLOR_DIR = ../color
 .SECONDARY: $(OBJ)
 
 %.o: %.c
-	cc -Wall -Wextra -Werror -I. -c $< -o $@
+	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
 $(NAME): $(OBJ) $(COLOR_DIR)/color.a
 	ar rcs $(NAME) $(OBJ)

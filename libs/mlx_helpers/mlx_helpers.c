@@ -22,7 +22,7 @@ void	draw_pixel(t_data *data, int x, int y, const t_color *color)
 	*(unsigned int *)dst = _color;
 }
 
-t_canvas *canvas(int width, int height, double wall_size)
+t_canvas *canvas(int width, int height)
 {
 	t_canvas *canvas = (t_canvas *)calloc(1, sizeof(t_canvas));
 	if (!canvas)
@@ -30,10 +30,15 @@ t_canvas *canvas(int width, int height, double wall_size)
 		printf("Error: memory allocation failed in canvas().\n");
 		return NULL;
 	}
-	canvas->pixel_size = wall_size / CANVAS_PIXELS;
 	canvas->mlx = mlx_init();
 	canvas->mlx_win = mlx_new_window(canvas->mlx, width, height, "Default Window Title");
 	canvas->img.img = mlx_new_image(canvas->mlx, width, height);
 	canvas->img.addr = mlx_get_data_addr(canvas->img.img, &canvas->img.bits_per_pixel, &canvas->img.line_length, &canvas->img.endian);
 	return canvas;
+}
+
+void display_image(t_canvas *canvas)
+{
+	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img.img, 0, 0);
+	mlx_loop(canvas->mlx);
 }

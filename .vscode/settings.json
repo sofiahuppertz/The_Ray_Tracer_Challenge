@@ -6,6 +6,9 @@
         "color.h": "c",
         "sphere.h": "c",
         "stdlib.h": "c",
-        "intersection.h": "c"
+        "intersection.h": "c",
+        "mlx_helpers.h": "c",
+        "ray.h": "c",
+        "tuple.h": "c"
     }
 }

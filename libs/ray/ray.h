@@ -1,16 +1,18 @@
 #ifndef RAY_H
 # define RAY_H
 
-#include "../tuple/tuple.h"
 #include "../matrix/matrix.h"
+#include "../tuple/tuple.h"
 
 typedef struct s_ray {
-    t_tuple const *o;
-    t_tuple const *di;
+    t_tf tf;
+    const t_tuple *o;
+    const t_tuple *di;
 } t_ray;
 
-t_ray *ray(const t_tuple origin, const t_tuple direction);
-t_ray *transform_ray(const t_ray r, t_matrix *transformation);
+t_ray *ray(t_tuple *origin, t_tuple *direction);
+void transform_ray(void *ray, t_matrix *transformation);
+t_ray *raycpy(const t_ray r);
 
 void print_ray(const t_ray *r);
 void free_ray(t_ray **r);

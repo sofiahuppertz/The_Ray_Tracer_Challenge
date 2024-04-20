@@ -1,13 +1,28 @@
 #ifndef MATRIX_H
 # define MATRIX_H
 
-#include "../tuple/tuple.h"
+#ifndef EPSILON
+# define EPSILON 0.00001
+#endif
+
+#ifndef PI
+#define PI 3.14159265358979323846
+#endif
 
 #include <math.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef enum e_element
+{
+    POINT,
+    VECTOR,
+    RAY,
+    SPHERE,
+    CAMERA,
+    IDK
+} t_elem;
 
 typedef struct s_matrix {
     int rows;
@@ -15,13 +30,20 @@ typedef struct s_matrix {
     double **m;
 } t_matrix;
 
+typedef void (*t_transform_func)(void *, t_matrix *);
+
+typedef struct s_tf
+{
+    t_elem type;
+    t_transform_func transform;
+} t_tf;
+
 
 // Basic matrix functions
 t_matrix *matrix(int rows, int cols);
-t_matrix *tuple_to_matrix(const t_tuple t);
-t_tuple *matrix_to_tuple(const t_matrix m);
 void print_matrix(const t_matrix *matrix);
 void  free_matrix(t_matrix **m);
+void free_matrices(t_matrix *initial, ...);
 double degrees_to_radians(double degrees);
 
 
@@ -54,9 +76,10 @@ t_matrix *rotation_z(double rad);
 t_matrix *shearing(double xy, double xz, double yx, double yz, double zx, double zy);
 t_matrix *chain_transformations(t_matrix *initial, ...);
 
+// Utility functions
+int equal(const double a, const double b);
 
-//Apply transformation to tuple
-void transform_tuple(t_tuple *t, t_matrix *transformation);
+//Apply transformation to other objects
+void set_transform(t_elem type, void *elem, t_matrix *transformation);
 
-
-# endif
+#endif

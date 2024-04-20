@@ -13,9 +13,7 @@ static t_color *compute_shade(t_intersection _hit, const t_ray *r, const t_spher
     eyev = tuplecpy(*r->di);
     neg_tuple(eyev);
     _color = lighting(*sp->material, light, *hit_pos, *eyev, *normalv);
-    free(hit_pos);
-    free(normalv);
-    free(eyev);
+    free_tuples(hit_pos, normalv, eyev, NULL);
     return _color;
 }
 
@@ -23,6 +21,7 @@ static t_color *compute_shade(t_intersection _hit, const t_ray *r, const t_spher
 static void compute_hit(const t_coordinates cor, t_space space, t_canvas *_canvas, const t_sphere *sp, const t_point_light light, const t_tuple position)
 {
     t_tuple *ray_dir;
+    t_tuple *origin;
     t_ray *r;
     t_intersection *xs;
     t_intersection *_hit;
@@ -30,7 +29,8 @@ static void compute_hit(const t_coordinates cor, t_space space, t_canvas *_canva
 
     ray_dir = sub_tuple(position, *space.view_point);
     norm(ray_dir);
-    r = ray(*space.view_point, *ray_dir);
+    origin = tuplecpy(*space.view_point);
+    r = ray(origin, ray_dir);
     xs = i_ray_sphere(sp, *r);
     _hit = hit(&xs);
     if (_hit)
@@ -39,7 +39,6 @@ static void compute_hit(const t_coordinates cor, t_space space, t_canvas *_canva
         draw_pixel(&_canvas->img, cor.x, cor.y, _color);
         free(_color);
     }
-    free(ray_dir);
     free_ray(&r);
     free_intersections(&xs);
 }

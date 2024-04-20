@@ -6,18 +6,13 @@ SRC = matrix.c \
 
 OBJ = $(SRC:.c=.o)
 
-TUPLE_DIR = ../tuple
-
 .SECONDARY: $(OBJ)
 
 %.o: %.c
 	cc -Wall -Wextra -Werror -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(TUPLE_DIR)/tuple.a
+$(NAME): $(OBJ) 
 	ar rcs $(NAME) $(OBJ)
-
-$(TUPLE_DIR)/tuple.a:
-	$(MAKE) -C $(TUPLE_DIR)
 
 all: $(NAME)
 
@@ -28,6 +23,5 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(TUPLE_DIR) fclean
 
 .PHONY: clean re fclean all

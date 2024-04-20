@@ -1,16 +1,12 @@
 #ifndef TUPLE_H
 # define TUPLE_H
 
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-
-# define EPSILON 0.00001
+#include "../matrix/matrix.h"
 
 
 typedef struct s_tuple
 {
+    t_tf tf;
     double x;
     double y;
     double z;
@@ -31,15 +27,19 @@ t_tuple *reflection(const t_tuple in, const t_tuple normal);
 void neg_tuple(t_tuple *a);
 void scalar_tuple(t_tuple *a, const double scalar);
 void norm(t_tuple *a);
+void tupletype(t_tuple *a);
 
 // Operations that return a value
 double dot(const t_tuple a, const t_tuple b);
 double mag(const t_tuple a);
 
+// Operations that involve matrices
+t_matrix *tuple_to_matrix(const t_tuple t);
+t_tuple *matrix_to_tuple(const t_matrix m);
+void transform_tuple(void *tuple, t_matrix *transformation);
 
 void print_tuple(const t_tuple *a);
+void free_tuples(t_tuple *initial, ...);
 
-// Later this function should belong to another library?
-int equal(const double a, const double b);
 
-# endif
+#endif

@@ -1,6 +1,7 @@
 #ifndef RT_H
 # define RT_H
 
+#include "camera/camera.h"
 #include "color/color.h"
 #include "intersection/intersection.h"
 #include "light/light.h"

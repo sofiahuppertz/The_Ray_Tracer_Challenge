@@ -1,7 +1,7 @@
 #include "intersection.h"
 
 
-t_intersection *intersection(const double t, const t_object object, void *object_ptr)
+t_intersection *intersection(const double t, const t_elem object, void *object_ptr)
 {
     t_intersection *i;
 

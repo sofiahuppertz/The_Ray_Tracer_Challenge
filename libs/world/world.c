@@ -24,7 +24,8 @@ t_world *default_world( void )
         free_world(&w);
         return NULL;
     }
-    set_transform(s2, scaling(0.5, 0.5, 0.5));
+    //transform_sphere(s2, scaling(0.5, 0.5, 0.5));
+    set_transform(SPHERE, (void *)s2,  scaling(0.5, 0.5, 0.5));
     add_sphere_to_world(w, s2);
     return w;
 }
@@ -136,9 +137,42 @@ t_color *shade_hit(const t_world w, const t_comps comps)
     t_color *color;
     t_material *material;
     
-
+    material = NULL;
     if (comps.object == SPHERE)
         material = ((t_sphere *)comps.object_ptr)->material;
     color = lighting(*material, *w.light, *comps.point, *comps.eyev, *comps.normalv);
     return color;
+}
+
+
+void set_light(t_world *w, t_point_light *l)
+{
+    if (!w || !l)
+    {
+        printf("Error: set_light: NULL parameter.\n");
+        return;
+    }
+    free_point_light(&(w->light));
+    w->light = l;
+}
+
+t_color *color_at(const t_world w, const t_ray r)
+{
+    t_intersection *xs;
+    t_intersection *_hit;
+    t_comps *comps;
+    t_color *c;
+
+    xs = intersect_world(w, r);
+    _hit = hit(&xs);
+    if (!_hit)
+    {
+        free_intersections(&xs);
+        return black();
+    }
+    comps = prepare_computations(*_hit, r);
+    c = shade_hit(w, *comps);
+    free_comps(&comps);
+    free_intersections(&xs);
+    return c;
 }

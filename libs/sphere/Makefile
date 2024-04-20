@@ -7,6 +7,7 @@ OBJ = $(SRC:.c=.o)
 
 LIGHT_DIR = ../light
 MATRIX_DIR = ../matrix
+TUPLE_DIR = ../tuple
 
 
 .SECONDARY: $(OBJ)
@@ -14,10 +15,11 @@ MATRIX_DIR = ../matrix
 %.o: %.c
 	cc -Wall -Wextra -Werror -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(LIGHT_DIR)/light.a $(MATRIX_DIR)/matrix.a 
+$(NAME): $(OBJ) $(LIGHT_DIR)/light.a $(MATRIX_DIR)/matrix.a $(TUPLE_DIR)/tuple.a
 	ar rcs $(NAME) $(OBJ)
 
-
+$(TUPLE_DIR)/tuple.a:
+	$(MAKE) -C $(TUPLE_DIR)
 
 $(LIGHT_DIR)/light.a:
 	$(MAKE) -C $(LIGHT_DIR)

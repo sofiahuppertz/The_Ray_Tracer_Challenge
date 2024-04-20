@@ -2,29 +2,40 @@
 #include "libs/librt.h"
 #include <stdio.h>
 
-#define PI 3.14159265358979323846
-
-
-
 
 int main(void)
 {
-	t_world *w;
-	t_ray *r;
-	t_tuple *origin;
-	t_tuple *direction;
+	{
+		t_camera *cam;
+		t_ray *ray;
 
-	w = default_world();
-	origin = point(0, 0, -5);
-	direction = vector(0, 0, 1);
-	r = ray(*origin, *direction);
+		cam = camera(201, 101, PI / 2);
+		ray = ray_for_pixel(cam, 100, 50);
+		print_ray(ray);
+		free_camera(&cam);
+		free_ray(&ray);
+	}
+	{
+		t_camera *cam;
+		t_ray *ray;
 
-	t_intersection *xs = intersect_world(*w, *r);
-	t_intersection *i = hit(&xs);
-	t_comps *comps = prepare_computations(*i->next, *r);
-	print_comps(comps);
-	free_comps(&comps);
-	free_intersections(&xs);
-	free_ray(&r);
-	free_world(&w);
+		cam = camera(201, 101, PI / 2);
+		ray = ray_for_pixel(cam, 0, 0);
+		print_ray(ray);
+		free_camera(&cam);
+		free_ray(&ray);
+	}
+	{
+		t_camera *cam;
+		t_ray *ray;
+
+		cam = camera(201, 101, PI / 2);
+		
+		ray = ray_for_pixel(cam, 100, 50);
+		print_ray(ray);
+		free_camera(&cam);
+		free_ray(&ray);
+	}
+
 }
+

@@ -26,15 +26,16 @@ t_intersection *i_ray_sphere(const t_sphere *s, const t_ray r)
     double d;
 
     xs = NULL;
-    inverse_transform = inverse(*s->transform);
+    inverse_transform = inverse(*s->tr);
     if (!inverse_transform)
         return NULL;
-    transformed_ray = transform_ray(r, inverse(*s->transform));
+    transformed_ray = raycpy(r);
     if (!transformed_ray)
     {
         free_matrix(&inverse_transform);
         return NULL;
     }
+    transform_ray(transformed_ray, inverse(*s->tr));
     d = calculate_discriminant(&a, &b, &c, *transformed_ray, (*s->o));
     free_ray(&transformed_ray);
     free_matrix(&inverse_transform);

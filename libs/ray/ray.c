@@ -1,6 +1,6 @@
 #include "ray.h"
 
-t_ray *ray(const t_tuple origin, const t_tuple direction)
+t_ray *ray(t_tuple *origin, t_tuple *direction)
 {
     t_ray *r;
 
@@ -10,43 +10,37 @@ t_ray *ray(const t_tuple origin, const t_tuple direction)
         printf("Error: ray memory allocation failed.\n");
         return NULL;
     }
-    if (origin.w != 1.0)
+    if (origin->w != 1.0)
         printf("Error: ray origin is not a point.\n");
-    if (direction.w != 0.0)
+    if (direction->w != 0.0)
         printf("Error: ray direction is not a vector.\n");
-    r->o = point(origin.x, origin.y, origin.z);
-    r->di = vector(direction.x, direction.y, direction.z);
+    r->o = origin;
+    r->di = direction;
+    r->tf.type = RAY;
+    r->tf.transform = transform_ray;
     return r;
 }
 
-t_ray *transform_ray(const t_ray r, t_matrix *transformation)
+void transform_ray(void *ray, t_matrix *transformation)
 {
-    t_ray *new_ray;
-    t_tuple *new_origin;
-    t_tuple *new_direction;
+    t_ray *r;
     t_matrix *t;
     
+    r = (t_ray *)ray;
     if (!transformation)
     {
         printf("Error: transform_ray: transformation matrix is NULL.\n");
-        return NULL;
+        return;
     }
-    new_origin = tuplecpy((const t_tuple)(*r.o));
-    if (!new_origin)
-        return NULL;
     t = matrixcpy((const t_matrix)(*transformation));
-    transform_tuple(new_origin, transformation);
-    new_direction = tuplecpy((const t_tuple)(*r.di));
-    if (!new_direction)
+    if (!t)
     {
-        free(new_origin);
-        return NULL;
+        free_matrix(&transformation);
+        printf("Error: transform_ray: matrixcpy failed: couldn't tranform ray.\n");
+        return;
     }
-    transform_tuple(new_direction, t);
-    new_ray = ray((const t_tuple)(*new_origin), (const t_tuple)(*new_direction));
-    free(new_origin);
-    free(new_direction);
-    return new_ray;
+    set_transform(POINT, (void *)r->o, t);
+    set_transform(VECTOR, (void *)r->di, t);
 }
 
 
@@ -93,4 +87,27 @@ void free_ray(t_ray **r)
     }
     free((void *)*r);
     *r = NULL;
+}
+
+t_ray *raycpy(const t_ray r)
+{
+    t_ray *cpy;
+    t_tuple *origin;
+    t_tuple *direction;
+
+    origin = tuplecpy((const t_tuple)(*r.o));
+    if (!origin)
+    {
+        printf("Error: raycpy: origin memory allocation failed.\n");
+        return NULL;
+    } 
+    direction = tuplecpy((const t_tuple)(*r.di));
+    if (!direction)
+    {
+        printf("Error: raycpy: direction memory allocation failed.\n");
+        free(origin);
+        return NULL;
+    }
+    cpy = ray(origin, direction);
+    return cpy;
 }

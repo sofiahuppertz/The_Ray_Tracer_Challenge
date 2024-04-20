@@ -1,26 +1,26 @@
-NAME = ray.a
+NAME = intersection.a
 
-SRC = ray.c
+SRC = camera.c \
 
 OBJ = $(SRC:.c=.o)
 
+RAY_DIR = ../ray
 MATRIX_DIR = ../matrix
-TUPLE_DIR = ../tuple
 
 .SECONDARY: $(OBJ)
 
 %.o: %.c
 	cc -Wall -Wextra -Werror -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(MATRIX_DIR)/matrix.a $(TUPLE_DIR)/tuple.a
+$(NAME): $(OBJ) $(RAY_DIR)/ray.a $(MATRIX_DIR)/matrix.a
 	ar rcs $(NAME) $(OBJ)
 
 
-$(MATRIX_DIR)/matrix.a:
-	$(MAKE) -C $(MATRIX_DIR)
+$(RAY_DIR)/ray.a:
+	$(MAKE) -C $(RAY_DIR)
 
-$(TUPLE_DIR)/tuple.a:
-	$(MAKE) -C $(TUPLE_DIR)
+$(MATRIX_DIR)/matrix.a:
+	$(MAKE) -C $(MATRIX_DIR
 
 all: $(NAME)
 
@@ -31,6 +31,6 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(MATRIX_DIR) fclean
+	$(MAKE) -C $(RAY_DIR) fclean
 
 .PHONY: clean re fclean all

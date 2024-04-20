@@ -3,25 +3,21 @@
 
 #include <stdarg.h>
 
+#include "../tuple/tuple.h"
 #include "../ray/ray.h"
 #include "../sphere/sphere.h"
-#include "../tuple/tuple.h"
 
-typedef enum e_object
-{
-    SPHERE
-} t_object;
 
 typedef struct s_intersection
 {
     double t;
-    t_object object;
+    t_elem object;
     void *object_ptr;
     struct s_intersection *next;
 } t_intersection;
 
 
-t_intersection *intersection(const double t, const t_object object, void *object_ptr);
+t_intersection *intersection(const double t, const t_elem object, void *object_ptr);
 t_intersection *intersections(t_intersection *initial, ...);
 t_intersection *merge_sorted(t_intersection **first, t_intersection **next);
 t_intersection *hit(t_intersection **xs);

@@ -7,13 +7,14 @@ OBJ = $(SRC:.c=.o)
 
 TUPLE_DIR = ../tuple
 SPHERE_DIR = ../sphere
+RAY_DIR = ../ray
 
 .SECONDARY: $(OBJ)
 
 %.o: %.c
 	cc -Wall -Wextra -Werror -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(TUPLE_DIR)/tuple.a $(SPHERE_DIR)/sphere.a
+$(NAME): $(OBJ) $(TUPLE_DIR)/tuple.a $(SPHERE_DIR)/sphere.a $(RAY_DIR)/ray.a
 	ar rcs $(NAME) $(OBJ)
 
 $(TUPLE_DIR)/tuple.a:
@@ -21,6 +22,9 @@ $(TUPLE_DIR)/tuple.a:
 
 $(SPHERE_DIR)/sphere.a:
 	$(MAKE) -C $(SPHERE_DIR)
+
+$(RAY_DIR)/ray.a:
+	$(MAKE) -C $(RAY_DIR)
 
 all: $(NAME)
 

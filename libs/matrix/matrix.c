@@ -67,31 +67,26 @@ void free_matrix(t_matrix **matrix)
     *matrix = NULL;
 }
 
-t_matrix *tuple_to_matrix(const t_tuple t)
-{
-    t_matrix *new;
-    
-    new = matrix(4, 1);
-    if (!new)
-        return NULL;
-    new->m[0][0] = t.x;
-    new->m[1][0] = t.y;
-    new->m[2][0] = t.z;
-    new->m[3][0] = t.w;
-    return new;
-}
 
 double degrees_to_radians(double degrees)
 {
     return degrees * M_PI / 180;
 }
 
-t_tuple *matrix_to_tuple(const t_matrix m)
+
+void free_matrices(t_matrix *initial, ...)
 {
-    if (m.rows != 4 || m.cols != 1)
+    va_list ap;
+    t_matrix *m;
+
+    va_start(ap, initial);
+    m = initial;
+    while (m)
     {
-        printf("Error: matrix_to_tuple: matrix is not a 4x1 matrix.\n");
-        return NULL;
+        free_matrix(&m);
+        m = va_arg(ap, t_matrix *);
+        if (!m)
+            break;
     }
-    return tuple(m.m[0][0], m.m[1][0], m.m[2][0], m.m[3][0]);
+    va_end(ap);
 }

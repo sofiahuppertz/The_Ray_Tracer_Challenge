@@ -14,6 +14,7 @@ typedef struct s_color {
 
 t_color *color(double r, double g, double b);
 t_color *black(void);
+t_color *white(void);
 t_color *colorcpy(t_color c);
 t_color *sum_color(t_color c1, t_color c2);
 t_color *sub_color(t_color c1, t_color c2);

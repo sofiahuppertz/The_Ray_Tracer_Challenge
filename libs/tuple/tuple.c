@@ -15,6 +15,10 @@ t_tuple *tuple(const double x, const double y, const double z, const double w)
     tuple->y = y;
     tuple->z = z;
     tuple->w = w;
+    if (w != 1.0 && w != 0.0)
+        printf("Warning: tuple: not a point nor vector.\n");
+    tupletype(tuple);
+    tuple->tf.transform = transform_tuple;
     return tuple;
 }
 
@@ -22,17 +26,13 @@ t_tuple *tuple(const double x, const double y, const double z, const double w)
 t_tuple *point(const double x, const double y, const double z)
 {
     t_tuple *point;
-    
-    point = (t_tuple*)calloc(1, sizeof(t_tuple));
+
+    point = tuple(x, y, z, 1.0);
     if (!point)
     {
         printf("Error: point memory allocation failed.\n");
         return NULL;
     }
-    point->x = x;
-    point->y = y;
-    point->z = z;
-    point->w = 1.0;
     return point;
 }
 
@@ -40,16 +40,12 @@ t_tuple *vector(const double x, const double y, const double z)
 {
     t_tuple *vector;
     
-    vector = (t_tuple*)calloc(1, sizeof(t_tuple));
+    vector = tuple(x, y, z, 0.0);
     if (!vector)
     {
         printf("Error: vector memory allocation failed.\n");
         return NULL;
     }
-    vector->x = x;
-    vector->y = y;
-    vector->z = z;
-    vector->w = 0.0;
     return vector;
 }
 
@@ -64,36 +60,30 @@ int equal(const double a, const double b)
 t_tuple *add_tuple(const t_tuple a, const t_tuple b)
 {
     t_tuple *sum;
-    sum = (t_tuple *)calloc(1, sizeof(t_tuple));
+
+    sum = tuple(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
     if (!sum)
     {
         printf("Error: add_tuple memory allocation failed.\n");
         return NULL;
     }
-    sum->x = a.x + b.x;
-    sum->y = a.y + b.y;
-    sum->z = a.z + b.z;
-    sum->w = a.w + b.w;
-    if (sum->w > 1.0)
-        printf("Error: add_tuple two points.\n");
+    if (sum->tf.type == IDK)
+        printf("Warning: add_tuple two points.\n");
     return sum;
 }
 
 t_tuple *sub_tuple(const t_tuple a, const t_tuple b)
 {
     t_tuple *diff;
-    diff = (t_tuple *)calloc(1, sizeof(t_tuple));
+
+    diff = tuple(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
     if (!diff)
     {
-        printf("Error: sub_tuple memory allocation failed.\n");
+        printf("Error: sub_tuple: operation failed.\n");
         return NULL;
     }
-    diff->x = a.x - b.x;
-    diff->y = a.y - b.y;
-    diff->z = a.z - b.z;
-    diff->w = a.w - b.w;
-    if (diff->w > 1.0)
-        printf("Error: sub_tuple points to vector.\n");
+    if (diff->tf.type == IDK)
+        printf("Warning: sub_tuple points to vector.\n");
     return diff;
 }
 
@@ -107,7 +97,8 @@ void neg_tuple(t_tuple *neg)
     neg->x = -neg->x;
     neg->y = -neg->y;
     neg->z = -neg->z;
-    neg->w = -neg->w;
+    if (neg->w != 0.0 && neg->w != 1.0)
+        neg->w = -neg->w;
 }
 
 void scalar_tuple(t_tuple *a, const double scalar)
@@ -120,7 +111,6 @@ void scalar_tuple(t_tuple *a, const double scalar)
     a->x *= scalar;
     a->y *= scalar;
     a->z *= scalar;
-    a->w *= scalar;
 }
 
 double mag(const t_tuple a)
@@ -189,6 +179,36 @@ t_tuple *reflection(const t_tuple in, const t_tuple normal)
     temp = tuplecpy(normal);
     scalar_tuple(temp, 2 * dot_product);
     reflect = sub_tuple(in, (const t_tuple)*temp);
+    if (!reflect)
+        printf("Error: reflection: operation failed.\n");
     free(temp);
     return reflect;
+}
+
+
+void tupletype(t_tuple *a)
+{
+    if (a->w == 1.0)
+        a->tf.type = POINT;
+    else if (a->w == 0.0)
+        a->tf.type = VECTOR;
+    else 
+        a->tf.type = IDK;
+}
+
+void free_tuples(t_tuple *initial, ...)
+{
+    va_list args;
+    t_tuple *t;
+
+    va_start(args, initial);
+    t = initial;
+    while (t)
+    {
+        free(t);
+        t = (t_tuple *)va_arg(args, t_tuple*);
+        if (!t)
+            break;
+    }
+    va_end(args);
 }

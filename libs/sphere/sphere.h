@@ -2,15 +2,17 @@
 # define SPHERE_H
 
 #include "../light/light.h"
+#include "../tuple/tuple.h"
 #include "../matrix/matrix.h"
 
 #include "stdlib.h"
 
 typedef struct s_sphere {
+    t_tf tf;
     int id;
     double radius;
     t_tuple *o;
-    t_matrix *transform;
+    t_matrix *tr;
     t_material *material;
     struct s_sphere *next;
 } t_sphere;
@@ -22,7 +24,7 @@ void free_sphere(t_sphere **s);
 void print_sphere(const t_sphere *s);
 
 //Setter
-void set_transform(t_sphere *s, t_matrix *transformation);
+void transform_sphere(void *sphere, t_matrix *transformation);
 void set_material(t_sphere *s, t_material *m);
 
 // Other functions

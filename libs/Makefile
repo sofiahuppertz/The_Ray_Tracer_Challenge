@@ -1,6 +1,7 @@
 NAME = librt.a
 
-SUBDIRS = color \
+SUBDIRS = camera \
+		color \
 		intersection \
 		light \
 		matrix \

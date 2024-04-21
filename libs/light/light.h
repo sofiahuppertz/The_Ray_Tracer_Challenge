@@ -22,7 +22,7 @@ typedef struct s_material
 
 
 // Phong reflection model
-t_color *lighting(const t_material material, const t_point_light light, const t_tuple position, const t_tuple eyev, const t_tuple normalv);
+t_color *lighting(const t_material material, const t_point_light light, const t_tuple position, const t_tuple eyev, const t_tuple normalv, int in_shadow);
 
 
 // Point Light

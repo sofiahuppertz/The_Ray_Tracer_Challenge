@@ -18,6 +18,7 @@ typedef struct s_comps
     t_tuple *point;
     t_tuple *eyev;
     t_tuple *normalv;
+    t_tuple *over_point;
     int inside;
 } t_comps;
 
@@ -32,6 +33,7 @@ void set_light(t_world *w, t_point_light *l);
 
 // Other functions
 t_color *shade_hit(const t_world w, const t_comps comps);
+int is_shadowed(const t_world w, const t_tuple point);
 t_color *color_at(const t_world w, const t_ray r);
 t_intersection *intersect_world(const t_world w, const t_ray r);
 void print_comps(t_comps *comps);

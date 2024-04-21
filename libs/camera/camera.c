@@ -35,12 +35,9 @@ t_matrix *view_transformation(t_tuple *from, t_tuple *to, t_tuple *up)
         printf("Error: view_transformation: invalid arguments.\n");
         return identity(4);
     }
-    forward = sub_tuple(*to, *from);
-    norm(forward);
-    upn = tuplecpy(*up);
-    norm(upn);
-    left = cross(*forward, *upn);
-    norm(left);
+    forward = norm(sub_tuple(*to, *from));
+    upn = norm(tuplecpy(*up));
+    left = norm(cross(*forward, *upn));
     true_up = cross(*left, *forward);
     m = matrix(4, 4);
     fill_orientation(m, *left, *true_up, *forward);
@@ -117,8 +114,7 @@ t_ray *ray_for_pixel(t_camera *cam, double pixel_x, double pixel_y)
     origin = point(0, 0, 0);
     set_transform(POINT, (void*)origin, inverse(*cam->vt));
     direction = sub_tuple(*pixel, *origin);
-    norm(direction);
-    r = ray(origin, direction);
+    r = ray(origin, norm(direction));
     free(pixel);
 
     return r;

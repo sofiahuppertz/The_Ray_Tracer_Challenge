@@ -1,5 +1,7 @@
-
+#include "minilibx/mlx.h"
 #include "libs/librt.h"
+#include <stdio.h>
+
 
 int main(void)
 {	
@@ -13,7 +15,7 @@ int main(void)
 	floor = sphere();
 	set_transform(SPHERE, (void*)floor, scaling(10, 0.01, 10));
 	t_material *m = default_material();
-	set_material_color(m, color(1, 1, 1));
+	set_material_color(m, color(1, 0.9, 0.9));
 	m->specular = 0;
 	set_material(floor, m);
 
@@ -28,7 +30,7 @@ int main(void)
 	middle = sphere();
 	set_transform(SPHERE, (void*)middle, translation(-0.5, 1, 0.5));
 	t_material *m2 = default_material();
-	set_material_color(m2, color(0.8, 0, 0));
+	set_material_color(m2, color(0.1, 1, 0.5));
 	m2->diffuse = 0.7;
 	m2->specular = 0.3;
 	set_material(middle, m2);
@@ -36,13 +38,13 @@ int main(void)
 	right = sphere();
 	set_transform(SPHERE, (void*)right, chain_tfs(translation(1.5, 0.5, -0.5), scaling(0.5, 0.5, 0.5), NULL));
 	t_material *m3 = materialcpy(*m2);
-	set_material_color(m3, color(0, 0, 0.8));
+	set_material_color(m3, color(0.5, 1, 0.1));
 	set_material(right, m3);
 
 	left = sphere();
 	set_transform(SPHERE, (void*)left, chain_tfs(translation(-1.5, 0.33, -0.75), scaling(0.33, 0.33, 0.33), NULL));
 	t_material *m4 = materialcpy(*m2);
-	set_material_color(m4, color(1, 1, 0));
+	set_material_color(m4, color(1, 0.8, 0.1));
 	set_material(left, m4);
 
 	t_point_light *light = point_light(color(1, 1, 1), point(-10, 10, -10));

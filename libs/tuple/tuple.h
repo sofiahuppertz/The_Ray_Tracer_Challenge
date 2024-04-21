@@ -26,7 +26,7 @@ t_tuple *reflection(const t_tuple in, const t_tuple normal);
 // Operations that modify the tuple
 void neg_tuple(t_tuple *a);
 void scalar_tuple(t_tuple *a, const double scalar);
-void norm(t_tuple *a);
+t_tuple *norm(t_tuple *a);
 void tupletype(t_tuple *a);
 
 // Operations that return a value

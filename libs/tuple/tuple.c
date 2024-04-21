@@ -120,19 +120,20 @@ double mag(const t_tuple a)
     return magnitude;
 }
 
-void norm(t_tuple *a)
+t_tuple *norm(t_tuple *a)
 {
     double m;
 
     if (!a)
     {
         printf("Error: norm: null pointer.\n");
-        return;
+        return NULL;
     }
     m = mag(*a);
     scalar_tuple(a, 1 / m);
     if (!a)
         printf("Error: norm: operation failed.\n");
+    return a;
 }
 
 double dot(const t_tuple a, const t_tuple b)

@@ -1,30 +1,31 @@
 NAME = world.a
 
 SRC = world.c \
+	world_methods.c \
 
 OBJ = $(SRC:.c=.o)
 
-INTERSECTION_DIR = ../intersection
-MLX_HELP_DIR = ../mlx_helpers
-LIGHT_DIR = ../light
 
+LIGHT_DIR = ../light
+SHAPE_DIR = ../shape
+SPHERE_DIR = ../sphere
 
 .SECONDARY: $(OBJ)
 
 %.o: %.c
 	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(INTERSECTION_DIR)/intersection.a $(MLX_HELP_DIR)/mlx_helpers.a $(LIGHT_DIR)/light.a 
+$(NAME): $(OBJ) $(LIGHT_DIR)/light.a  $(SHAPE_DIR)/shape.a $(SPHERE_DIR)/sphere.a
 	ar rcs $(NAME) $(OBJ)
-
-$(INTERSECTION_DIR)/intersection.a:
-	$(MAKE) -C $(INTERSECTION_DIR)
-
-$(MLX_HELP_DIR)/mlx_helpers.a:
-	$(MAKE) -C $(MLX_HELP_DIR)
 
 $(LIGHT_DIR)/light.a:
 	$(MAKE) -C $(LIGHT_DIR)
+
+$(SHAPE_DIR)/shape.a:
+	$(MAKE) -C $(SHAPE_DIR)
+
+$(SPHERE_DIR)/sphere.a:
+	$(MAKE) -C $(SPHERE_DIR)
 
 all: $(NAME)
 
@@ -35,8 +36,8 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(INTERSECTION_DIR) fclean
-	$(MAKE) -C $(MLX_HELP_DIR) fclean
+	$(MAKE) -C $(SHAPE_DIR) fclean
+	$(MAKE) -C $(SPHERE_DIR) fclean
 	$(MAKE) -C $(LIGHT_DIR) fclean
 
 .PHONY: clean re fclean all

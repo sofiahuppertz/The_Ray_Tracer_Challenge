@@ -108,11 +108,11 @@ t_ray *ray_for_pixel(t_camera *cam, double pixel_x, double pixel_y)
 
     // Transform the pixel in world coordinates to camera coordinates
     pixel = point(world_cords.x, world_cords.y, -1);
-    set_transform(POINT, (void*)pixel, inverse(*cam->vt));
+    transform((void*)pixel, inverse(*cam->vt));
 
     // Create the ray: origin is the camera, direction is the normed vector from the camera to the pixel
     origin = point(0, 0, 0);
-    set_transform(POINT, (void*)origin, inverse(*cam->vt));
+    transform((void*)origin, inverse(*cam->vt));
     direction = sub_tuple(*pixel, *origin);
     r = ray(origin, norm(direction));
     free(pixel);

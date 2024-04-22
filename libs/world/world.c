@@ -27,37 +27,37 @@ t_world *default_world( void )
         return NULL;
     }
     m = material(color(0.8, 1.0, 0.6), 0.1, 0.7, 0.2, 200.0);
-    set_material(s1, m);
-    add_sphere_to_world(w, s1);
+    set_material(&s1->shape, m);
+    set_shape(w, (t_shape *)s1);
     t_sphere *s2 = sphere();
     if (!s2)
     {
         free_world(&w);
         return NULL;
     }
-    set_transform(SPHERE, (void *)s2,  scaling(0.5, 0.5, 0.5));
-    add_sphere_to_world(w, s2);
+    transform((void *)s2,  scaling(0.5, 0.5, 0.5));
+    set_shape(w, (t_shape *)s2);
     return w;
 }
 
-void add_sphere_to_world(t_world *w, t_sphere *s)
+void set_shape(t_world *w, t_shape *new_shape)
 {
-    t_sphere *ptr;
+    t_shape *w_shapes;
 
-    if (!w || !s)
+    if (!w || !new_shape)
     {
-        printf("Error: add_sphere_to_world: NULL parameter.\n");
+        printf("Error: set_shape: NULL parameter.\n");
         return;
     }
-    if (!w->spheres)
+    if (!w->shapes)
     {
-        w->spheres = s;
+        w->shapes = new_shape;
         return;
     }
-    ptr = w->spheres;
-    while (ptr->next)
-        ptr = ptr->next;
-    ptr->next = s;
+    w_shapes = w->shapes;
+    while (w_shapes->next)
+        w_shapes = w_shapes->next;
+    w_shapes->next = new_shape;
 }
 
 void free_world(t_world **w)
@@ -66,19 +66,12 @@ void free_world(t_world **w)
 
     ptr = *w;
     free_point_light(&(ptr->light));
-    free_sphere(&(ptr->spheres));
+    free_shape(ptr->shapes);
     free(ptr);
     ptr = NULL;
     *w = NULL;
 }
 
-t_intersection *intersect_world(const t_world w, const t_ray r)
-{
-    t_intersection *xs;
-
-    xs = multiple_i_ray_sphere(w.spheres, r);
-    return xs;
-}
 
 
 t_comps *prepare_computations(const t_intersection i, const t_ray r)
@@ -94,7 +87,7 @@ t_comps *prepare_computations(const t_intersection i, const t_ray r)
     }
     comps->t = i.t;
     comps->object = i.object;
-    comps->object_ptr = i.object_ptr;
+    comps->object_ptr = (t_shape *)i.object_ptr;
     comps->point = position(r, comps->t);
     comps->eyev = tuplecpy((const t_tuple)(*r.di));
     neg_tuple(comps->eyev);
@@ -114,26 +107,6 @@ t_comps *prepare_computations(const t_intersection i, const t_ray r)
     return comps;
 }
 
-void print_comps(t_comps *comps)
-{
-    printf("t: %f\n", comps->t);
-    printf("object: %d\n", comps->object);
-    printf("object_ptr: %p\n", comps->object_ptr);
-    if (comps->object == SPHERE)
-    {
-        printf("sphere: ");
-        print_sphere((t_sphere *)comps->object_ptr);
-    }
-    printf("point: ");
-    print_tuple(comps->point);
-    printf("over_point: ");
-    print_tuple(comps->over_point);
-    printf("eyev: ");
-    print_tuple(comps->eyev);
-    printf("normalv: ");
-    print_tuple(comps->normalv);
-    printf("inside: %d\n", comps->inside);
-}
 
 void free_comps(t_comps **comps)
 {
@@ -150,20 +123,7 @@ void free_comps(t_comps **comps)
 }
 
 
-t_color *shade_hit(const t_world w, const t_comps comps)
-{
-    t_color *color;
-    t_material *material;
-    int shadowed;
-    
-    material = NULL;
-    if (comps.object == SPHERE)
-        material = ((t_sphere *)comps.object_ptr)->material;
-    
-    shadowed = is_shadowed(w, *comps.over_point);
-    color = lighting(*material, *w.light, *comps.over_point, *comps.eyev, *comps.normalv, shadowed);
-    return color;
-}
+
 
 
 void set_light(t_world *w, t_point_light *l)
@@ -177,47 +137,5 @@ void set_light(t_world *w, t_point_light *l)
     w->light = l;
 }
 
-t_color *color_at(const t_world w, const t_ray r)
-{
-    t_intersection *xs;
-    t_intersection *_hit;
-    t_comps *comps;
-    t_color *c;
 
-    xs = intersect_world(w, r);
-    _hit = hit(&xs);
-    if (!_hit)
-    {
-        free_intersections(&xs);
-        return black();
-    }
-    comps = prepare_computations(*_hit, r);
-    c = shade_hit(w, *comps);
-    free_comps(&comps);
-    free_intersections(&xs);
-    return c;
-}
 
-int is_shadowed(const t_world w, const t_tuple point)
-{
-    t_tuple *ray_direction;
-    t_ray *r;
-    t_intersection *xs;
-    t_intersection *_hit;
-    double distance;
-
-    ray_direction = sub_tuple((const t_tuple)*w.light->position, point);
-    distance = mag(*ray_direction);
-    r = ray(tuplecpy(point), norm(ray_direction));
-    xs = intersect_world(w, *r);
-    _hit = hit(&xs);
-    if (_hit && _hit->t < distance)
-    {
-        free_tuples(&ray_direction, NULL);
-        free_intersections(&xs);
-        return 1;
-    }
-    free_ray(&r);
-    free_intersections(&xs);
-    return 0;
-}

@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "light.h": "c",
+        "matrix.h": "c",
+        "intersection.h": "c"
+    }
+}

@@ -2,101 +2,52 @@
 
 t_sphere *sphere( void )
 {
-    t_sphere *s = NULL;
-    static int sp_id = 0;
+    t_sphere *sphere = NULL;
     
-    s = (t_sphere *)calloc(sizeof(t_sphere), 1);
-    if (!s)
-        return NULL;
-    s->o = point(0, 0, 0);
-    if (!s->o)
+    sphere = (t_sphere *)calloc(sizeof(t_sphere), 1);
+    if (!sphere)
     {
-        free(s);
+        printf("Error: sphere: calloc failed.\n");
         return NULL;
     }
-    s->radius = 1;
-    s->id = sp_id++;
-    s->tr = identity(4);
-    if (!s->tr)
+    shape(SPHERE, &(sphere->shape));
+    sphere->shape.local_intersect = intersect_sphere;
+    sphere->shape.local_free = free_sphere;
+    sphere->shape.local_print = print_sphere;
+    sphere->o = point(0, 0, 0);
+    if (!sphere->o)
     {
-        free(s->o);
-        free(s);
+        printf("Error: sphere: point failed.\n");
+        free(sphere);
         return NULL;
     }
-    s->material = default_material();
-    s->next = NULL;
-    s->tf.type = SPHERE;
-    s->tf.transform  = transform_sphere;
-    return s;
+    sphere->radius = 1;
+    return sphere;
 }
 
 
-void print_sphere( const t_sphere *s )
+void print_sphere( void *s )
 {
-    printf("Sphere %d\n", s->id);
+    const t_sphere *sphere;
+
+    sphere = (const t_sphere *)s;
+    printf("Sphere %d\n", sphere->shape.id);
     printf("Origin: ");
-    print_tuple((const t_tuple *)(s->o));
-    printf("Radius: %f\n", s->radius);
+    print_tuple((const t_tuple *)(sphere->o));
+    printf("Radius: %f\n", sphere->radius);
     printf("Transform:\n");
-    print_matrix((const t_matrix *)(s->tr));
+    print_matrix((const t_matrix *)(sphere->shape.tr));
     printf("Material:\n");
-    print_material((const t_material)*(s->material));
+    print_material((const t_material)*(sphere->shape.material));
 }
 
-void free_sphere(t_sphere **s)
+void free_sphere(void *s)
 {
-    t_sphere *ptr;
-    t_sphere *next;
+    t_sphere *sphere;
 
-    ptr = *s;
-    while (ptr != NULL)
-    {
-        next = ptr->next; 
-        free(ptr->o);
-        ptr->o = NULL;
-        free_matrix(&(ptr->tr));
-        free_material(&(ptr->material));
-        free(ptr);
-        ptr = next; 
-    }
-    *s = NULL;
-}
-void transform_sphere(void *sphere, t_matrix *transformation)
-{
-    t_sphere *s;
-
-    s = (t_sphere *)sphere;
-    if (s->tr)
-        free_matrix(&s->tr);
-    s->tr = transformation;
-}
-
-t_tuple *normal_at(const t_sphere s, const t_tuple world_point)
-{
-    t_tuple *object_point;
-    t_tuple *normal;
-    t_matrix *t;
-
-    object_point = tuplecpy(world_point);
-    set_transform(POINT, object_point, inverse(*s.tr));
-    normal = sub_tuple((const t_tuple)(*object_point), (const t_tuple)(*s.o));
-    free(object_point);
-    if (!normal)
-    {
-        printf("Error: normal_at: operation failed.\n");
-        return NULL;
-    }
-    t = inverse(*s.tr);
-    transpose(&t);
-    transform_tuple(normal, t);
-    normal->w = 0;
-    norm(normal);
-    return normal;
-}
-
-void set_material(t_sphere *s, t_material *m)
-{
-    if (s->material)
-        free_material(&(s->material));
-    s->material = m;
+    sphere = (t_sphere *)s;
+    if (!sphere)
+        return ;
+    free(sphere->o);
+    free(sphere);
 }

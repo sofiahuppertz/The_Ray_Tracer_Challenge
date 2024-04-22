@@ -2,19 +2,20 @@
 # define WORLD_H
 
 #include "../light/light.h"
-#include "../intersection/intersection.h"
+#include "../sphere/sphere.h"
+#include "../shape/shape.h"
 
 typedef struct s_world 
 {
     t_point_light *light;
-    t_sphere *spheres;
+    t_shape *shapes;
 } t_world;
 
 typedef struct s_comps
 {
     double t;
     t_elem object;
-    void *object_ptr;
+    t_shape *object_ptr;
     t_tuple *point;
     t_tuple *eyev;
     t_tuple *normalv;
@@ -28,7 +29,7 @@ t_world *empty_world( void );
 t_comps *prepare_computations(const t_intersection i, const t_ray r);
 
 // Setters -ish
-void add_sphere_to_world(t_world *w, t_sphere *s);
+void set_shape(t_world *w, t_shape *new_shape);
 void set_light(t_world *w, t_point_light *l);
 
 // Other functions

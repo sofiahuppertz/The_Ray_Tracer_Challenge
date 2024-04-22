@@ -18,10 +18,13 @@ typedef enum e_element
 {
     POINT,
     VECTOR,
+    IDK,
     RAY,
-    SPHERE,
     CAMERA,
-    IDK
+    SHAPE,
+    SPHERE,
+    PLANE,
+    CYLINDER
 } t_elem;
 
 typedef struct s_matrix {
@@ -80,6 +83,6 @@ t_matrix *chain_tfs(t_matrix *initial, ...);
 int equal(const double a, const double b);
 
 //Apply transformation to other objects
-void set_transform(t_elem type, void *elem, t_matrix *transformation);
+void transform(void *elem, t_matrix *transformation);
 
 #endif

@@ -40,8 +40,8 @@ void transform_ray(void *ray, t_matrix *transformation)
         printf("Error: transform_ray: matrixcpy failed: couldn't tranform ray.\n");
         return;
     }
-    set_transform(POINT, (void *)r->o, transformation);
-    set_transform(VECTOR, (void *)r->di, t_copy);
+    transform((void *)r->o, transformation);
+    transform((void *)r->di, t_copy);
 }
 
 

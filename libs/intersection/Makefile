@@ -1,7 +1,6 @@
 NAME = intersection.a
 
 SRC = intersection.c \
-	sphere_intersection.c \
 
 OBJ = $(SRC:.c=.o)
 

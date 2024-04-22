@@ -138,14 +138,13 @@ t_matrix *chain_tfs(t_matrix* initial, ...)
 }
 
 
-void set_transform(t_elem type, void *elem, t_matrix *transformation)
+void transform(void *elem, t_matrix *transformation)
 {
     t_tf *tf;
 
-    (void)type;
     if (!elem || !transformation)
     {
-        printf("Error: set_transform: couldn't perform transformation: null arguments.\n");
+        printf("Error: transform: couldn't perform transformation: null arguments.\n");
         free_matrix(&transformation);
         return;
     }

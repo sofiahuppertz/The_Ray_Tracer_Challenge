@@ -6,6 +6,7 @@ SUBDIRS = camera \
 		intersection \
 		light \
 		matrix \
+		plane \
 		ray \
 		shape \
 		sphere \

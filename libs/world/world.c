@@ -91,8 +91,7 @@ t_comps *prepare_computations(const t_intersection i, const t_ray r)
     comps->point = position(r, comps->t);
     comps->eyev = tuplecpy((const t_tuple)(*r.di));
     neg_tuple(comps->eyev);
-    if (comps->object == SPHERE)
-        comps->normalv = normal_at((t_shape *)i.object_ptr, *comps->point);
+    comps->normalv = normal_at((t_shape *)i.object_ptr, *comps->point);
     if (dot(*comps->normalv, *comps->eyev) < 0)
     {
         comps->inside = 1;

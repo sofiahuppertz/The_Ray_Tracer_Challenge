@@ -2,6 +2,7 @@
     "files.associations": {
         "light.h": "c",
         "matrix.h": "c",
-        "intersection.h": "c"
+        "intersection.h": "c",
+        "plane.h": "c"
     }
 }

@@ -31,7 +31,6 @@ t_intersection *intersect(const t_shape *shape, const t_ray ray, t_elem type)
         return NULL;
     }
     // call local_intersect
-    //shape->local_print((void *)shape);
     shape->local_intersect((void *)shape, *transformed_ray, &xs);
     free_ray(&transformed_ray);
     return xs;
@@ -53,4 +52,36 @@ t_intersection *intersect_shapes(t_shape *shapes, const t_ray ray)
         curr_shape = curr_shape->next;
     }
     return final_xs;
+}
+
+
+t_tuple *normal_at(t_shape *shape, const t_tuple world_point)
+{
+    t_tuple *normal;
+    t_tuple *object_point;
+    t_matrix *tr;
+
+    if (!shape)
+    {
+        printf("Error: normal_at: NULL pointer.\n");
+        return NULL;
+    }
+    // transform world_point to object_point
+    object_point = tuplecpy(world_point);
+    transform((void *)object_point, inverse(*shape->tr));
+    if (shape->tf.type == SHAPE)
+    {
+        printf("Error: normal_at: abstract type.\n");
+        return NULL;
+    }
+    // call local_normal_at
+    normal = NULL;
+    shape->local_normal_at((void *)shape, *object_point, &normal);
+    if (!normal)
+        return NULL;
+    //transform normal by inverse of the transpose and normalize
+    tr = inverse(*shape->tr);
+    transform_tuple(normal, transpose(&tr));
+    normal->w = 0;
+    return norm(normal);
 }

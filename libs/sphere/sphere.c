@@ -12,6 +12,7 @@ t_sphere *sphere( void )
     }
     shape(SPHERE, &(sphere->shape));
     sphere->shape.local_intersect = intersect_sphere;
+    sphere->shape.local_normal_at = sphere_normal_at;
     sphere->shape.local_free = free_sphere;
     sphere->shape.local_print = print_sphere;
     sphere->o = point(0, 0, 0);

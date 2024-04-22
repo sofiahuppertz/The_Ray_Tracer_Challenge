@@ -1,7 +1,6 @@
 #ifndef SPHERE_H
 # define SPHERE_H
 
-#include "../tuple/tuple.h"
 #include "../shape/shape.h"
 
 #include "stdlib.h"
@@ -20,7 +19,7 @@ void print_sphere(void *s);
 
 
 // Methods
-t_tuple *normal_at(const t_sphere s, const t_tuple world_point);
+void sphere_normal_at(void *s, const t_tuple object_point, t_tuple **normal);
 void intersect_sphere(void *s, const t_ray transformed_ray, t_intersection **xs);
 
 

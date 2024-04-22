@@ -1,4 +1,4 @@
-#include "mlx_helpers.h"
+#include "canvas.h"
 
 void	draw_pixel(t_data *data, int x, int y, const t_color *color)
 {

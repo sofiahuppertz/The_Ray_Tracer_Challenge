@@ -1,5 +1,5 @@
-#ifndef MLX_HELPERS_H
-# define MLX_HELPERS_H
+#ifndef CANVAS_H
+# define CANVAS_H
 
 
 #include "../../minilibx/mlx.h"
@@ -7,10 +7,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-
-#define CANVAS_PIXELS 100
-
 
 typedef struct	s_data {
 	void	*img;

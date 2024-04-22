@@ -1,26 +1,16 @@
 #include "sphere.h"
 
-t_tuple *normal_at(const t_sphere s, const t_tuple world_point)
+void sphere_normal_at(void *s, const t_tuple object_point, t_tuple **normal)
 {
-    t_tuple *object_point;
-    t_tuple *normal;
-    t_matrix *t;
+    t_sphere *sphere;
 
-    object_point = tuplecpy(world_point);
-    transform( object_point, inverse(*s.shape.tr));
-    normal = sub_tuple((const t_tuple)(*object_point), (const t_tuple)(*s.o));
-    free(object_point);
-    if (!normal)
+    sphere = (t_sphere *)s;
+    *normal = sub_tuple(object_point, *sphere->o);
+    if (!*normal)
     {
-        printf("Error: normal_at: operation failed.\n");
-        return NULL;
+        printf("Error: sphere_normal_at: operation failed.\n");
+        *normal = NULL;
     }
-    t = inverse(*s.shape.tr);
-    transpose(&t);
-    transform_tuple(normal, t);
-    normal->w = 0;
-    norm(normal);
-    return normal;
 }
 
 

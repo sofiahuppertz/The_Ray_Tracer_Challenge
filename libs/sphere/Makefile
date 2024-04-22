@@ -5,7 +5,6 @@ SRC = sphere.c \
 
 OBJ = $(SRC:.c=.o)
 
-TUPLE_DIR = ../tuple
 SHAPE_DIR = ../shape
 
 
@@ -14,11 +13,8 @@ SHAPE_DIR = ../shape
 %.o: %.c
 	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(TUPLE_DIR)/tuple.a $(SHAPE_DIR)/shape.a
+$(NAME): $(OBJ) $(SHAPE_DIR)/shape.a
 	ar rcs $(NAME) $(OBJ)
-
-$(TUPLE_DIR)/tuple.a:
-	$(MAKE) -C $(TUPLE_DIR)
 
 $(SHAPE_DIR)/shape.a:
 	$(MAKE) -C $(SHAPE_DIR)
@@ -32,7 +28,6 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(TUPLE_DIR) clean
 	$(MAKE) -C $(SHAPE_DIR) clean
 
 .PHONY: clean re fclean all

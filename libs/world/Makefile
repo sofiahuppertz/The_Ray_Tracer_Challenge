@@ -15,14 +15,11 @@ SPHERE_DIR = ../sphere
 %.o: %.c
 	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(LIGHT_DIR)/light.a  $(SHAPE_DIR)/shape.a $(SPHERE_DIR)/sphere.a
+$(NAME): $(OBJ) $(LIGHT_DIR)/light.a $(SPHERE_DIR)/sphere.a
 	ar rcs $(NAME) $(OBJ)
 
 $(LIGHT_DIR)/light.a:
 	$(MAKE) -C $(LIGHT_DIR)
-
-$(SHAPE_DIR)/shape.a:
-	$(MAKE) -C $(SHAPE_DIR)
 
 $(SPHERE_DIR)/sphere.a:
 	$(MAKE) -C $(SPHERE_DIR)
@@ -36,7 +33,6 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(SHAPE_DIR) fclean
 	$(MAKE) -C $(SPHERE_DIR) fclean
 	$(MAKE) -C $(LIGHT_DIR) fclean
 

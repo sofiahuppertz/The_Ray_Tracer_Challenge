@@ -3,7 +3,6 @@
 
 #include "../light/light.h"
 #include "../sphere/sphere.h"
-#include "../shape/shape.h"
 
 typedef struct s_world 
 {

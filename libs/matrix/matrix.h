@@ -51,7 +51,7 @@ double degrees_to_radians(double degrees);
 
 
 // Matrix operations that change the matrix
-void transpose(t_matrix **m);
+t_matrix *transpose(t_matrix **m);
 
 
 // Matrix operations that return a new matrix

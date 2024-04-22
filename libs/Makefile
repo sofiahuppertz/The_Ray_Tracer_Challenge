@@ -1,11 +1,11 @@
 NAME = librt.a
 
 SUBDIRS = camera \
+		canvas \
 		color \
 		intersection \
 		light \
 		matrix \
-		mlx_helpers \
 		ray \
 		shape \
 		sphere \

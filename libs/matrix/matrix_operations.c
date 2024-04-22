@@ -61,7 +61,7 @@ t_matrix *mult_matrices(const t_matrix a, const t_matrix b)
     return result;
 }
 
-void transpose(t_matrix **m)
+t_matrix *transpose(t_matrix **m)
 {
     t_matrix *before;
     t_matrix *after;
@@ -74,7 +74,7 @@ void transpose(t_matrix **m)
     {
         free(*m);
         printf("Error: transpose: memory allocation failed.\n");
-        return;
+        return NULL;
     }
     i = 0;
     while (i < before->rows)
@@ -89,6 +89,8 @@ void transpose(t_matrix **m)
     }
     free_matrix(m);
     *m = after;
+    return *m;
+
 }
 
 double determinant(const t_matrix m)

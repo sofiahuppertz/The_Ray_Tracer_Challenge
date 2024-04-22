@@ -4,9 +4,8 @@ SRC = camera.c \
 
 OBJ = $(SRC:.c=.o)
 
-RAY_DIR = ../ray
-MATRIX_DIR = ../matrix
-MLX_HELPERS_DIR = ../mlx_helpers
+
+CANVAS_DIR = ../canvas
 WORLD_DIR = ../world
 
 .SECONDARY: $(OBJ)
@@ -14,18 +13,11 @@ WORLD_DIR = ../world
 %.o: %.c
 	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(RAY_DIR)/ray.a $(MATRIX_DIR)/matrix.a $(MLX_HELPERS_DIR)/mlx_helpers.a $(WORLD_DIR)/world.a
+$(NAME): $(OBJ) $(CANVAS_DIR)/canvas.a $(WORLD_DIR)/world.a
 	ar rcs $(NAME) $(OBJ)
 
-
-$(RAY_DIR)/ray.a:
-	$(MAKE) -C $(RAY_DIR)
-
-$(MATRIX_DIR)/matrix.a:
-	$(MAKE) -C $(MATRIX_DIR)
-
-$(MLX_HELPERS_DIR)/mlx_helpers.a:
-	$(MAKE) -C $(MLX_HELPERS_DIR)
+$(CANVAS_DIR)/canvas.a:
+	$(MAKE) -C $(CANVAS_DIR)
 
 $(WORLD_DIR)/world.a:
 	$(MAKE) -C $(WORLD_DIR)
@@ -39,6 +31,7 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(RAY_DIR) fclean
+	$(MAKE) -C $(CANVAS_DIR) fclean
+	$(MAKE) -C $(WORLD_DIR) fclean
 
 .PHONY: clean re fclean all

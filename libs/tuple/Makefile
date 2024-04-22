@@ -27,5 +27,6 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
+	$(MAKE) -C $(MATRIX_DIR) fclean
 
 .PHONY: clean re fclean all

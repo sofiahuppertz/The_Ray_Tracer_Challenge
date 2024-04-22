@@ -3,7 +3,6 @@
 
 #include <stdarg.h>
 
-#include "../tuple/tuple.h"
 #include "../ray/ray.h"
 
 
@@ -18,16 +17,15 @@ typedef struct s_intersection
 
 // Constructors
 t_intersection *intersection(const double t, const t_elem object, void *object_ptr);
-t_intersection *intersections(t_intersection *initial, ...);
 t_intersection *merge_sorted(t_intersection **first, t_intersection **next);
-
+t_intersection *intersections(t_intersection *initial, ...);
 
 // Methods
 t_intersection *hit(t_intersection **xs);
 int count_intersections(t_intersection *xs);
 void print_intersections(const t_intersection *i);
 
-// ???
+// For test purposes
 t_tuple *position_at(const double t, const t_ray r);
 
 // Destructors

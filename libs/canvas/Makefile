@@ -1,6 +1,6 @@
-NAME = mlx_helpers.a
+NAME = canvas.a
 
-SRC = mlx_helpers.c \
+SRC = canvas.c \
 
 OBJ = $(SRC:.c=.o)
 

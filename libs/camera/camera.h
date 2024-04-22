@@ -1,9 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "../matrix/matrix.h"
-#include "../ray/ray.h"
-#include "../mlx_helpers/mlx_helpers.h"
+#include "../canvas/canvas.h"
 #include "../world/world.h"
 
 typedef struct s_camera

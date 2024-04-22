@@ -64,8 +64,6 @@ int main(void)
 	free_camera(&cam);
 	free_world(&w);
 	free(canvas);
-
-
 }
 
 

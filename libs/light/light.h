@@ -3,6 +3,7 @@
 
 #include "../tuple/tuple.h"
 #include "../color/color.h"
+#include "../pattern/pattern.h"
 
 typedef struct s_point_light 
 {
@@ -13,6 +14,7 @@ typedef struct s_point_light
 
 typedef struct s_material
 {
+    t_pattern *pattern;
     t_color *color;
     double ambient;
     double diffuse;
@@ -32,12 +34,22 @@ void print_point_light(const t_point_light light);
 
 
 // Material
+
+// Constructor
 t_material *default_material(void);
 t_material *material(t_color *color, double ambient, double diffuse, double specular, double shininess);
 t_material *materialcpy(const t_material material);
-void set_material_color(t_material *material, t_color *color);
-void free_material(t_material **material);
+
+// Methods
 void print_material(const t_material material);
+
+// Setters
+void set_color(t_material *material, t_color *color);
+void set_pattern(t_material *material, t_pattern *pattern);
+void remove_pattern(t_material *material);
+
+// Destructor
+void free_material(t_material **material);
 
 
 #endif

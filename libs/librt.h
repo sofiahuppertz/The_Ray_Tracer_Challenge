@@ -7,6 +7,7 @@
 #include "intersection/intersection.h"
 #include "light/light.h"
 #include "matrix/matrix.h"
+#include "pattern/pattern.h"
 #include "plane/plane.h"
 #include "ray/ray.h"
 #include "shape/shape.h"

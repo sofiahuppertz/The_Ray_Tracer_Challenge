@@ -1,8 +1,7 @@
-NAME = light.a
+NAME = pattern.a
 
-SRC = light.c \
-	phong_reflection_model.c \
-	material.c \
+SRC = pattern.c \
+	pattern_methods.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -10,14 +9,12 @@ TUPLE_DIR = ../tuple
 
 COLOR_DIR = ../color
 
-PATTERN_DIR = ../pattern
-
 .SECONDARY: $(OBJ)
 
 %.o: %.c
 	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(TUPLE_DIR)/tuple.a $(COLOR_DIR)/color.a $(PATTERN_DIR)/pattern.a
+$(NAME): $(OBJ) $(TUPLE_DIR)/tuple.a $(COLOR_DIR)/color.a
 	ar rcs $(NAME) $(OBJ)
 
 
@@ -26,9 +23,6 @@ $(TUPLE_DIR)/tuple.a:
 
 $(COLOR_DIR)/color.a:
 	$(MAKE) -C $(COLOR_DIR)
-
-$(PATTERN_DIR)/pattern.a:
-	$(MAKE) -C $(PATTERN_DIR)
 	
 all: $(NAME)
 

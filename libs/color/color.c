@@ -50,7 +50,7 @@ t_color *add_colors(t_color *initial, ...)
     return result;
 }
 
-t_color *sub_color(t_color c1, t_color c2)
+t_color *sub_color(const t_color c1, const t_color c2)
 {
     t_color *diff;
 
@@ -61,7 +61,7 @@ t_color *sub_color(t_color c1, t_color c2)
     return diff;
 }
 
-t_color *scalar_color(t_color c1, double scalar)
+t_color *scalar_color(const t_color c1, double scalar)
 { 
     t_color *product;
 
@@ -72,7 +72,7 @@ t_color *scalar_color(t_color c1, double scalar)
     return product;
 }
 
-t_color *shur_product(t_color c1, t_color c2)
+t_color *shur_product(const t_color c1, const t_color c2)
 {
     t_color *product;
     
@@ -85,12 +85,12 @@ t_color *shur_product(t_color c1, t_color c2)
     return product;
 }
 
-void print_color(t_color c)
+void print_color(const t_color c)
 {
     printf("(%f, %f, %f)\n", c.r, c.g, c.b);
 }
 
-t_color *colorcpy(t_color c)
+t_color *colorcpy(const t_color c)
 {
     t_color *cpy;
     

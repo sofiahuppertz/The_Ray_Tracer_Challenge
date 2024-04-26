@@ -55,10 +55,6 @@ void free_canvas(t_canvas *canvas)
 		{
 			mlx_destroy_window(canvas->mlx, canvas->mlx_win);
 		}
-		if (canvas->mlx)
-		{
-			free(canvas->mlx);
-		}
 		free(canvas);
 	}
 }

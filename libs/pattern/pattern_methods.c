@@ -18,6 +18,15 @@ t_pattern *patterncpy(t_pattern p)
 
 }
 
+void add_pattern(t_pattern **list, t_pattern *pattern)
+{
+    t_pattern *curr;
+
+    curr = *list;
+    while (curr->next)
+        curr = curr->next;
+    curr->next = pattern;
+}
 
 void print_pattern(const t_pattern pattern)
 {

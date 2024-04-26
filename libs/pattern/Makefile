@@ -3,6 +3,10 @@ NAME = pattern.a
 SRC = pattern.c \
 	pattern_methods.c \
 	stripe.c \
+	gradient.c \
+	ring.c \
+	checker.c \
+	solid.c \
 
 OBJ = $(SRC:.c=.o)
 

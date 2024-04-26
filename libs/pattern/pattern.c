@@ -16,6 +16,8 @@ t_pattern *abstract_pattern(t_color *a, t_color *b)
     pattern->tf.type = PATTERN;
     pattern->tf.transform = set_pattern_tr;
     pattern->tr = identity(4);
+    pattern->local_pattern = NULL;
+    pattern->next = NULL;
     return pattern;
 
 }
@@ -28,16 +30,25 @@ void pattern(t_color *a, t_color *b, t_pattern *pattern)
     pattern->tf.transform = set_pattern_tr;
     pattern->tr = identity(4);
     pattern->local_pattern = NULL;
+    pattern->next = NULL;
 }
 
 void free_pattern(t_pattern **p)
 {
-    if (!p || !*p)
-        return;
-    free((*p)->a);
-    free((*p)->b);
-    free_matrix(&(*p)->tr);
-    free(*p);
+    t_pattern *curr;
+    t_pattern *next;
+
+    curr = *p;
+    while (curr)
+    {
+        next = curr->next;
+        free(curr->a);
+        if (curr->b)
+            free(curr->b);
+        free_matrix(&curr->tr);
+        free(curr);
+        curr = next;
+    }
     *p = NULL;
 }
 

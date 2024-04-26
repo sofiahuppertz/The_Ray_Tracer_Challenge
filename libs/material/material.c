@@ -10,26 +10,19 @@ t_material *default_material( void )
         printf("Error: default_material: unable to allocate memory.\n");
         return (NULL);
     }
-    material->color = color(1, 1, 1);
-    if (!material->color)
-    {
-        printf("Error: default_material: unable to allocate memory.\n");
-        free(material);
-        return (NULL);
-    }
     material->ambient = 0.1;
     material->diffuse = 0.9;
     material->specular = 0.9;
     material->shininess = 200.0;
-    material->pattern = NULL;
+    material->pattern = solid(black());
     return material;
 }
 
-t_material *material(t_color *color, double ambient, double diffuse, double specular, double shininess)
+t_material *material(t_pattern *pat, double ambient, double diffuse, double specular, double shininess)
 {
     t_material *material;
 
-    if (!color)
+    if (!pat)
     {
         printf("Error: material: NULL parameter.\n");
         return (NULL);
@@ -40,12 +33,11 @@ t_material *material(t_color *color, double ambient, double diffuse, double spec
         printf("Error: material: unable to allocate memory.\n");
         return (NULL);
     }
-    material->color = color;
     material->ambient = ambient;
     material->diffuse = diffuse;
     material->specular = specular;
     material->shininess = shininess;
-    material->pattern = NULL;
+    material->pattern = pat;
     return material;
 }
 
@@ -59,14 +51,6 @@ t_material *materialcpy(const t_material material)
         printf("Error: materialcpy: unable to allocate memory.\n");
         return (NULL);
     }
-    cpy->color = colorcpy(*material.color);
-    if (!cpy->color)
-    {
-        printf("Error: materialcpy: failed.\n");
-        free(cpy);
-        return (NULL);
-    }
-    cpy->pattern = NULL;
     if (material.pattern)
     {
         cpy->pattern = patterncpy(*material.pattern);
@@ -86,8 +70,6 @@ t_material *materialcpy(const t_material material)
 
 void print_material(const t_material material)
 {
-    printf("Color: ");
-    print_color(*material.color);
     if (material.pattern)
         print_pattern(*material.pattern);
     printf("Ambient: %f\n", material.ambient);
@@ -96,16 +78,16 @@ void print_material(const t_material material)
     printf("Shininess: %f\n", material.shininess);
 }
 
-void set_color(t_material *material, t_color *color)
-{
-    if (!material || !color)
-    {
-        printf("Error: set_color: NULL parameter.\n");
-        return;
-    }
-    free(material->color);
-    material->color = color;
-}
+//void set_color(t_material *material, t_color *color)
+//{
+//    if (!material || !color)
+//    {
+//        printf("Error: set_color: NULL parameter.\n");
+//        return;
+//    }
+//    free(material->color);
+//    material->color = color;
+//}
 
 void set_pattern(t_material *material, t_pattern *pattern)
 {
@@ -134,7 +116,6 @@ void free_material(t_material **material)
 {
     if (!material || !*material)
         return;
-    free((*material)->color);
     if ((*material)->pattern)
         free_pattern(&(*material)->pattern);
     free(*material);

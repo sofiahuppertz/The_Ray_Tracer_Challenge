@@ -9,11 +9,9 @@ t_color *lighting(const t_material material, const t_shape object, const t_point
     t_tuple *reflectv = NULL;
     double factors[3];
 
-    if (material.pattern)
-        color = pattern_at_object(material.pattern, object, position);
-    else
-        color = material.color;    
+    color = pattern_at_object(material.pattern, object, position);  
     effective_color = shur_product(*color, *(light.intensity));
+    free(color);
     lightv = norm(sub_tuple(*light.position, position));
     contributions[0] = scalar_color(*effective_color, material.ambient);
     if (in_shadow)

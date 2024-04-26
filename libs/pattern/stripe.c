@@ -20,7 +20,7 @@ t_color *stripe_at(void *pattern, const t_tuple point)
     
     stripe = (t_pattern *)pattern;
     if ((int)floor(point.x) % 2 == 0)
-        return stripe->a;
-    return stripe->b;
+        return colorcpy(*stripe->a);
+    return colorcpy(*stripe->b);
 }
 

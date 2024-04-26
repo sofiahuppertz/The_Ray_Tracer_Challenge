@@ -6,6 +6,7 @@
 #include "color/color.h"
 #include "intersection/intersection.h"
 #include "light/light.h"
+#include "material/material.h"
 #include "matrix/matrix.h"
 #include "pattern/pattern.h"
 #include "plane/plane.h"

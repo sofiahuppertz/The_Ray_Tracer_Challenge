@@ -1,29 +1,33 @@
 #include "pattern.h"
 
-t_pattern *stripe_pattern(t_color *a, t_color *b)
+t_pattern *abstract_pattern(t_color *a, t_color *b)
 {
-    t_pattern *p = calloc(1, sizeof(t_pattern));
-    if (!p)
+    t_pattern *pattern;
+    
+    pattern = NULL;
+    pattern = calloc(1, sizeof(t_pattern));
+    if (!pattern)
     {
         printf("Error: stripe_pattern : calloc failed.\n");
         return NULL; 
     }
-    p->a = a;
-    p->b = b;
-    return p;
+    pattern->a = a;
+    pattern->b = b;
+    pattern->tf.type = PATTERN;
+    pattern->tf.transform = set_pattern_tr;
+    pattern->tr = identity(4);
+    return pattern;
+
 }
 
-t_pattern *patterncpy(const t_pattern pattern)
+void pattern(t_color *a, t_color *b, t_pattern *pattern)
 {
-    t_pattern *p = calloc(1, sizeof(t_pattern));
-    if (!p)
-    {
-        printf("Error: patterncpy : calloc failed.\n");
-        return NULL; 
-    }
-    p->a = colorcpy(*pattern.a);
-    p->b = colorcpy(*pattern.b);
-    return p;
+    pattern->a = a;
+    pattern->b = b;
+    pattern->tf.type = PATTERN;
+    pattern->tf.transform = set_pattern_tr;
+    pattern->tr = identity(4);
+    pattern->local_pattern = NULL;
 }
 
 void free_pattern(t_pattern **p)
@@ -32,6 +36,8 @@ void free_pattern(t_pattern **p)
         return;
     free((*p)->a);
     free((*p)->b);
+    free_matrix(&(*p)->tr);
     free(*p);
     *p = NULL;
 }
+

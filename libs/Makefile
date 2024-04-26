@@ -5,6 +5,7 @@ SUBDIRS = camera \
 		color \
 		intersection \
 		light \
+		material \
 		matrix \
 		pattern \
 		plane \

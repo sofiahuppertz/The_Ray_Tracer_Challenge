@@ -2,6 +2,7 @@ NAME = pattern.a
 
 SRC = pattern.c \
 	pattern_methods.c \
+	stripe.c \
 
 OBJ = $(SRC:.c=.o)
 

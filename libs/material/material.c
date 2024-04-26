@@ -1,4 +1,4 @@
-#include "light.h"
+#include "material.h"
 
 t_material *default_material( void )
 {
@@ -68,7 +68,15 @@ t_material *materialcpy(const t_material material)
     }
     cpy->pattern = NULL;
     if (material.pattern)
+    {
         cpy->pattern = patterncpy(*material.pattern);
+        if (!cpy->pattern)
+        {
+            printf("Error: materialcpy: patterncpy failed.\n");
+            free_material(&cpy);
+            return (NULL);
+        }
+    }
     cpy->ambient = material.ambient;
     cpy->diffuse = material.diffuse;
     cpy->specular = material.specular;
@@ -79,7 +87,9 @@ t_material *materialcpy(const t_material material)
 void print_material(const t_material material)
 {
     printf("Color: ");
-    print_color((const t_color)(*material.color));
+    print_color(*material.color);
+    if (material.pattern)
+        print_pattern(*material.pattern);
     printf("Ambient: %f\n", material.ambient);
     printf("Diffuse: %f\n", material.diffuse);
     printf("Specular: %f\n", material.specular);

@@ -21,6 +21,7 @@ typedef enum e_element
     IDK,
     RAY,
     CAMERA,
+    PATTERN,
     SHAPE,
     SPHERE,
     PLANE,

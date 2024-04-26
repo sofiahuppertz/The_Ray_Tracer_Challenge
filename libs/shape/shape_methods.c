@@ -8,7 +8,8 @@ void print_shapes(t_shape *shapes)
     curr_shape = shapes;
     while (curr_shape)
     {
-        curr_shape->local_print((void *)curr_shape);
+        if (curr_shape->local_print)
+            curr_shape->local_print((void *)curr_shape);
         curr_shape = curr_shape->next;
     }
 }
@@ -81,7 +82,40 @@ t_tuple *normal_at(t_shape *shape, const t_tuple world_point)
         return NULL;
     //transform normal by inverse of the transpose and normalize
     tr = inverse(*shape->tr);
-    transform_tuple(normal, transpose(&tr));
+    transform((void *)normal, transpose(&tr));
     normal->w = 0;
     return norm(normal);
+}
+
+t_color *stripe_at_object(const t_pattern *pattern, const t_shape object, const t_tuple world_point)
+{
+    //check if the pattern has twice the same color and return just the first color in that case... (or if pattern is abstract)
+    // check if pattern is abstract before calling pattern function...
+    t_tuple *object_point;
+    t_color *res;
+
+
+    if (!pattern)
+    {
+        printf("Error: stripe_at_object : null ptr");
+        return NULL;
+    }
+    object_point = tuplecpy(world_point);
+    if (! object_point)
+    {
+        printf("Error: stripe_at_object: tuplecpy failed.\n");
+        return NULL;
+    
+    }
+    if (!object.tr)
+    {
+        printf("Error: stripe_at_object: NULL transform.\n");
+        return NULL;
+    }
+    // TODO: implement with chain transformations
+    transform((void *)object_point, inverse(*object.tr));
+    transform((void *)object_point, inverse(*pattern->tr));
+    res = pattern->local_pattern((void *)pattern, *object_point);
+    free(object_point);
+    return res;
 }

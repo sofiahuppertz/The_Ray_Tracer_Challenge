@@ -60,6 +60,7 @@ void shape( t_elem type , t_shape *shape)
     shape->next = NULL;
 }
 
+
 void set_transform(void *s, t_matrix *transformation)
 {
     t_shape *shape;

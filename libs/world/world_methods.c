@@ -34,7 +34,7 @@ t_color *shade_hit(const t_world w, const t_comps comps)
     material = NULL;
     material = ((t_shape *)(comps.object_ptr))->material;
     shadowed = is_shadowed(w, *comps.over_point);
-    color = lighting(*material, *w.light, *comps.over_point, *comps.eyev, *comps.normalv, shadowed);
+    color = lighting(*material, *comps.object_ptr, *w.light, *comps.over_point, *comps.eyev, *comps.normalv, shadowed);
     return color;
 }
 

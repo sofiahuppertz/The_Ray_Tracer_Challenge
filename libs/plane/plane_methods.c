@@ -23,3 +23,9 @@ void intersect_plane(void *p, const t_ray transformed_ray, t_intersection **xs)
     t = -transformed_ray.o->y / transformed_ray.di->y;
     *xs = intersection(t, PLANE, (void *)plane);
 }
+
+void print_plane(void *p)
+{
+    (void)p;
+    printf("Plane\n");
+}

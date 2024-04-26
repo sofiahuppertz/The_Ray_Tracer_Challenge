@@ -1,11 +1,10 @@
-NAME = light.a
+NAME = material.a
 
-SRC = light.c \
-	phong_reflection_model.c \
+SRC = material.c \
 
 OBJ = $(SRC:.c=.o)
 
-SHAPE_DIR = ../shape
+PATTERN_DIR = ../pattern
 
 
 .SECONDARY: $(OBJ)
@@ -13,14 +12,12 @@ SHAPE_DIR = ../shape
 %.o: %.c
 	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(SHAPE_DIR)/shape.a
+$(NAME): $(OBJ) $(PATTERN_DIR)/pattern.a
 	ar rcs $(NAME) $(OBJ)
 
+$(PATTERN_DIR)/pattern.a:
+	$(MAKE) -C $(PATTERN_DIR)
 
-$(SHAPE_DIR)/shape.a:
-	$(MAKE) -C $(SHAPE_DIR)
-
-	
 all: $(NAME)
 
 re : fclean all
@@ -30,6 +27,6 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(SHAPE_DIR) fclean
+	$(MAKE) -C $(PATTERN_DIR) fclean
 
 .PHONY: clean re fclean all

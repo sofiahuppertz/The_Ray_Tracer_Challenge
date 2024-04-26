@@ -6,7 +6,7 @@ SRC = shape.c \
 OBJ = $(SRC:.c=.o)
 
 
-LIGHT_DIR = ../light
+PATTERN_DIR = ../pattern
 MATRIX_DIR = ../matrix
 
 
@@ -15,12 +15,12 @@ MATRIX_DIR = ../matrix
 %.o: %.c
 	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(LIGHT_DIR)/light.a $(MATRIX_DIR)/matrix.a
+$(NAME): $(OBJ) $(PATTERN_DIR)/pattern.a $(MATRIX_DIR)/matrix.a
 	ar rcs $(NAME) $(OBJ)
 
 
-$(LIGHT_DIR)/light.a:
-	$(MAKE) -C $(LIGHT_DIR)
+$(PATTERN_DIR)/pattern.a:
+	$(MAKE) -C $(PATTERN_DIR)
 
 $(MATRIX_DIR)/matrix.a:
 	$(MAKE) -C $(MATRIX_DIR)
@@ -36,6 +36,6 @@ fclean: clean
 clean:
 	rm -f $(OBJ)
 	$(MAKE) -C $(MATRIX_DIR) fclean
-	$(MAKE) -C $(LIGHT_DIR) fclean
+	$(MAKE) -C $(PATTERN_DIR) fclean
 
 .PHONY: clean re fclean all

@@ -1,6 +1,6 @@
 #include "light.h"
 
-t_color *lighting(const t_material material, const t_point_light light, const t_tuple position, const t_tuple eyev, const t_tuple normalv, int in_shadow)
+t_color *lighting(const t_material material, const t_shape object, const t_point_light light, const t_tuple position, const t_tuple eyev, const t_tuple normalv, int in_shadow)
 {
     t_color *color;
     t_color *effective_color;
@@ -10,10 +10,9 @@ t_color *lighting(const t_material material, const t_point_light light, const t_
     double factors[3];
 
     if (material.pattern)
-        color = stripe_at(material.pattern, position);
+        color = stripe_at_object(material.pattern, object, position);
     else
-        color = material.color;
-        
+        color = material.color;    
     effective_color = shur_product(*color, *(light.intensity));
     lightv = norm(sub_tuple(*light.position, position));
     contributions[0] = scalar_color(*effective_color, material.ambient);

@@ -3,6 +3,8 @@
         "light.h": "c",
         "matrix.h": "c",
         "intersection.h": "c",
-        "plane.h": "c"
+        "plane.h": "c",
+        "pattern.h": "c",
+        "material.h": "c"
     }
 }

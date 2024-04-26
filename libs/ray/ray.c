@@ -78,15 +78,17 @@ t_tuple *position(const t_ray r, const double t)
 
 void free_ray(t_ray **r)
 {
-    if ((*r)->o) {
-        free((void *)(*r)->o);
+    if ((*r)->o)
+    {
+        free((*r)->o);
         (*r)->o = NULL;
     }
-    if ((*r)->di) {
-        free((void *)(*r)->di);
+    if ((*r)->di) 
+    {
+        free((*r)->di);
         (*r)->di = NULL;
     }
-    free((void *)*r);
+    free(*r);
     *r = NULL;
 }
 

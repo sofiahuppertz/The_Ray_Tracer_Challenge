@@ -2,8 +2,8 @@
 # define SHAPE_H
 
 #include "../matrix/matrix.h"
-#include "../light/light.h"
 #include "../intersection/intersection.h"
+#include "../material/material.h"
 
 
 typedef void (*t_local_intersect)(void *shape, t_ray ray, t_intersection **xs_ptr);
@@ -38,10 +38,12 @@ t_intersection *intersect(const t_shape *shape, const t_ray ray, t_elem type);
 t_intersection *intersect_shapes(t_shape *shapes, const t_ray ray);
 t_tuple *normal_at(t_shape *shape, const t_tuple world_point);
 void print_shapes(t_shape *shapes);
+t_color *stripe_at_object(const t_pattern *pattern, const t_shape object, const t_tuple point);
 
 
 // Destructors
 void free_shape(t_shape *s);
+
 
 
 #endif

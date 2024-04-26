@@ -13,7 +13,7 @@ t_plane *plane(void);
 
 void plane_normal_at(void *p, const t_tuple object_point, t_tuple **normal);
 void intersect_plane(void *p, const t_ray transformed_ray, t_intersection **xs);
-
+void print_plane(void *s);
 void free_plane(void *p);
 
 #endif

@@ -5,6 +5,8 @@
         "intersection.h": "c",
         "plane.h": "c",
         "pattern.h": "c",
-        "material.h": "c"
+        "material.h": "c",
+        "__locale": "c",
+        "optional": "c"
     }
 }

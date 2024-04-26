@@ -85,6 +85,15 @@ t_color *shur_product(const t_color c1, const t_color c2)
     return product;
 }
 
+t_color *average_colors(const t_color c1, const t_color c2)
+{
+    t_color *average;
+
+    average = color((c1.r + c2.r) / 2, (c1.g + c2.g) / 2, (c1.b + c2.b) / 2);
+    return average;
+
+}
+
 void print_color(const t_color c)
 {
     printf("(%f, %f, %f)\n", c.r, c.g, c.b);

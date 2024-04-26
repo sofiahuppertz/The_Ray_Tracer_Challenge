@@ -7,6 +7,7 @@ SRC = pattern.c \
 	ring.c \
 	checker.c \
 	solid.c \
+	blended.c \
 
 OBJ = $(SRC:.c=.o)
 

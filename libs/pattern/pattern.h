@@ -52,5 +52,7 @@ t_color *checker_at(void *pattern, const t_tuple point);
 // Solid
 t_pattern *solid(t_color *a);
 t_color *solid_at(void *pattern, const t_tuple point);
+t_pattern *blended(t_pattern *patterns);
+t_color *blended_at(void *pattern, const t_tuple point);
 
 # endif

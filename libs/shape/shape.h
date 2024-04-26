@@ -38,7 +38,7 @@ t_intersection *intersect(const t_shape *shape, const t_ray ray, t_elem type);
 t_intersection *intersect_shapes(t_shape *shapes, const t_ray ray);
 t_tuple *normal_at(t_shape *shape, const t_tuple world_point);
 void print_shapes(t_shape *shapes);
-t_color *stripe_at_object(const t_pattern *pattern, const t_shape object, const t_tuple point);
+t_color *pattern_at_object(const t_pattern *pattern, const t_shape object, const t_tuple point);
 
 
 // Destructors

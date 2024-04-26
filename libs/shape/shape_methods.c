@@ -56,10 +56,9 @@ t_intersection *intersect_shapes(t_shape *shapes, const t_ray ray)
 }
 
 
-t_tuple *normal_at(t_shape *shape, const t_tuple world_point)
+t_tuple *normal_at(t_shape *shape, const t_tuple point)
 {
     t_tuple *normal;
-    t_tuple *object_point;
     t_matrix *tr;
 
     if (!shape)
@@ -67,9 +66,8 @@ t_tuple *normal_at(t_shape *shape, const t_tuple world_point)
         printf("Error: normal_at: NULL pointer.\n");
         return NULL;
     }
-    // transform world_point to object_point
-    object_point = tuplecpy(world_point);
-    transform((void *)object_point, inverse(*shape->tr));
+    //transform point to object space
+    transform((void *)&point, inverse(*shape->tr));
     if (shape->tf.type == SHAPE)
     {
         printf("Error: normal_at: abstract type.\n");
@@ -77,7 +75,7 @@ t_tuple *normal_at(t_shape *shape, const t_tuple world_point)
     }
     // call local_normal_at
     normal = NULL;
-    shape->local_normal_at((void *)shape, *object_point, &normal);
+    shape->local_normal_at((void *)shape, point, &normal);
     if (!normal)
         return NULL;
     //transform normal by inverse of the transpose and normalize
@@ -87,35 +85,21 @@ t_tuple *normal_at(t_shape *shape, const t_tuple world_point)
     return norm(normal);
 }
 
-t_color *stripe_at_object(const t_pattern *pattern, const t_shape object, const t_tuple world_point)
+t_color *pattern_at_object(const t_pattern *pattern, const t_shape object, const t_tuple point)
 {
-    //check if the pattern has twice the same color and return just the first color in that case... (or if pattern is abstract)
-    // check if pattern is abstract before calling pattern function...
-    t_tuple *object_point;
     t_color *res;
 
-
-    if (!pattern)
+    if (!pattern || !pattern->local_pattern)
     {
-        printf("Error: stripe_at_object : null ptr");
+        printf("Error: pattern_at_object : null ptr");
         return NULL;
-    }
-    object_point = tuplecpy(world_point);
-    if (! object_point)
-    {
-        printf("Error: stripe_at_object: tuplecpy failed.\n");
-        return NULL;
-    
     }
     if (!object.tr)
     {
-        printf("Error: stripe_at_object: NULL transform.\n");
+        printf("Error: pattern_at_object: NULL transform.\n");
         return NULL;
     }
-    // TODO: implement with chain transformations
-    transform((void *)object_point, inverse(*object.tr));
-    transform((void *)object_point, inverse(*pattern->tr));
-    res = pattern->local_pattern((void *)pattern, *object_point);
-    free(object_point);
+    transform((void *)&point, chain_tfs(inverse(*object.tr), inverse(*pattern->tr), NULL));
+    res = pattern->local_pattern((void *)pattern, point);
     return res;
 }

@@ -32,5 +32,6 @@ typedef struct s_coordinates {
 void	draw_pixel(t_data *data, int x, int y, const t_color *color);
 t_canvas *canvas(int width, int height);
 void display_image(t_canvas *canvas);
+void free_canvas(t_canvas *canvas);
 
 #endif

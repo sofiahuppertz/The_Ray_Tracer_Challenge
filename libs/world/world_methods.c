@@ -53,7 +53,7 @@ int is_shadowed(const t_world w, const t_tuple point)
     _hit = hit(&xs);
     if (_hit && _hit->t < distance)
     {
-        free_tuples(&ray_direction, NULL);
+        free_ray(&r);
         free_intersections(&xs);
         return 1;
     }

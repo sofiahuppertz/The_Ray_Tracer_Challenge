@@ -6,8 +6,8 @@
 
 typedef struct s_ray {
     t_tf tf;
-    const t_tuple *o;
-    const t_tuple *di;
+    t_tuple *o;
+    t_tuple *di;
 } t_ray;
 
 t_ray *ray(t_tuple *origin, t_tuple *direction);

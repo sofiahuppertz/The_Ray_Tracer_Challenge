@@ -42,3 +42,23 @@ void display_image(t_canvas *canvas)
 	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img.img, 0, 0);
 	mlx_loop(canvas->mlx);
 }
+
+void free_canvas(t_canvas *canvas)
+{
+	if (canvas)
+	{
+		if (canvas->img.img)
+		{
+			mlx_destroy_image(canvas->mlx, canvas->img.img);
+		}
+		if (canvas->mlx_win)
+		{
+			mlx_destroy_window(canvas->mlx, canvas->mlx_win);
+		}
+		if (canvas->mlx)
+		{
+			free(canvas->mlx);
+		}
+		free(canvas);
+	}
+}

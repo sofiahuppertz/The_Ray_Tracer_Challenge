@@ -48,7 +48,7 @@ int main(void)
 	set_material(&left->shape, m4);
 
 	t_point_light *light = point_light(color(1, 1, 1), point(-10, 8, -10));
-	t_camera *cam = camera(100, 50, PI/3);
+	t_camera *cam = camera(10, 5, PI/3);
 	transform( (void*)cam, view_transformation(point(-1.5, 1.5, -4.5), point(0, 1, 0), vector(0, 1, 0)));
 	t_world *w = empty_world();
 	set_light(w, light);
@@ -59,9 +59,9 @@ int main(void)
 	set_shape(w,  &left->shape);
 
 	t_canvas *canvas = render(cam, w);
-	display_image(canvas);
+	//display_image(canvas);
 
 	free_camera(&cam);
 	free_world(&w);
-	free(canvas);
+	free_canvas(canvas);
 }

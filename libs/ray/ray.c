@@ -81,7 +81,7 @@ void free_ray(t_ray **r)
     if ((*r)->o)
     {
         free((*r)->o);
-        (*r)->o = NULL;
+
     }
     if ((*r)->di) 
     {

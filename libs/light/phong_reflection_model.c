@@ -10,7 +10,7 @@ t_color *lighting(const t_material material, const t_shape object, const t_point
     double factors[3];
 
     if (material.pattern)
-        color = stripe_at_object(material.pattern, object, position);
+        color = pattern_at_object(material.pattern, object, position);
     else
         color = material.color;    
     effective_color = shur_product(*color, *(light.intensity));

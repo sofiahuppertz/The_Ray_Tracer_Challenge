@@ -25,17 +25,19 @@ t_intersection *intersect_world(const t_world w, const t_ray r)
 }
 
 
-t_color *shade_hit(const t_world w, const t_comps comps)
+t_color *shade_hit(const t_world w, const t_comps comps, int remaining)
 {
-    t_color *color;
+    t_color *surface;
+    t_color *reflected;
     t_material *material;
     int shadowed;
     
     material = NULL;
     material = ((t_shape *)(comps.object_ptr))->material;
     shadowed = is_shadowed(w, *comps.over_point);
-    color = lighting(*material, *comps.object_ptr, *w.light, *comps.over_point, *comps.eyev, *comps.normalv, shadowed);
-    return color;
+    surface = lighting(*material, *comps.object_ptr, *w.light, *comps.over_point, *comps.eyev, *comps.normalv, shadowed);
+    reflected = reflected_color(w, comps, remaining);
+    return add_colors(reflected, surface, NULL);
 }
 
 int is_shadowed(const t_world w, const t_tuple point)
@@ -62,7 +64,7 @@ int is_shadowed(const t_world w, const t_tuple point)
     return 0;
 }
 
-t_color *color_at(const t_world w, const t_ray r)
+t_color *color_at(const t_world w, const t_ray r, int remaining)
 {
     t_intersection *xs;
     t_intersection *_hit;
@@ -77,8 +79,28 @@ t_color *color_at(const t_world w, const t_ray r)
         return black();
     }
     comps = prepare_computations(*_hit, r);
-    c = shade_hit(w, *comps);
+    c = shade_hit(w, *comps, remaining);
     free_comps(&comps);
     free_intersections(&xs);
     return c;
+}
+
+
+t_color *reflected_color(const t_world w, const t_comps comps, int remaining)
+{
+    t_color *color;
+    t_color *reflected_color;
+    t_ray *reflected_ray;
+    t_material *m_ptr;
+
+    m_ptr = comps.object_ptr->material;
+    if (!m_ptr->reflective || remaining <= 0)
+        return black();
+    reflected_ray = ray(tuplecpy(*comps.over_point), tuplecpy(*comps.reflectv));
+    color = color_at(w, *reflected_ray, remaining - 1);
+    reflected_color = scalar_color(*color, m_ptr->reflective);
+    free_ray(&reflected_ray);
+    free(color);
+    return reflected_color;
+
 }

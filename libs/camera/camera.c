@@ -146,7 +146,7 @@ t_canvas *render(t_camera *cam, t_world *w)
         while (coord.x < cam->hsize - 1)
         {
             ray = ray_for_pixel(cam, (double)coord.x, (double)coord.y);
-            color = color_at(*w, *ray);
+            color = color_at(*w, *ray, 5);
             draw_pixel(&_canvas->img, (int)coord.x, (int)coord.y, color);
             coord.x++;
             free_ray(&ray);

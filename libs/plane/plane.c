@@ -13,6 +13,7 @@ t_plane *plane( void )
     shape( PLANE , &(plane->shape));
     plane->shape.local_intersect = intersect_plane;
     plane->shape.local_normal_at = plane_normal_at;;
+    plane->shape.local_print = print_plane;
     plane->shape.local_free = free_plane;
     return (plane);
 }

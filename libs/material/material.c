@@ -14,6 +14,7 @@ t_material *default_material( void )
     material->diffuse = 0.9;
     material->specular = 0.9;
     material->shininess = 200.0;
+    material->reflective = 0.0;
     material->pattern = solid(black());
     return material;
 }
@@ -37,6 +38,7 @@ t_material *material(t_pattern *pat, double ambient, double diffuse, double spec
     material->diffuse = diffuse;
     material->specular = specular;
     material->shininess = shininess;
+    material->reflective = 0.0;
     material->pattern = pat;
     return material;
 }

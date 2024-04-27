@@ -11,6 +11,7 @@ t_world *empty_world( void )
     return w;
 }
 
+
 t_world *default_world( void )
 {
     t_world *w;
@@ -28,15 +29,16 @@ t_world *default_world( void )
     }
     m = material(solid(color(0.8, 1.0, 0.6)), 0.1, 0.7, 0.2, 200.0);
     set_material(&s1->shape, m);
-    set_shape(w, (t_shape *)s1);
     t_sphere *s2 = sphere();
     if (!s2)
     {
         free_world(&w);
         return NULL;
     }
-    transform((void *)s2,  scaling(0.5, 0.5, 0.5));
-    set_shape(w, (t_shape *)s2);
+    transform((void *)&s2->shape,  scaling(0.5, 0.5, 0.5));
+
+    set_shape(w, (t_shape *)&s1->shape);
+    set_shape(w, (t_shape *)&s2->shape);
     return w;
 }
 
@@ -103,6 +105,7 @@ t_comps *prepare_computations(const t_intersection i, const t_ray r)
     scalar_tuple(normalv_cpy, EPSILON);
     comps->over_point = add_tuple(*comps->point, *normalv_cpy);
     free(normalv_cpy);
+    comps->reflectv = reflection(*r.di, *comps->normalv);
     return comps;
 }
 
@@ -116,6 +119,7 @@ void free_comps(t_comps **comps)
     free(ptr->eyev);
     free(ptr->normalv);
     free(ptr->over_point);
+    free(ptr->reflectv);
     free(ptr);
     ptr = NULL;
     *comps = NULL;

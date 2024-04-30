@@ -22,6 +22,8 @@ typedef struct s_shape
     t_local_free local_free;
     t_local_print local_print;
     struct s_shape *next;
+    struct s_shape *container_next;
+    int can_cast_shadow;
 } t_shape;
 
 

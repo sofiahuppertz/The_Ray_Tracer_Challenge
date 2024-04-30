@@ -8,7 +8,8 @@ void plane_normal_at(void *p, const t_tuple object_point, t_tuple **normal)
         return;
     *normal = vector(0, 1, 0);
 }
-void intersect_plane(void *p, const t_ray transformed_ray, t_intersection **xs)
+
+void intersect_plane(void *p, const t_ray transformed_ray, t_intersection **xs_list)
 {
     t_plane *plane;
     double t;
@@ -17,15 +18,22 @@ void intersect_plane(void *p, const t_ray transformed_ray, t_intersection **xs)
 
     if (fabs(transformed_ray.di->y) < EPSILON)
     {
-        *xs = NULL;
+        *xs_list = NULL;
         return;
     }
     t = -transformed_ray.o->y / transformed_ray.di->y;
-    *xs = intersection(t, PLANE, (void *)plane);
+    *xs_list = xs(t, PLANE, (void *)plane);
 }
 
 void print_plane(void *p)
 {
-    (void)p;
-    printf("Plane\n");
+    t_plane *_plane;
+
+    _plane = (t_plane *)p;
+
+    printf("Plane: ");
+    print_material(*_plane->shape.material);
+    printf("Transform:\n");
+    print_matrix((void *)_plane->shape.tr);
+
 }

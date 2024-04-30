@@ -12,7 +12,8 @@ t_shape *abstract_shape( void )
         printf("Error: shape: calloc failed.\n");
         return NULL;
     }
-    shape->id = id++;
+    shape->id = id;
+    id++;
     shape->tf.type = SHAPE;
     shape->tf.transform = set_transform;
     shape->material = default_material();
@@ -33,6 +34,8 @@ t_shape *abstract_shape( void )
         }
     }
     shape->next = NULL;
+    shape->container_next = NULL;
+    shape->can_cast_shadow = 1;
     return shape;
 }
 
@@ -58,6 +61,8 @@ void shape( t_elem type , t_shape *shape)
         return;
     }
     shape->next = NULL;
+    shape->container_next = NULL;
+    shape->can_cast_shadow = 1;
 }
 
 

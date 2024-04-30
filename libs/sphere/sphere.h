@@ -14,6 +14,7 @@ typedef struct s_sphere {
 
 // Constructors destructors
 t_sphere *sphere( void );
+t_sphere *glass_sphere( void );
 void free_sphere(void *s);
 void print_sphere(void *s);
 

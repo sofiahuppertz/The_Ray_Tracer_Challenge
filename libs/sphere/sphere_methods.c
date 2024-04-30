@@ -29,7 +29,7 @@ static double calculate_discriminant(double *a, double *b, double *c, const t_ra
 }
 
 
-void intersect_sphere(void *s, const t_ray transformed_ray, t_intersection **xs)
+void intersect_sphere(void *s, const t_ray transformed_ray, t_intersection **xs_list)
 {
     t_sphere *sphere;
     double a;
@@ -37,18 +37,17 @@ void intersect_sphere(void *s, const t_ray transformed_ray, t_intersection **xs)
     double c;
     double d;
 
-    if (!xs )
+    if (!xs_list )
     {
-        printf("Error: intersect_sphere: xs has no adress.\n");
+        printf("Error: intersect_sphere: xs_list has no adress.\n");
         return;
     }
     sphere = (t_sphere *)s;
     d = calculate_discriminant(&a, &b, &c, transformed_ray, (*sphere->o));
     if (d > 0)
     {
-        *xs = intersections(intersection((-b - sqrt(d)) / (2 * a), SPHERE, (void *)sphere), 
-            intersection((-b + sqrt(d)) / (2 * a), SPHERE, (void *)sphere), NULL);
-        if (!*xs)
+        *xs_list = intersections(xs((-b - sqrt(d)) / (2 * a), SPHERE, (void *)sphere), xs((-b + sqrt(d)) / (2 * a), SPHERE, (void *)sphere), NULL);
+        if (!*xs_list)
             printf("Error: something went wrong with intersect_sphere.\n");
     }
 }

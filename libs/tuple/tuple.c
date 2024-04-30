@@ -88,30 +88,32 @@ t_tuple *sub_tuple(const t_tuple a, const t_tuple b)
     return diff;
 }
 
-void neg_tuple(t_tuple *neg)
+t_tuple *neg_tuple(t_tuple *neg)
 {
     if (!neg)
     {
         printf("Error: neg_tuple: null pointer.\n");
-        return;
+        return NULL;
     }
     neg->x = -neg->x;
     neg->y = -neg->y;
     neg->z = -neg->z;
     neg->w = -neg->w;
+    return neg;
 }
 
-void scalar_tuple(t_tuple *a, const double scalar)
+t_tuple *scalar_tuple(t_tuple *a, const double scalar)
 {
     if (!a)
     {
         printf("Error: scalar_tuple: null pointer.\n");
-        return;
+        return NULL;
     }
     a->x *= scalar;
     a->y *= scalar;
     a->z *= scalar;
     a->w *= scalar;
+    return a;
 }
 
 double mag(const t_tuple a)

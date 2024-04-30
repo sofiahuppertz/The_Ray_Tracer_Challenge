@@ -10,12 +10,14 @@ t_material *default_material( void )
         printf("Error: default_material: unable to allocate memory.\n");
         return (NULL);
     }
-    material->ambient = 0.1;
-    material->diffuse = 0.9;
-    material->specular = 0.9;
-    material->shininess = 200.0;
-    material->reflective = 0.0;
-    material->pattern = solid(black());
+    set_ambient(material, 0.1);
+    set_diffuse(material, 0.9);
+    set_specular(material, 0.9);
+    set_shininess(material, 200.0);
+    set_reflective(material, 0.0);
+    set_refrac_index(material, Air);
+    set_pattern(material, solid(white()));
+
     return material;
 }
 
@@ -34,12 +36,14 @@ t_material *material(t_pattern *pat, double ambient, double diffuse, double spec
         printf("Error: material: unable to allocate memory.\n");
         return (NULL);
     }
-    material->ambient = ambient;
-    material->diffuse = diffuse;
-    material->specular = specular;
-    material->shininess = shininess;
-    material->reflective = 0.0;
-    material->pattern = pat;
+    set_ambient(material, ambient);
+    set_diffuse(material, diffuse);
+    set_specular(material, specular);
+    set_shininess(material, shininess);
+    set_reflective(material, 0.0);
+    set_transparency(material, 0.0);
+    set_refrac_index(material, 1.0);
+    set_pattern(material, pat);
     return material;
 }
 
@@ -63,10 +67,13 @@ t_material *materialcpy(const t_material material)
             return (NULL);
         }
     }
-    cpy->ambient = material.ambient;
-    cpy->diffuse = material.diffuse;
-    cpy->specular = material.specular;
-    cpy->shininess = material.shininess;
+    set_ambient(cpy, material.ambient);
+    set_diffuse(cpy, material.diffuse);
+    set_specular(cpy, material.specular);
+    set_shininess(cpy, material.shininess);
+    set_reflective(cpy, material.reflective);
+    set_transparency(cpy, material.transparency);
+    set_refrac_index(cpy, material.refrac_index);
     return cpy;
 }
 

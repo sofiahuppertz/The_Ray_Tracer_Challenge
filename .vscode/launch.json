@@ -2,12 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug test",
-            "type": "lldb",
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/test", 
+            "program": "${workspaceFolder}/test",
             "args": [],
-            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
         }
     ]
 }

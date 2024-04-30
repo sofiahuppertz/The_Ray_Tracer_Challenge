@@ -1,7 +1,7 @@
 #include "intersection.h"
 
 
-t_intersection *intersection(const double t, const t_elem object, void *object_ptr)
+t_intersection *xs(const double t, const t_elem object, void *object_ptr)
 {
     t_intersection *i;
 
@@ -20,11 +20,11 @@ t_intersection *intersection(const double t, const t_elem object, void *object_p
 
 t_intersection *merge_sorted(t_intersection **first, t_intersection **next)
 {
+    t_intersection *result = NULL;
 
     if (*first == NULL) return *next;
     if (*next == NULL) return *first;
 
-    t_intersection *result = NULL;
 
     if ((*first)->t <= (*next)->t) 
     {
@@ -101,6 +101,7 @@ t_intersection *hit(t_intersection **xs)
     else
         return hit;
 }
+
 
 void print_intersections(const t_intersection *i)
 {

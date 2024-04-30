@@ -1,59 +1,151 @@
 #include "libs/librt.h"
 
+
 int main(void)
 {	
-
-
-	t_plane *floor;
-	t_plane *left_wall;
-	t_plane *right_wall;
-	t_sphere *middle;
-
-	floor = plane();
-	t_material *m = default_material();
-	m->reflective = 0.2;
-	set_material(&floor->shape, m);
-	transform((void *)floor, rotation_x(degrees_to_radians(2)));
-	set_pattern(m, checker(white(), black()));
-
-	left_wall = plane();
-	transform((void *)left_wall, chain_tfs(translation(0, 0, 10), rotation_y(degrees_to_radians(-45)), rotation_x(degrees_to_radians(90)), NULL));
-	t_material *m2 = default_material();
-	set_pattern(m2, checker(white(), black()));
-	set_material(&left_wall->shape, m2);
-
-
-	right_wall = plane();
-	transform((void *)right_wall, chain_tfs(translation(0, 0, 10), rotation_y(degrees_to_radians(45)), rotation_x(degrees_to_radians(90)),  NULL));
-	t_material *m3 = default_material();
-	set_pattern(m3, checker(white(), black()));
-	set_material(&right_wall->shape, m3);
-
-
-	middle = sphere();
-	transform((void *)middle, translation(-1, 1, 0));
-	t_material *m4 = default_material();
-	m4->diffuse = 0.7;
-	m4->reflective = 0.4;
-	set_pattern(m4, solid(color(1, 0, 0)));
-	set_material(&middle->shape, m4);
-
-	t_point_light *light = point_light(color(1, 1, 1), point(0, 5, -10));
-	t_camera *cam = camera(500, 250, PI/3);
-	transform( (void*)cam, view_transformation(point(-1, 1.5, -5), point(0, 1, 0), vector(0, 1, 0)));
-
 	t_world *w = empty_world();
+
+	t_point_light *light = point_light(white(), point(-5, 5, -5));
 	set_light(w, light);
-	set_shape(w, &floor->shape);
-	set_shape(w, &left_wall->shape);
-	set_shape(w, &right_wall->shape);
-	set_shape(w, &middle->shape);
+
+	t_plane *waterSurface = plane();
+	set_pattern(waterSurface->shape.material, solid(color(0.2, 0.6, 0.99)));
+	set_diffuse(waterSurface->shape.material, 0.3);
+	set_reflective(waterSurface->shape.material, 0.6);
+	set_transparency(waterSurface->shape.material, 0.7);
+	set_refrac_index(waterSurface->shape.material, 1.333);
+	waterSurface->shape.can_cast_shadow = 0;
+	set_shape(w, &waterSurface->shape);
+
+	//t_plane *waterBed = plane();
+	//set_pattern(waterBed->shape.material, solid(color(0.5, 0.25, 0.15)));
+	//set_diffuse(waterBed->shape.material, 0.9);
+	//set_reflective(waterBed->shape.material, 0.0);
+	//set_transparency(waterBed->shape.material, 0.5);
+	//set_specular(waterBed->shape.material, 0.0);
+	//set_refrac_index(waterBed->shape.material, 1.00029);
+	//transform(waterBed, translation(0, -5, 0));
+	//set_shape(w, &waterBed->shape);
+
+	t_sphere *_sphere = sphere();
+	transform(_sphere, chain_tfs(translation(1, 0, -2), scaling(1.5, 1.5, 1.5), NULL));
+	set_pattern(_sphere->shape.material, solid(white()));
+	_sphere->shape.material->diffuse= 0.9;
+    _sphere->shape.material->reflective = 0.5;
+    _sphere->shape.material->transparency = 0.0;
+    _sphere->shape.material->specular = 1.0;
+	_sphere->shape.can_cast_shadow = 0;
+    _sphere->shape.material->shininess = 300.0;
+	set_shape(w, &_sphere->shape);
+
+	t_sphere *_sphere2 = sphere();
+	transform(_sphere2, chain_tfs(scaling(1.5, 1.5, 1.5), translation(-3, -5, 1), NULL));
+	set_pattern(_sphere2->shape.material, solid(color(0.2, 0.1423, 0.5)));
+	_sphere2->shape.material->diffuse= 0.9;
+    _sphere2->shape.material->reflective = 0.5;
+    _sphere2->shape.material->transparency = 0.8;
+    _sphere2->shape.material->specular = 1.0;
+	_sphere2->shape.can_cast_shadow = 0;
+    _sphere2->shape.material->shininess = 300.0;
+	set_shape(w, &_sphere2->shape);
+
+	t_sphere *_sphere3 = sphere();
+	transform(_sphere3, chain_tfs(translation(-1, -1, 6), NULL));
+	set_pattern(_sphere3->shape.material, solid(color(0.337812, 0.552, 0.267)));
+	_sphere3->shape.material->diffuse= 0.9;
+    _sphere3->shape.material->reflective = 0.6;
+    _sphere3->shape.material->transparency = 0.8;
+    _sphere3->shape.material->specular = 1.0;
+	_sphere3->shape.can_cast_shadow = 0;
+    _sphere3->shape.material->shininess = 300.0;
+	set_shape(w, &_sphere3->shape);
+
+	t_sphere *_sphere4 = sphere();
+	transform(_sphere4, chain_tfs(translation(-3.5, -2, 5), scaling(1.2, 1.2, 1.2), NULL));
+	set_pattern(_sphere4->shape.material, solid(color(0.537812, 0.252, 0.367)));
+	_sphere4->shape.material->diffuse= 0.9;
+    _sphere4->shape.material->reflective = 0.6;
+    _sphere4->shape.material->transparency = 0.8;
+    _sphere4->shape.material->specular = 1.0;
+	_sphere4->shape.can_cast_shadow = 0;
+    _sphere4->shape.material->shininess = 300.0;
+	set_shape(w, &_sphere4->shape);
+
+	t_sphere *_sphere5 = sphere();
+	transform(_sphere5, chain_tfs(translation(-3.5, 0, 7), scaling(1.5, 1.5, 1.5), NULL));
+	set_pattern(_sphere5->shape.material, solid(color(0.3748, 0.3414, 0.567)));
+	_sphere5->shape.material->diffuse= 0.9;
+    _sphere5->shape.material->reflective = 0.6;
+    _sphere5->shape.material->transparency = 0.0;
+    _sphere5->shape.material->specular = 1.0;
+	_sphere5->shape.can_cast_shadow = 0;
+    _sphere5->shape.material->shininess = 200.0;
+	set_shape(w, &_sphere5->shape);
+
+	t_sphere *_sphere6 = sphere();
+	transform(_sphere6, chain_tfs(scaling(1.5, 1.5, 1.5), translation(3, -5, 0), NULL));
+	set_pattern(_sphere6->shape.material, solid(color(0.537812, 0.252, 0.367)));
+	_sphere6->shape.material->diffuse= 0.9;
+    _sphere6->shape.material->reflective = 0.5;
+    _sphere6->shape.material->transparency = 0.8;
+    _sphere6->shape.material->specular = 1.0;
+	_sphere6->shape.can_cast_shadow = 0;
+    _sphere6->shape.material->shininess = 300.0;
+	set_shape(w, &_sphere6->shape);
+
+
+	t_sphere *_sphere7 = sphere();
+	transform(_sphere7, chain_tfs(scaling(1.1, 1.1, 1.1), translation(4, -1, 7), NULL));
+	set_pattern(_sphere7->shape.material, solid(white()));
+	_sphere7->shape.material->diffuse= 0.9;
+    _sphere7->shape.material->reflective = 0.5;
+    _sphere7->shape.material->transparency = 0.8;
+    _sphere7->shape.material->specular = 1.0;
+	_sphere7->shape.can_cast_shadow = 0;
+    _sphere7->shape.material->shininess = 300.0;
+	set_shape(w, &_sphere7->shape);
+
+	t_sphere *_sphere8 = sphere();
+	transform(_sphere8, chain_tfs(scaling(1.1, 1.1, 1.1), translation(3, -3, 4), NULL));
+	set_pattern(_sphere8->shape.material, solid(color(0.337812, 0.552, 0.267)));
+	_sphere8->shape.material->diffuse= 0.9;
+    _sphere8->shape.material->reflective = 0.5;
+    _sphere8->shape.material->transparency = 0.8;
+    _sphere8->shape.material->specular = 1.0;
+	_sphere8->shape.can_cast_shadow = 0;
+    _sphere8->shape.material->shininess = 300.0;
+	set_shape(w, &_sphere8->shape);
+
+	t_sphere *_phere9 = sphere();
+	transform(_phere9, chain_tfs(scaling(1.1, 1.1, 1.1), translation(-3, -8, 4), NULL));
+	set_pattern(_phere9->shape.material, solid(color(0.337812, 0.552, 0.267)));
+	_phere9->shape.material->diffuse= 0.9;
+    _phere9->shape.material->reflective = 0.5;
+    _phere9->shape.material->transparency = 0.8;
+    _phere9->shape.material->specular = 1.0;
+	_phere9->shape.can_cast_shadow = 0;
+    _phere9->shape.material->shininess = 300.0;
+	set_shape(w, &_phere9->shape);
+
+
+	t_sphere *_sphere10 = sphere();
+	transform(_sphere10, chain_tfs(scaling(2, 2, 2), translation(-5, -5, -3), NULL));
+	set_pattern(_sphere10->shape.material, solid(color(0.537812, 0.252, 0.367)));
+	_sphere10->shape.material->diffuse= 0.9;
+    _sphere10->shape.material->reflective = 0.5;
+    _sphere10->shape.material->transparency = 0.8;
+    _sphere10->shape.material->specular = 1.0;
+	_sphere10->shape.can_cast_shadow = 0;
+    _sphere10->shape.material->shininess = 300.0;
+	set_shape(w, &_sphere10->shape);
+
+	t_camera *cam = camera(100, 80, PI / 3.0);
+	t_matrix *vt = view_transformation(point(0, 5, -10), point(0, -2, 4), vector(0, 1, 0));
+	transform(cam, vt);
+
 
 
 	t_canvas *canvas = render(cam, w);
 	display_image(canvas);
-
-	free_camera(&cam);
-	free_world(&w);
-	free_canvas(canvas);
+	
 }

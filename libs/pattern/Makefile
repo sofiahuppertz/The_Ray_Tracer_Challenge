@@ -8,6 +8,7 @@ SRC = pattern.c \
 	checker.c \
 	solid.c \
 	blended.c \
+	test_pattern.c \
 
 OBJ = $(SRC:.c=.o)
 

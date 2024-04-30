@@ -32,6 +32,9 @@ void add_pattern(t_pattern **list, t_pattern *pattern);
 // Destructor
 void free_pattern(t_pattern **p);
 
+// Test pattern
+t_pattern *test_pattern( void );
+t_color *test_pattern_at(void *pattern, const t_tuple point);
 
 // Stripe
 t_pattern *stripe(t_color *a, t_color *b);

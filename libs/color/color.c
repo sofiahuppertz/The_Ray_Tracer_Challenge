@@ -5,8 +5,14 @@ t_color *color(double r, double g, double b)
 {
     t_color *color = (t_color *)calloc(1, sizeof(t_color));
     color->r = r;
+    if (r >= 1)
+        color->r = 1;
     color->g = g;
+    if (g >= 1)
+        color->g = 1;
     color->b = b;
+    if (b >= 1)
+        color->b = 1;
     return color;
 }
 
@@ -41,8 +47,14 @@ t_color *add_colors(t_color *initial, ...)
         if (next_add == NULL)
             break;
         result->r += next_add->r;
+        if (result->r > 1)
+            result->r = 1;
         result->g += next_add->g;
+        if (result->g > 1)
+            result->g = 1;
         result->b += next_add->b;
+        if (result->b > 1)
+            result->b = 1;
         free(next_add);
     }
     va_end(args);

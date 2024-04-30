@@ -3,6 +3,7 @@ NAME = librt.a
 SUBDIRS = camera \
 		canvas \
 		color \
+		comps \
 		intersection \
 		light \
 		material \

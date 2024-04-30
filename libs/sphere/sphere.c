@@ -52,3 +52,19 @@ void free_sphere(void *s)
     free(sphere->o);
     free(sphere);
 }
+
+
+t_sphere *glass_sphere( void )
+{
+    t_sphere *s;
+
+    s = sphere();
+    if (!s)
+    {
+        printf("Error: glass_sphere: sphere failed.\n");
+        return NULL;
+    }
+    s->shape.material->transparency = 1.0;
+    s->shape.material->refrac_index = 1.5;
+    return s;
+}

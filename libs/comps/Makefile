@@ -1,11 +1,12 @@
-NAME = material.a
+NAME = comps.a
 
-SRC = material.c \
-	setters.c \
+SRC = comps.c \
+	comps_helpers.c \
 
 OBJ = $(SRC:.c=.o)
 
-PATTERN_DIR = ../pattern
+
+SHAPE_DIR = ../shape
 
 
 .SECONDARY: $(OBJ)
@@ -13,11 +14,12 @@ PATTERN_DIR = ../pattern
 %.o: %.c
 	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(PATTERN_DIR)/pattern.a
+$(NAME): $(OBJ) $(SHAPE_DIR)/shape.a
 	ar rcs $(NAME) $(OBJ)
 
-$(PATTERN_DIR)/pattern.a:
-	$(MAKE) -C $(PATTERN_DIR)
+$(SHAPE_DIR)/shape.a:
+	$(MAKE) -C $(SHAPE_DIR)
+
 
 all: $(NAME)
 
@@ -28,6 +30,6 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(PATTERN_DIR) fclean
+	$(MAKE) -C $(SHAPE_DIR) fclean
 
 .PHONY: clean re fclean all

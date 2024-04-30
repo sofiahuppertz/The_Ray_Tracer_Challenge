@@ -75,60 +75,6 @@ void free_world(t_world **w)
 }
 
 
-
-t_comps *prepare_computations(const t_intersection i, const t_ray r)
-{
-    t_comps *comps;
-    t_tuple *normalv_cpy;
-
-    comps = (t_comps *)calloc(sizeof(t_comps), 1);
-    if (!comps)
-    {
-        printf("Error: prepare_computations: calloc failed.\n");
-        return NULL;
-    }
-    comps->t = i.t;
-    comps->object = i.object;
-    comps->object_ptr = (t_shape *)i.object_ptr;
-    comps->point = position(r, comps->t);
-    comps->eyev = tuplecpy((const t_tuple)(*r.di));
-    neg_tuple(comps->eyev);
-    comps->normalv = normal_at((t_shape *)i.object_ptr, *comps->point);
-    if (dot(*comps->normalv, *comps->eyev) < 0)
-    {
-        comps->inside = 1;
-        neg_tuple(comps->normalv);
-    }
-    else
-        comps->inside = 0;
-    normalv_cpy = tuplecpy(*comps->normalv);
-    scalar_tuple(normalv_cpy, EPSILON);
-    comps->over_point = add_tuple(*comps->point, *normalv_cpy);
-    free(normalv_cpy);
-    comps->reflectv = reflection(*r.di, *comps->normalv);
-    return comps;
-}
-
-
-void free_comps(t_comps **comps)
-{
-    t_comps *ptr;
-
-    ptr = *comps;
-    free(ptr->point);
-    free(ptr->eyev);
-    free(ptr->normalv);
-    free(ptr->over_point);
-    free(ptr->reflectv);
-    free(ptr);
-    ptr = NULL;
-    *comps = NULL;
-}
-
-
-
-
-
 void set_light(t_world *w, t_point_light *l)
 {
     if (!w || !l)

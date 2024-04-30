@@ -24,8 +24,8 @@ t_tuple *cross(const t_tuple a, const t_tuple b);
 t_tuple *reflection(const t_tuple in, const t_tuple normal);
 
 // Operations that modify the tuple
-void neg_tuple(t_tuple *a);
-void scalar_tuple(t_tuple *a, const double scalar);
+t_tuple *neg_tuple(t_tuple *a);
+t_tuple *scalar_tuple(t_tuple *a, const double scalar);
 t_tuple *norm(t_tuple *a);
 void tupletype(t_tuple *a);
 

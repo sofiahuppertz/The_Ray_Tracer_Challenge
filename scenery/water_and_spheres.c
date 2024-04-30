@@ -10,9 +10,9 @@ int main(void)
 
 	t_plane *waterSurface = plane();
 	set_pattern(waterSurface->shape.material, solid(color(0.2, 0.6, 0.99)));
-	set_diffuse(waterSurface->shape.material, 0.3);
+	set_diffuse(waterSurface->shape.material, 0.1);
 	set_reflective(waterSurface->shape.material, 0.6);
-	set_transparency(waterSurface->shape.material, 0.7);
+	set_transparency(waterSurface->shape.material, 0.9);
 	set_refrac_index(waterSurface->shape.material, 1.333);
 	waterSurface->shape.can_cast_shadow = 0;
 	set_shape(w, &waterSurface->shape);

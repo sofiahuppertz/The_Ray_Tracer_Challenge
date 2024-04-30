@@ -5,6 +5,7 @@
 #include "canvas/canvas.h"
 #include "color/color.h"
 #include "comps/comps.h"
+#include "cylinder/cylinder.h"
 #include "intersection/intersection.h"
 #include "light/light.h"
 #include "material/material.h"

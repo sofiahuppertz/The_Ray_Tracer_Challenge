@@ -32,6 +32,10 @@ void print_sphere( void *s )
     const t_sphere *sphere;
 
     sphere = (const t_sphere *)s;
+    if (!sphere)
+    {
+        return;
+    }
     printf("Sphere %d\n", sphere->shape.id);
     printf("Origin: ");
     print_tuple((const t_tuple *)(sphere->o));

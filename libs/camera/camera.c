@@ -114,7 +114,7 @@ t_ray *ray_for_pixel(t_camera *cam, double pixel_x, double pixel_y)
     origin = point(0, 0, 0);
     transform((void*)origin, inverse(*cam->vt));
     direction = sub_tuple(*pixel, *origin);
-    r = ray(origin, norm(direction));
+    r = ray(origin, direction);
     free(pixel);
 
     return r;

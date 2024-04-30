@@ -12,7 +12,7 @@ static t_ray *find_refracted_ray(const t_comps comps, double n_ratio, double cos
     temp[1] = scalar_tuple(tuplecpy(*comps.eyev), n_ratio);
     direction = sub_tuple(*temp[0], *temp[1]);
     free_tuples(&temp[0], &temp[1], NULL);
-    refracted_ray = ray(tuplecpy(*comps.under_point), norm(direction));
+    refracted_ray = ray(tuplecpy(*comps.under_point), direction);
     return refracted_ray;
 }
 
@@ -29,7 +29,7 @@ static t_color *compute_refracted_color(const t_world w, t_shape *shape, t_ray *
 }   
 
         
-t_color refracted_color(const t_world w, const t_comps comps, int remaining)
+t_color *refracted_color(const t_world w, const t_comps comps, int remaining)
 {
     t_shape *shape;
     t_ray *refracted_ray;

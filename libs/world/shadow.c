@@ -32,7 +32,7 @@ int is_shadowed(const t_world w, const t_tuple point)
 
     ray_direction = sub_tuple((const t_tuple)*w.light->position, point);
     distance = mag(*ray_direction);
-    r = ray(tuplecpy(point), norm(ray_direction));
+    r = ray(tuplecpy(point), ray_direction);
     xs = intersect_world(w, *r);
     _hit = shadow_casting_hit(&xs);
     if (_hit && _hit->t < distance)

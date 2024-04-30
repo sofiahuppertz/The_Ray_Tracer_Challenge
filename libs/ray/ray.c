@@ -16,7 +16,7 @@ t_ray *ray(t_tuple *origin, t_tuple *direction)
     if (direction->w != 0.0)
         printf("Warning: ray direction is not a vector.\n");
     r->o = origin;
-    r->di = direction;
+    r->di = norm(direction);
     r->tf.type = RAY;
     r->tf.transform = transform_ray;
     return r;

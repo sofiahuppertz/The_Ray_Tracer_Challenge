@@ -18,6 +18,25 @@ t_plane *plane( void )
     return (plane);
 }
 
+t_matrix *find_rotation_matrix(const t_tuple normal)
+{
+    t_tuple *object_normal;
+    double dot_product;
+    double rotation_angle;
+    
+    object_normal = vector(0, 1, 0);
+    dot_product = dot(*object_normal, normal);
+    if (dot_product == 1)
+    {
+        free(object_normal);
+        return identity(4);
+    }
+    rotation_angle = acos(dot_product);
+    t_tuple *axis = cross(normal, *object_normal);
+    free(object_normal);
+    return rotation_matrix(rotation_angle, axis->x, axis->y, axis->z);
+}
+
 void free_plane(void *p)
 {
     t_plane *plane;

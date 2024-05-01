@@ -1,34 +1,17 @@
 #include "libs/librt.h"
 
-
 int main(void)
 {
-	t_cone *con;
+	t_scene *_scene;
 
-	con = cone();
-	set_bounds(&con->c, -0.5, 0.5);
-	set_closed(&con->c, 1);
+	_scene = scene();
+	make_camera(_scene, point(0, 0, -5), point(0, 0, 1), degrees_to_radians(40));
+	make_ambient_light(_scene, 0.2, color(1, 1, 1));
+	make_light(_scene, point(-5, 5, -5), 0.9, color(1, 1, 1));
+	make_plane(_scene, point(0, -1, 0), norm(vector(0, 1, 0)), color(1, 1, 1));
+	make_sphere(_scene, point(0, 0, 0), 2, color(1, 0, 0));
 
-	t_tuple *p;
-	t_tuple *n;
+	_scene->canvas = render(_scene->camera, _scene->world);
+	display_image(_scene->canvas);
 
-	p = point(0, 0, 0);
-	cyl_normal_at(&con->c, *p, &n);
-	print_tuple(n);
-	free(p);
-	free(n);
-
-	p = point(1, 1, 1);
-	cyl_normal_at(&con->c, *p, &n);
-	print_tuple(n);
-	free(p);
-	free(n);
-
-	p = point(-1, -1, 0);
-	cyl_normal_at(&con->c, *p, &n);
-	print_tuple(n);
-	free(p);
-	free(n);
-
-	
 }

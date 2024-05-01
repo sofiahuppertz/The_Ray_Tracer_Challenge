@@ -4,6 +4,9 @@
 #include "../light/light.h"
 #include "../comps/comps.h"
 #include "../sphere/sphere.h"
+#include "../plane/plane.h"
+#include "../cylinder/cylinder.h"
+#include "../cone/cone.h"
 
 typedef struct s_world 
 {

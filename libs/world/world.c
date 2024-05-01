@@ -27,7 +27,12 @@ t_world *default_world( void )
         free_world(&w);
         return NULL;
     }
-    m = material(solid(color(0.8, 1.0, 0.6)), 0.1, 0.7, 0.2, 200.0);
+    m = default_material();
+    set_pattern(m, solid(color(0.8, 1.0, 0.6)));
+    set_ambient(m, 0.1);
+    set_diffuse(m, 0.7);
+    set_specular(m, 0.2);
+    set_shininess(m, 200.0);
     set_material(&s1->shape, m);
     t_sphere *s2 = sphere();
     if (!s2)

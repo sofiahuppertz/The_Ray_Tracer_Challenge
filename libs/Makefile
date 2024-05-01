@@ -14,6 +14,7 @@ SUBDIRS = camera \
 		pattern \
 		plane \
 		ray \
+		scene \
 		shape \
 		sphere \
 		tuple \

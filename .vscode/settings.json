@@ -9,6 +9,7 @@
         "__locale": "c",
         "optional": "c",
         "shape.h": "c",
-        "cylindrical.h": "c"
+        "cylindrical.h": "c",
+        "scene.h": "c"
     }
 }

@@ -1,9 +1,21 @@
 #include "color.h"
 
 
+double div_255(double color)
+{
+    return color / 255.0;
+}
+
 t_color *color(double r, double g, double b)
 {
-    t_color *color = (t_color *)calloc(1, sizeof(t_color));
+    t_color *color;
+    
+    color = (t_color *)calloc(1, sizeof(t_color));
+    if (!color)
+    {
+        printf("Error: color: failed to allocate memory.\n");
+        return NULL;
+    }
     color->r = r;
     if (r >= 1)
         color->r = 1;

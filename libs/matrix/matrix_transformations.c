@@ -137,6 +137,38 @@ t_matrix *chain_tfs(t_matrix* initial, ...)
     return result;
 }
 
+t_matrix *rotation_matrix(double angle, double x, double y, double z)
+{
+    t_matrix *r;
+    double cosTheta;
+    double sinTheta;
+    double oneMinusCos;
+    double length;
+
+    r = identity(4);
+    if (!r)
+        return NULL;
+    cosTheta = cos(angle);
+    sinTheta = sin(angle);
+    oneMinusCos = 1 - cosTheta;
+    length = sqrt(x * x + y * y + z * z);
+    x /= length;
+    y /= length;
+    z /= length;
+
+    r->m[0][0] = (x * x * oneMinusCos) + cosTheta;
+    r->m[0][1] = (x * y * oneMinusCos) - (z * sinTheta);
+    r->m[0][2] = (x * z * oneMinusCos) + (y * sinTheta);
+    r->m[1][0] = (y * x * oneMinusCos) + (z * sinTheta);
+    r->m[1][1] = (y * y * oneMinusCos) + cosTheta;
+    r->m[1][2] = (y * z * oneMinusCos) - (x * sinTheta);
+    r->m[2][0] = (z * x * oneMinusCos) - (y * sinTheta);
+    r->m[2][1] = (z * y * oneMinusCos) + (x * sinTheta);
+    r->m[2][2] = (z * z * oneMinusCos) + cosTheta;
+
+    return r;
+    
+}
 
 void transform(void *elem, t_matrix *transformation)
 {

@@ -77,6 +77,7 @@ t_matrix *scaling(double x, double y, double z);
 t_matrix *rotation_x(double rad);
 t_matrix *rotation_y(double rad);
 t_matrix *rotation_z(double rad);
+t_matrix *rotation_matrix(double angle, double x, double y, double z);
 t_matrix *shearing(double xy, double xz, double yx, double yz, double zx, double zy);
 t_matrix *chain_tfs(t_matrix *initial, ...);
 

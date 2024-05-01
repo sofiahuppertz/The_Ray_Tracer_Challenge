@@ -23,6 +23,8 @@ t_color *shur_product(const t_color c1, const t_color c2);
 t_color *average_colors(const t_color c1, const t_color c2);
 t_color *add_colors(t_color *initial, ...);
 
+double div_255(double color);
+
 void print_color(const t_color c);
 
 # endif

@@ -13,6 +13,18 @@ void set_ambient(t_material *material, double ambient)
         material->ambient = ambient;
 }
 
+void set_ambient_color(t_material *material, t_color *color)
+{
+    if (!material || !color)
+    {
+        printf("Error: set_ambient_color: NULL parameter.\n");
+        return;
+    }
+    if (material->ambient_color)
+        free(material->ambient_color);
+    material->ambient_color = color;
+}
+
 void set_diffuse(t_material *material, double diffuse)
 {
     if (!material)

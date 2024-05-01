@@ -11,6 +11,7 @@ t_material *default_material( void )
         return (NULL);
     }
     set_ambient(material, 0.1);
+    set_ambient_color(material, color(1, 1, 1));
     set_diffuse(material, 0.9);
     set_specular(material, 0.9);
     set_shininess(material, 200.0);
@@ -37,6 +38,7 @@ t_material *material(t_pattern *pat, double ambient, double diffuse, double spec
         return (NULL);
     }
     set_ambient(material, ambient);
+    set_ambient_color(material, color(1, 1, 1));
     set_diffuse(material, diffuse);
     set_specular(material, specular);
     set_shininess(material, shininess);
@@ -67,6 +69,7 @@ t_material *materialcpy(const t_material material)
             return (NULL);
         }
     }
+    set_ambient_color(cpy, colorcpy(*material.ambient_color));
     set_ambient(cpy, material.ambient);
     set_diffuse(cpy, material.diffuse);
     set_specular(cpy, material.specular);
@@ -82,9 +85,15 @@ void print_material(const t_material material)
     if (material.pattern)
         print_pattern(*material.pattern);
     printf("Ambient: %f\n", material.ambient);
+    if (material.ambient_color)
+        print_color(*material.ambient_color);
     printf("Diffuse: %f\n", material.diffuse);
     printf("Specular: %f\n", material.specular);
     printf("Shininess: %f\n", material.shininess);
+    printf("Reflective: %f\n", material.reflective);
+    printf("Transparency: %f\n", material.transparency);
+    printf("Refractive index: %f\n", material.refrac_index);
+
 }
 
 //void set_color(t_material *material, t_color *color)
@@ -127,6 +136,7 @@ void free_material(t_material **material)
         return;
     if ((*material)->pattern)
         free_pattern(&(*material)->pattern);
+    free((*material)->ambient_color);
     free(*material);
     *material = NULL;
 }

@@ -16,6 +16,7 @@
 typedef struct s_material
 {
     t_pattern *pattern;
+    t_color *ambient_color;
     double ambient;
     double diffuse;
     double specular;
@@ -39,6 +40,7 @@ void print_material(const t_material material);
 // Setters
 //void set_color(t_material *material, t_color *color);
 void set_pattern(t_material *material, t_pattern *pattern);
+void set_ambient_color(t_material *material, t_color *color);
 void set_ambient(t_material *material, double ambient);
 void set_diffuse(t_material *material, double diffuse);
 void set_specular(t_material *material, double specular);

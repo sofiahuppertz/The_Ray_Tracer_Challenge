@@ -17,6 +17,9 @@ t_color *lighting(const t_material material, const t_shape object, const t_point
     effective_color = shur_product(*temp, *(light.intensity));
 
     free(temp);
+    temp = shur_product(*material.ambient_color, *effective_color);
+    free(effective_color);
+    effective_color = temp;
 
     lightv = norm(sub_tuple(*light.position, position));
     ambient = scalar_color(*effective_color, material.ambient);

@@ -15,6 +15,7 @@
 #include "pattern/pattern.h"
 #include "plane/plane.h"
 #include "ray/ray.h"
+#include "scene/scene.h"
 #include "shape/shape.h"
 #include "sphere/sphere.h"
 #include "tuple/tuple.h"

@@ -130,7 +130,7 @@ int main(void)
 
 
 	t_camera *cam = camera(100, 80, PI / 3.0);
-	t_matrix *vt = view_transformation(point(0, 5, -10), point(0, -2, 4), vector(0, 1, 0));
+	t_matrix *vt = view_transformation(point(0, 5, -10), point(0, -2, 4), vector(0, -1, 0));
 	transform(cam, vt);
 
 

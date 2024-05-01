@@ -10,22 +10,13 @@ t_cylinder *cylinder( void )
         printf("Error: cylinder: calloc failed.\n");
         return NULL;
     }
-    shape(CYLINDER, (t_shape *)cylinder);
-    cylinder->shape.local_intersect = intersect_cylinder;
-    cylinder->shape.local_normal_at = cylinder_normal_at;
-    cylinder->shape.local_free = free_cylinder;
-    cylinder->shape.local_print = print_cylinder;
-    cylinder->o = point(0, 0, 0);
-    if (!cylinder->o)
-    {
-        printf("Error: cylinder: point failed.\n");
-        free(cylinder);
-        return NULL;
-    }
+    cyl(&cylinder->c);
     cylinder->radius = 1;
-    cylinder->max_y = INFINITY;
-    cylinder->min_y = -INFINITY;
-    cylinder->closed = 0;
+    cylinder->c.shape.local_print = print_cylinder;
+    cylinder->c.shape.local_free = free_cylinder;
+    cylinder->c.local_calc_disc = disc_cylinder;
+    cylinder->c.local_check_cap = cylinder_check_cap;
+    cylinder->c.local_cyl_normal = cylinder_normal;
     return cylinder;
 }
 
@@ -36,22 +27,8 @@ void free_cylinder(void *s)
     cylinder = (t_cylinder *)s;
     if (!cylinder)
         return ;
-    free(cylinder->o);
+    free(cylinder->c.o);
     free(cylinder);
 }
 
 
-void set_bounds(t_cylinder *cyl, double min_y, double max_y)
-{
-    if (!cyl)
-        return ;
-    cyl->min_y = min_y;
-    cyl->max_y = max_y;
-}
-
-void set_closed(t_cylinder *cyl, int closed)
-{
-    if (!cyl)
-        return ;
-    cyl->closed = closed;
-}

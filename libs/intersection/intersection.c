@@ -120,6 +120,18 @@ void print_intersections(const t_intersection *i)
     }
 }
 
+void add_intersection(t_intersection **_xs, t_intersection *new)
+{
+    if (!new)
+    {
+        return;
+    }
+    if (!*xs)
+        *_xs = new;
+    else
+        *_xs = merge_sorted(_xs, &new);
+}
+
 void free_intersections(t_intersection **initial)
 {
     t_intersection *temp;

@@ -1,7 +1,7 @@
-NAME = cylinder.a
+NAME = cone.a
 
-SRC = cylinder.c \
-	cylinder_methods.c \
+SRC = cone.c \
+	cone_methods.c \
 
 OBJ = $(SRC:.c=.o)
 

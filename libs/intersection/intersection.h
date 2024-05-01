@@ -19,6 +19,7 @@ typedef struct s_intersection
 t_intersection *xs(const double t, const t_elem object, void *object_ptr);
 t_intersection *merge_sorted(t_intersection **first, t_intersection **next);
 t_intersection *intersections(t_intersection *initial, ...);
+void add_intersection(t_intersection **_xs, t_intersection *new);
 
 // Methods
 t_intersection *hit(t_intersection **xs);

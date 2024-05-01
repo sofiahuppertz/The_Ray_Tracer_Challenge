@@ -25,7 +25,7 @@ typedef enum e_element
     SHAPE,
     SPHERE,
     PLANE,
-    CYLINDER
+    CYLINDRICAL
 } t_elem;
 
 typedef struct s_matrix {

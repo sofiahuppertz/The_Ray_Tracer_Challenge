@@ -7,66 +7,47 @@ void print_cylinder( void *s)
     cylinder = (t_cylinder *)s;
     if (!cylinder)
         return ;
-    printf("Cylinder %d\n", cylinder->shape.id);
+    printf("Cylinder %d\n", cylinder->c.shape.id);
     printf("Origin: ");
-    print_tuple((const t_tuple *)(cylinder->o));
+    print_tuple((const t_tuple *)(cylinder->c.o));
     printf("Radius: %f\n", cylinder->radius);
     printf("Transform:\n");
-    print_matrix(cylinder->shape.tr);
+    print_matrix(cylinder->c.shape.tr);
     printf("Material:\n");
-    print_material(*(cylinder->shape.material));
+    print_material(*(cylinder->c.shape.material));
 }
 
-void intersect_cylinder(void *s, const t_ray ray, t_intersection **_xs)
+
+double disc_cylinder(void *cyl, const t_ray ray, t_intersection **_xs, double *a, double *b)
 {
-    t_cylinder *cyl;
-    double a;
-    double b;
     double c;
     double disc;
-    double t0;
-    double t1;
 
-    cyl = (t_cylinder *)s;   
-    *_xs =  NULL;
-    a = pow(ray.di->x, 2) + pow(ray.di->z, 2);
-    if (equal(a, 0))
-        return ;
-    b = 2 * ray.o->x * ray.di->x + (2 * ray.o->z * ray.di->z);
-    c = pow(ray.o->x, 2) + pow(ray.o->z, 2) - 1;
-    disc = pow(b, 2) - 4 * a * c;
-    if (disc < 0)
-        return ;
-    t0 = (-b - sqrt(disc)) / (2 * a);
-    t1 = (-b + sqrt(disc)) / (2 * a);
-    if (t0 > t1)
+    *a = pow(ray.di->x, 2) + pow(ray.di->z, 2);
+    if (equal(*a, 0))
     {
-        double tmp = t0;
-        t0 = t1;
-        t1 = tmp;
+        intersect_caps((t_cyl *)cyl, ray, _xs);
+        return -1;
     }
-    double y0 = ray.o->y + (t0 * ray.di->y);
-    t_intersection *i1 = NULL;
-    if (cyl->min_y < y0 && y0 < cyl->max_y)
-        i1 = xs(t0, CYLINDER, s);
-    double y1 = ray.o->y + (t1 * ray.di->y);
-    t_intersection *i2 = NULL;
-    if (cyl->min_y < y1 && y1 < cyl->max_y)
-        i2 = xs(t1, CYLINDER, s);
-    *_xs = merge_sorted(&i1, &i2);
+    *b = 2 * ray.o->x * ray.di->x + (2 * ray.o->z * ray.di->z);
+    c = pow(ray.o->x, 2) + pow(ray.o->z, 2) - 1;
+    disc = pow(*b, 2) - 4 * *a * c;
+    return disc;
 }
 
-void cylinder_normal_at(void *s, const t_tuple object_point, t_tuple **normal)
+int cylinder_check_cap(const t_ray r, double t, double y)
 {
-    t_cylinder *cyl;
+    double x;
+    double z;
 
-    cyl = (t_cylinder *)s;
-    if (!cyl)
-        return ;
+    (void )y;
+    x = r.o->x + t * r.di->x;
+    z = r.o->z + t * r.di->z;
+    return (pow(x, 2) + pow(z, 2)) <= 1;
+}
+
+
+void cylinder_normal(t_tuple object_point, t_tuple **normal)
+{
     *normal = vector(object_point.x, 0, object_point.z);
-    if (!*normal)
-    {
-        printf("Error: cylinder_normal_at: operation failed.\n");
-        *normal = NULL;
-    }
 }

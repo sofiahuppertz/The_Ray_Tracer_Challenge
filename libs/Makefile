@@ -4,7 +4,9 @@ SUBDIRS = camera \
 		canvas \
 		color \
 		comps \
+		cone \
 		cylinder \
+		cylindrical \
 		intersection \
 		light \
 		material \

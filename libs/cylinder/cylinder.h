@@ -1,15 +1,12 @@
 #ifndef CYLINDER_H
 #define CYLINDER_H
 
-#include "../shape/shape.h"
+#include "../cylindrical/cylindrical.h"
 
 typedef struct s_cylinder {
-    t_shape shape;
-    t_tuple *o;
+    t_cyl c;
     double radius;
-    double max_y;
-    double min_y;
-    int closed;
+
 } t_cylinder;
 
 
@@ -18,11 +15,10 @@ void free_cylinder(void *s);
 
 //methods
 void print_cylinder(void *s);
-void cylinder_normal_at(void *s, const t_tuple object_point, t_tuple **normal);
-void intersect_cylinder(void *s, const t_ray transformed_ray, t_intersection **xs);
+double disc_cylinder(void *cyl, const t_ray ray, t_intersection **_xs, double *a, double *b);
+int cylinder_check_cap(const t_ray r, double t, double y);
+void cylinder_normal(const t_tuple object_point, t_tuple **normal);
 
-void set_bounds(t_cylinder *cyl, double min_y, double max_y);
-void set_closed(t_cylinder *cyl, int closed);
 
 
 #endif

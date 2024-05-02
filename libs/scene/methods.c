@@ -106,16 +106,38 @@ void make_plane(t_scene *scene, t_tuple *point, t_tuple *normal, t_color *color)
     pl = plane();
     if (!pl)
         return;
+    print_tuple(normal);
     set_material(&pl->shape, materialcpy(*scene->material));
     set_pattern(pl->shape.material, solid(color));
     rotate = find_rotation_matrix(*normal);
     translate = translation(point->x, point->y, point->z);
-    transform(&pl->shape, chain_tfs(rotate, translate, NULL));
+    transform(&pl->shape, chain_tfs(translate, rotate, NULL));
     set_shape(scene->world, (t_shape *)&pl->shape);
+    free_tuples(&normal, &point, NULL);
 }
 
-//void make_cylinder(t_scene *scene, t_tuple *center, t_tuple *axis, double diameter, double height, t_color *color)
-//{
-//    t_cylinder *cy;
-//
-//}
+void make_cylinder(t_scene *scene, t_tuple *center, t_tuple *axis, double diameter, double height, t_color *color)
+{
+    t_cylinder *cy;
+    t_matrix *rotate;
+    double radius;
+
+    if (!scene || !center || !axis || !color)
+    {
+        printf("Error: make_cylinder: invalid arguments.\n");
+        return;
+    }
+    cy = cylinder();
+    if (!cy)
+        return;
+    set_material(&cy->c.shape, materialcpy(*scene->material));
+    rotate = find_rotation_matrix(*axis);
+    set_bounds(&cy->c, -height / 2.0, height / 2.0);
+    set_closed(&cy->c, 1);
+    radius = diameter / 2.0;
+    transform(&cy->c.shape, chain_tfs(translation(center->x, center->y, center->z), rotate, scaling(radius, 1, radius), NULL));
+    set_pattern(cy->c.shape.material, solid(color));
+    set_shape(scene->world, (t_shape *)&cy->c.shape);
+    free_tuples(&axis, &center, NULL);
+    
+}

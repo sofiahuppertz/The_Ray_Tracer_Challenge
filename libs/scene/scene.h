@@ -23,6 +23,7 @@ void make_light(t_scene *scene, t_tuple *position, double brightness, t_color *c
 void make_sphere(t_scene *scene, t_tuple *center, double diameter, t_color *color);
 void make_plane(t_scene *scene, t_tuple *point, t_tuple *normal, t_color *color);
 void make_cylinder(t_scene *scene, t_tuple *center, t_tuple *axis, double diameter, double height, t_color *color);
+void make_cone(t_scene *scene, t_tuple *center, t_tuple *axis, double unit_d, double height, t_color *color);
 
 
 # endif

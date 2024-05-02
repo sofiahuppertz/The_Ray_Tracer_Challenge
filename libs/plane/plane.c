@@ -20,7 +20,9 @@ t_plane *plane( void )
 
 t_matrix *find_rotation_matrix(const t_tuple normal)
 {
+    t_matrix *rotate;
     t_tuple *object_normal;
+    t_tuple *axis;
     double dot_product;
     double rotation_angle;
     
@@ -31,10 +33,19 @@ t_matrix *find_rotation_matrix(const t_tuple normal)
         free(object_normal);
         return identity(4);
     }
-    rotation_angle = acos(dot_product);
-    t_tuple *axis = cross(normal, *object_normal);
-    free(object_normal);
-    return rotation_matrix(rotation_angle, axis->x, axis->y, axis->z);
+    if (dot_product == -1)
+    {
+        rotation_angle = M_PI;
+        axis = vector(0, 0, 1);
+    }
+    else
+    {
+        rotation_angle = acos(dot_product);
+        axis = cross(*object_normal, normal);
+    }
+    rotate = rotation_matrix(rotation_angle, axis->x, axis->y, axis->z);
+    free_tuples(&object_normal, &axis, NULL);
+    return rotate;
 }
 
 void free_plane(void *p)

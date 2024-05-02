@@ -106,7 +106,6 @@ void make_plane(t_scene *scene, t_tuple *point, t_tuple *normal, t_color *color)
     pl = plane();
     if (!pl)
         return;
-    print_tuple(normal);
     set_material(&pl->shape, materialcpy(*scene->material));
     set_pattern(pl->shape.material, solid(color));
     rotate = find_rotation_matrix(*normal);

@@ -1,5 +1,5 @@
-NAME = test
-SRC = test.c
+NAME = main
+SRC = main.c
 OBJ = $(SRC:.c=.o)
 
 INCLUDE = -Iminilibx -Ilibs

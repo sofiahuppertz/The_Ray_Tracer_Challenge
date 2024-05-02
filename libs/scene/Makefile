@@ -1,7 +1,8 @@
 NAME = scene.a
 
 SRC = scene.c \
-	methods.c \
+	methods1.c \
+	methods2.c \
 
 CAMERA_DIR = ../camera
 

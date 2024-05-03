@@ -110,14 +110,17 @@ int cylinder(t_parse *p, char *line)
     int     i;
 
     i = 0;
+    (void)p;
     split = ft_split(line, ' ');
     split_tmp = ft_split(split[2], ',');
     if (check_xyz(p, split) == 1 || check_diameter(split[3]) == 1 ||
         check_diameter(split[4]) == 1 || check_rgb(split[5], p) == 1)
     {
         free_split(split);
+        free_split(split_tmp);
         return (1);
     }
+    free_split(split);
     while (split_tmp[i])
     {
         if (ft_atof(split_tmp[i]) < -1 || ft_atof(split_tmp[i]) > 1)
@@ -127,6 +130,6 @@ int cylinder(t_parse *p, char *line)
         }
         i++;
     }
-    free_split(split);
+    free_split(split_tmp);
     return (0);
 }

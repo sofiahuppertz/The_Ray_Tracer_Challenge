@@ -13,15 +13,11 @@
 typedef struct s_parse
 {
     char    id;
-    int     x;
-    int     y;
-    int     z;
+    int     A;
+    int     C;
+    int     L;
     char    **color;
-    int     rgb;
     double     ratio;
-    int     drct;
-    int     hight;
-    int     diameter;
 }       t_parse;
 
 /* read line */
@@ -37,7 +33,7 @@ int         check_cmd_line(int ac, char **av);
 
 /* utils */
 void    free_split(char **split);
-int    parsing_error(int tmp, int fd);
+int    parsing_error(int tmp, int fd, t_parse *p);
 int count_comma(char *line);
 double	ft_atof(char *str);
 

@@ -16,7 +16,7 @@ typedef struct s_parse
     int     x;
     int     y;
     int     z;
-    char    *color;
+    char    **color;
     int     rgb;
     double     ratio;
     int     drct;
@@ -28,14 +28,32 @@ typedef struct s_parse
 int	        read_line(int fd, char **line, int buffer_size);
 void 	    ft_read_else(char **tmp, char **str, char **buff, int fd);
 void	    ft_free_str(char **s);
-// static int	filter(char **str, int fd, char **line, int r);
-// static int	save_line(char **str, char **line);
 
 /* parse */
+int identify_2(t_parse *p, char *line);
+int identify(t_parse *p, char *line);
 int         check_file_rt(int fd);
 int         check_cmd_line(int ac, char **av);
 
 /* utils */
-double custom_atof(const char *str);
+void    free_split(char **split);
+int    parsing_error(int tmp, int fd);
+int count_comma(char *line);
+double	ft_atof(char *str);
+
+/* scene element */
+int ambiant_light(t_parse *p, char *line);
+int camera(t_parse *p, char *line);
+int light(t_parse *p, char *line);
+int plan(t_parse *p, char *line);
+int sphere(t_parse *p, char *line);
+int cylinder(t_parse *p, char *line);
+
+/* syntax check */
+int check_rgb(char *split, t_parse *p);
+int check_range(char **split, t_parse *p);
+int vector_range(char **split);
+int check_xyz(t_parse *p, char **split);
+int check_diameter(char *diameter);
 
 #endif

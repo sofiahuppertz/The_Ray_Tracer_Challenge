@@ -3,6 +3,8 @@ NAME = parse
 SRC = ./parse.c\
 		./read_line.c\
 		./utils.c\
+		./scene_elm.c\
+		./syntax_check.c\
 
 OBJ = $(SRC:.c=.o)
 
@@ -23,7 +25,7 @@ $(LIBFT):
 	@make -sC libft
 
 clean :
-	rm -f $(OBJS)
+	rm -f $(OBJ)
 	make clean -C libft
 
 fclean : clean

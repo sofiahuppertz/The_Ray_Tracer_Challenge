@@ -1,49 +1,44 @@
 #include "parse.h"
 
-int ambiant_light(t_parse *p, char *line)
+int identify_2(t_parse *p, char *line)
 {
-    char    **split;
-
-    split = ft_split(line, ' ');
-    p->ratio = custom_atof(split[1]);
-    // p->color = line[2];
-    printf("%.1f\n", p->ratio);
-    // printf("%s\n", p->color);
+    if (ft_strncmp("pl", line, 2) == 0)
+    {
+        if (plan(p, line) == 1)
+            return (1);
+    }
+    else if (ft_strncmp("sp", line, 2) == 0)
+    {
+        if (sphere(p, line) == 1)
+            return (1);
+    }
+    else if (ft_strncmp("cy", line, 2) == 0)
+    {
+        if (cylinder(p, line) == 1)
+            return (1);
+    }
     return (0);
 }
 
-int parse(t_parse *p, char *line)
+int identify(t_parse *p, char *line)
 {
     if (ft_strncmp("A", line, 1) == 0)
     {
         if (ambiant_light(p, line) == 1)
             return (1);
     }
-    // else if (ft_strncmp("C", line, 1) == 0)
-    // {
-    //     if (camera() == 1)
-    //         return (1);
-    // }
-    // else if (ft_strncmp("L", line, 1) == 0)
-    // {
-    //     if (light() == 1)
-    //         return (1);
-    // }
-    // else if (ft_strncmp("pl", line, 2) == 0)
-    // {
-    //     if (plan() == 1)
-    //         return (1);
-    // }
-    // else if (ft_strncmp("sp", line, 2) == 0)
-    // {
-    //     if (sphere() == 1)
-    //         return (1);
-    // }
-    // else if (ft_strncmp("cy", line, 2) == 0)
-    // {
-    //     if (cylinder() == 1)
-    //         return (1);
-    // }
+    else if (ft_strncmp("C", line, 1) == 0)
+    {
+        if (camera(p, line) == 1)
+            return (1);
+    }
+    else if (ft_strncmp("L", line, 1) == 0)
+    {
+        if (light(p, line) == 1)
+            return (1);
+    }
+    else if (identify_2(p, line) == 1)
+        return (1);
     return (0);
 }
 
@@ -67,17 +62,6 @@ int check_cmd_line(int ac, char **av)
     return (1);
 }
 
-int    parsing_error(int tmp, int fd)
-{
-    if (tmp == 1)
-    {
-        printf("Parsing error: incorrect character(s) or number(s) in map");
-        close(fd);
-        return (1);
-    }
-    return (0);
-}
-
 int check_file_rt(int fd)
 {
     t_parse p;
@@ -90,13 +74,11 @@ int check_file_rt(int fd)
     while (res)
     {
         res = read_line(fd, &line, 4096);
-        if (parse(&p, line) == 1)
+        if (identify(&p, line) == 1)
             tmp = 1;
         free(line);
         if (!res)
             break ;
-        if (tmp == 1)
-            return (1);
     }
     if (parsing_error(tmp, fd) == 1)
         return (1);
@@ -110,7 +92,7 @@ int main(int ac, char **av)
     if (check_cmd_line(ac, av) == 1)
         return (1);
     fd = open(av[ac - 1], O_RDONLY);
-    if (!fd)
+    if (fd == -1)
     {
         perror("fd");
         return (1);

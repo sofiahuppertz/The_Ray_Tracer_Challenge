@@ -1,6 +1,6 @@
 #include "pattern.h"
 
-t_pattern *stripe(t_color *a, t_color *b)
+t_pattern *stripe_pattern(t_color *a, t_color *b)
 {
     t_pattern *stripe;
 

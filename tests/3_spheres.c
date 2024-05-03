@@ -34,7 +34,7 @@ int main(void)
 	right = sphere();
 	transform((void *)&right->shape, chain_tfs(translation(1.5, 0.5, -0.5), scaling(0.5, 0.5, 0.5), NULL));
 	t_material *m3 = materialcpy(*m2);
-	set_pattern(m3, stripe(white(), color(0.52549, 0.76471, 1)));
+	set_pattern(m3, stripe_pattern(white(), color(0.52549, 0.76471, 1)));
 	transform((void *)m3->pattern, chain_tfs(scaling(0.2, 0.2, 0.2), rotation_z(degrees_to_radians(90)) ,NULL));
 	set_material(&right->shape, m3);
 

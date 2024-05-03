@@ -37,7 +37,7 @@ t_pattern *test_pattern( void );
 t_color *test_pattern_at(void *pattern, const t_tuple point);
 
 // Stripe
-t_pattern *stripe(t_color *a, t_color *b);
+t_pattern *stripe_pattern(t_color *a, t_color *b);
 t_color *stripe_at(void *pattern, const t_tuple point);
 
 // Gradient
@@ -49,7 +49,7 @@ t_pattern *ring(t_color *a, t_color *b);
 t_color *ring_at(void *pattern, const t_tuple point);
 
 //Checker
-t_pattern *checker(t_color *a, t_color *b);
+t_pattern *checker_pattern(t_color *a, t_color *b);
 t_color *checker_at(void *pattern, const t_tuple point);
 
 // Solid

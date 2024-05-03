@@ -1,6 +1,6 @@
 #include "pattern.h"
 
-t_pattern *checker(t_color *a, t_color *b)
+t_pattern *checker_pattern(t_color *a, t_color *b)
 {
     t_pattern *checker;
 

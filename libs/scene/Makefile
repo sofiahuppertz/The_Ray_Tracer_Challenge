@@ -1,6 +1,7 @@
 NAME = scene.a
 
-SRC = scene.c \
+SRC = attributes.c \
+	scene.c \
 	methods1.c \
 	methods2.c \
 

@@ -2,6 +2,8 @@
 #define SCENE_H
 
 #include "../camera/camera.h"
+#include <stdarg.h>
+#include <string.h>
 
 #define HEIGHT 80
 #define WIDTH 80
@@ -15,15 +17,30 @@ typedef struct s_scene
 
 } t_scene;
 
+typedef struct s_attributes
+{
+    char *key;
+    void *value;
+} t_attributes;
+
 t_scene *scene( void );
 
 void make_ambient_light(double ratio, t_color *color);
 void make_camera(t_tuple *view_point, t_tuple *orientation, double field_of_view);
 void make_light(t_tuple *position, double brightness, t_color *color);
-void make_sphere(t_tuple *center, double diameter, t_color *color);
-void make_plane(t_tuple *point, t_tuple *normal, t_color *color);
-void make_cylinder(t_tuple *center, t_tuple *axis, double diameter, double height, t_color *color);
-void make_cone(t_tuple *center, t_tuple *axis, double unit_d, double height, t_color *color);
+
+// Shapes: can have RFR RFL TRY STRIPE CHECKER (later texture maps too).
+void make_sphere(t_tuple *center, double diameter, t_color *color, t_attributes *attributes, ...);
+void make_plane(t_tuple *point, t_tuple *normal, t_color *color,  t_attributes *attributes, ...);
+void make_cylinder(t_tuple *center, t_tuple *axis, double diameter, double height, t_color *color, t_attributes *attributes, ...);
+void make_cone(t_tuple *center, t_tuple *axis, double unit_d, double height, t_color *color, t_attributes *attributes, ...);
+void set_extras(t_shape *shape, t_attributes *first_extra, va_list extras);
+
+t_attributes *checker(t_color *a, t_color *b, double width,  double rotation_z);
+t_attributes *stripe(t_color *a, t_color *b, double width, double rotation_z);
+t_attributes *rfl(double reflectivity);
+t_attributes *rfr(double refractive_index);
+t_attributes *tsy(double transparency);
 
 
 # endif

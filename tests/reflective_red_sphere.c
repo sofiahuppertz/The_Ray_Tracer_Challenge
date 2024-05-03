@@ -14,19 +14,19 @@ int main(void)
 	m->reflective = 0.2;
 	set_material(&floor->shape, m);
 	transform((void *)floor, rotation_x(degrees_to_radians(2)));
-	set_pattern(m, checker(white(), black()));
+	set_pattern(m, checker_pattern(white(), black()));
 
 	left_wall = plane();
 	transform((void *)left_wall, chain_tfs(translation(0, 0, 10), rotation_y(degrees_to_radians(-45)), rotation_x(degrees_to_radians(90)), NULL));
 	t_material *m2 = default_material();
-	set_pattern(m2, checker(white(), black()));
+	set_pattern(m2, checker_pattern(white(), black()));
 	set_material(&left_wall->shape, m2);
 
 
 	right_wall = plane();
 	transform((void *)right_wall, chain_tfs(translation(0, 0, 10), rotation_y(degrees_to_radians(45)), rotation_x(degrees_to_radians(90)),  NULL));
 	t_material *m3 = default_material();
-	set_pattern(m3, checker(white(), black()));
+	set_pattern(m3, checker_pattern(white(), black()));
 	set_material(&right_wall->shape, m3);
 
 

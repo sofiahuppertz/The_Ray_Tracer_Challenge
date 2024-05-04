@@ -47,6 +47,36 @@ int count_comma(char *line)
     return (0);
 }
 
+int count_nb_elm(char **line, int j)
+{
+    int i;
+
+    i = 0;
+    while (line[i])
+        i++;
+    if (i > j)
+        return (1);
+    if (i < j)
+    {
+        // free_split(line);
+        return (2);
+    }
+    return (0);
+}
+
+int check_id(char *line)
+{
+    if (ft_strncmp("A", line, 1) != 0 && ft_strncmp("C", line, 1) != 0
+        && ft_strncmp("L", line, 1) != 0 && ft_strncmp("pl", line, 2) != 0
+        && ft_strncmp("sp", line, 2) != 0 && ft_strncmp("cy", line, 2) != 0
+        && ft_strncmp("co", line, 2) != 0 && line[0] != 0)
+    {
+        printf("%d\n", line[0]);
+        return (1);
+    }
+    return (0);
+}
+
 double	ft_atof(char *str)
 {
 	int	    i;

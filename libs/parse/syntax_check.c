@@ -36,7 +36,11 @@ int check_rgb(char *split, t_parse *p)
 
 int check_range(char **split, t_parse *p)
 {
+    if (!split[1])
+        return (1);
     p->ratio = ft_atof(split[1]);
+    if (!p->ratio)
+        return (1);
     if (!(p->ratio >= 0.0 && p->ratio <= 1.0) || split[1][0] == '-')
         return (1);
     return (0);
@@ -70,6 +74,8 @@ int vector_range(char **split)
                 free_split(split_tmp);
                 return (1);
             }
+            if (!split_tmp[i][j])
+                break ;
             j++;
         }
         i++;
@@ -80,7 +86,6 @@ int vector_range(char **split)
     return (0);
 }
 
-
 int check_xyz(t_parse *p, char **split)
 {
     char    **split_tmp;
@@ -90,11 +95,6 @@ int check_xyz(t_parse *p, char **split)
     i = -1;
     (void)p;
     split_tmp = ft_split(split[1], ',');
-    if (!split_tmp[2])
-    {
-        free_split(split_tmp);
-        return (1);
-    }
     while (split_tmp[++i])
     {
         j = -1;
@@ -113,6 +113,8 @@ int check_xyz(t_parse *p, char **split)
         }
     }
     free_split(split_tmp);
+    if (i != 3)
+        return (1);
     return (0);
 }
 
@@ -128,12 +130,7 @@ int check_diameter(char *diameter)
         if (ft_isdigit(diameter[0]) != 0 && diameter[i] == '.')
             i++;
         if (ft_isdigit(diameter[i]) == 0)
-        {
-        printf("%s\n", diameter);
-        printf("%c\n", diameter[i]);
-
             return (1);
-        }
         i++;
     }
     return (0);

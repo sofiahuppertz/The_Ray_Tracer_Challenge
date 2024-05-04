@@ -17,11 +17,18 @@ int identify_2(t_parse *p, char *line)
         if (cylinder(p, line) == 1)
             return (1);
     }
+    else if (ft_strncmp("co", line, 2) == 0)
+    {
+        if (cone(p, line) == 1)
+            return (1);
+    }
     return (0);
 }
 
 int identify(t_parse *p, char *line)
 {
+    if (check_id(line) == 1)
+        return (1);
     if (ft_strncmp("A", line, 1) == 0)
     {
         p->A++;
@@ -65,6 +72,15 @@ int check_cmd_line(int ac, char **av)
     return (1);
 }
 
+void    init(t_parse *p)
+{
+    p->chk = 0;
+    p->str = 0;
+    p->tsy = 0;
+    p->rfr = 0;
+    p->rfl = 0;
+}
+
 int check_file_rt(int fd)
 {
     t_parse p;
@@ -80,6 +96,7 @@ int check_file_rt(int fd)
     while (res)
     {
         res = read_line(fd, &line, 4096);
+        init(&p);
         if (identify(&p, line) == 1)
             tmp = 1;
         free(line);

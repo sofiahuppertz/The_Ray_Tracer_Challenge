@@ -5,6 +5,7 @@ SRC = ./parse.c\
 		./utils.c\
 		./scene_elm.c\
 		./syntax_check.c\
+		./extra.c\
 
 OBJ = $(SRC:.c=.o)
 

@@ -1,6 +1,6 @@
 #include "parse.h"
 
-int checker(char **arg, t_parse *p)
+int parse_checker(char **arg, t_parse *p)
 {
     int i;
 
@@ -30,7 +30,7 @@ int checker(char **arg, t_parse *p)
     return (0);
 }
 
-int stripe(char **arg, t_parse *p)
+int parse_stripe(char **arg, t_parse *p)
 {
     int i;
     int j;
@@ -79,7 +79,7 @@ int stripe(char **arg, t_parse *p)
     return (0);
 }
 
-int transparency(char **arg, t_parse *p)
+int parse_transparency(char **arg, t_parse *p)
 {
     int i;
 
@@ -105,7 +105,7 @@ int transparency(char **arg, t_parse *p)
     return (0);
 }
 
-int refraction(char **arg, t_parse *p)
+int parse_refraction(char **arg, t_parse *p)
 {
     int i;
 
@@ -131,7 +131,7 @@ int refraction(char **arg, t_parse *p)
     return (0);
 }
 
-int reflection(char **arg, t_parse *p)
+int parse_reflection(char **arg, t_parse *p)
 {
     int i;
 

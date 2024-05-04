@@ -4,22 +4,22 @@ int identify_2(t_parse *p, char *line)
 {
     if (ft_strncmp("pl", line, 2) == 0)
     {
-        if (plan(p, line) == 1)
+        if (parse_plan(p, line) == 1)
             return (1);
     }
     else if (ft_strncmp("sp", line, 2) == 0)
     {
-        if (sphere(p, line) == 1)
+        if (parse_sphere(p, line) == 1)
             return (1);
     }
     else if (ft_strncmp("cy", line, 2) == 0)
     {
-        if (cylinder(p, line) == 1)
+        if (parse_cylinder(p, line, "cy") == 1)
             return (1);
     }
     else if (ft_strncmp("co", line, 2) == 0)
     {
-        if (cone(p, line) == 1)
+        if (parse_cone(p, line) == 1)
             return (1);
     }
     return (0);
@@ -32,19 +32,19 @@ int identify(t_parse *p, char *line)
     if (ft_strncmp("A", line, 1) == 0)
     {
         p->A++;
-        if (ambiant_light(p, line) == 1)
+        if (parse_ambiant_light(p, line) == 1)
             return (1);
     }
     else if (ft_strncmp("C", line, 1) == 0)
     {
         p->C++;
-        if (camera(p, line) == 1)
+        if (parse_camera(p, line) == 1)
             return (1);
     }
     else if (ft_strncmp("L", line, 1) == 0)
     {
         p->L++;
-        if (light(p, line) == 1)
+        if (parse_light(p, line) == 1)
             return (1);
     }
     else if (identify_2(p, line) == 1)

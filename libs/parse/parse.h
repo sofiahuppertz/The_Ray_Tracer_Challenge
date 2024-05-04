@@ -9,12 +9,23 @@
 #include <string.h>
 #include <stdlib.h>
 #include "libft/libft.h"
+#include "../librt.h"
 
 typedef struct s_parse
 {
     int     A;
     int     C;
     int     L;
+    double     x;
+    double     y;
+    double     z;
+    double     diam;
+    double     vr_1;
+    double     vr_2;
+    double     vr_3;
+    int     r;
+    int     g;
+    int     b;
     int     chk;
     int     str;
     int     tsy;
@@ -45,26 +56,26 @@ int     check_id(char *line);
 double	ft_atof(char *str);
 
 /* scene element */
-int     ambiant_light(t_parse *p, char *line);
-int     camera(t_parse *p, char *line);
-int     light(t_parse *p, char *line);
-int     plan(t_parse *p, char *line);
-int     sphere(t_parse *p, char *line);
-int     cylinder(t_parse *p, char *line);
-int     cone(t_parse *p, char *line);
+int     parse_ambiant_light(t_parse *p, char *line);
+int     parse_camera(t_parse *p, char *line);
+int     parse_light(t_parse *p, char *line);
+int     parse_plan(t_parse *p, char *line);
+int     parse_sphere(t_parse *p, char *line);
+int     parse_cylinder(t_parse *p, char *line, char *n);
+int     parse_cone(t_parse *p, char *line);
 
 /* syntax check */
 int     check_rgb(char *split, t_parse *p);
 int     check_range(char **split, t_parse *p);
-int     vector_range(char **split);
+int     vector_range(char **split, t_parse *p);
 int     check_xyz(t_parse *p, char **split);
-int     check_diameter(char *diameter);
+int     check_diameter(char *diameter, t_parse *p);
 
 /* extra */
-int     checker(char **arg, t_parse *p);
-int     stripe(char **arg, t_parse *p);
-int     transparency(char **arg, t_parse *p);
-int     refraction(char **arg, t_parse *p);
-int     reflection(char **arg, t_parse *p);
+int     parse_checker(char **arg, t_parse *p);
+int     parse_stripe(char **arg, t_parse *p);
+int     parse_transparency(char **arg, t_parse *p);
+int     parse_refraction(char **arg, t_parse *p);
+int     parse_reflection(char **arg, t_parse *p);
 
 #endif

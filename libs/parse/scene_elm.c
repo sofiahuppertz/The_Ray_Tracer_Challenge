@@ -1,6 +1,6 @@
 #include "parse.h"
 
-int ambiant_light(t_parse *p, char *line)
+int parse_ambiant_light(t_parse *p, char *line)
 {
     char    **split;
 
@@ -17,11 +17,12 @@ int ambiant_light(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
+    // make_ambient_light(ft_atof(split[1]), color(p->r, p->g, p->b));
     free_split(split);
     return (0);
 }
 
-int camera(t_parse *p, char *line)
+int parse_camera(t_parse *p, char *line)
 {
     char    **split;
     int     i;
@@ -44,16 +45,17 @@ int camera(t_parse *p, char *line)
         }
         i++;
     }
-    if (vector_range(split) == 1 || check_xyz(p, split) == 1)
+    if (vector_range(split, p) == 1 || check_xyz(p, split) == 1)
     {
         free_split(split);
         return (1);
     }
+    // make_camera(point(p->x, p->y, p->z), point(p->vr_1,p->vr_2, p->vr_3), degrees_to_radians(ft_atoi(split[3])));
     free_split(split);
     return (0);
 }
 
-int light(t_parse *p, char *line)
+int parse_light(t_parse *p, char *line)
 {
     char    **split;
 
@@ -75,6 +77,7 @@ int light(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
+	// make_light(point(p->x, p->y, p->z), ft_atof(split[2]), color(p->r, p->g, p->b));
     free_split(split);
     return (0);
 }
@@ -91,31 +94,31 @@ int check_extra(char **split, t_parse *p)
             if (ft_strcmp(split[i], "CHECKER") == 0)
             {
                 p->chk++;
-                if (checker(split, p) == 1)
+                if (parse_checker(split, p) == 1)
                     return (1);
             }
             else if (ft_strcmp(split[i], "STRIPE") == 0)
             {
                 p->str++;
-                if (stripe(split, p) == 1)
+                if (parse_stripe(split, p) == 1)
                     return (1);
             }
             else if (ft_strcmp(split[i], "TSY") == 0)
             {
                 p->tsy++;
-                if (transparency(split, p) == 1)
+                if (parse_transparency(split, p) == 1)
                     return (1);
             }
             else if (ft_strcmp(split[i], "RFR") == 0)
             {
                 p->rfr++;
-                if (refraction(split, p) == 1)
+                if (parse_refraction(split, p) == 1)
                     return (1);
             }
             else if (ft_strcmp(split[i], "RFL") == 0)
             {
                 p->rfl++;
-                if (reflection(split, p) == 1)
+                if (parse_reflection(split, p) == 1)
                     return (1);
             }
         }
@@ -129,7 +132,7 @@ int check_extra(char **split, t_parse *p)
     return (0);
 }
 
-int plan(t_parse *p, char *line)
+int parse_plan(t_parse *p, char *line)
 {
     char    **split;
 
@@ -147,16 +150,17 @@ int plan(t_parse *p, char *line)
             return (1);
     }
     if (check_xyz(p, split) == 1 || check_rgb(split[3], p) == 1 ||
-        vector_range(split) == 1)
+        vector_range(split, p) == 1)
     {
         free_split(split);
         return (1);
     }
+	// make_plane(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3), color(div_255(p->r), div_255(p->g), div_255(p->b)), NULL);
     free_split(split);
     return (0);
 }
 
-int sphere(t_parse *p, char *line)
+int parse_sphere(t_parse *p, char *line)
 {
     char    **split;
 
@@ -174,16 +178,17 @@ int sphere(t_parse *p, char *line)
             return (1);
     }
     if (check_xyz(p, split) == 1 || check_rgb(split[3], p) == 1 ||
-        check_diameter(split[2]) == 1)
+        check_diameter(split[2], p) == 1)
     {
         free_split(split);
         return (1);
     }
+	// make_sphere(point(p->x, p->y, p->z), 1, color(div_255(p->r), div_255(p->g), div_255(p->b)), NULL);
     free_split(split);
     return (0);
 }
 
-int cylinder(t_parse *p, char *line)
+int parse_cylinder(t_parse *p, char *line, char *n)
 {
     char    **split_tmp;
     char    **split;
@@ -203,8 +208,8 @@ int cylinder(t_parse *p, char *line)
         if (count_nb_elm(split, 6 + p->count) == 1)
             return (1);
     }
-    if (check_xyz(p, split) == 1 || check_diameter(split[3]) == 1 ||
-        check_diameter(split[4]) == 1 || check_rgb(split[5], p) == 1)
+    if (check_xyz(p, split) == 1 || check_diameter(split[3], p) == 1 ||
+        check_diameter(split[4], p) == 1 || check_rgb(split[5], p) == 1)
     {
         free_split(split);
         return (1);
@@ -220,13 +225,18 @@ int cylinder(t_parse *p, char *line)
         }
         i++;
     }
+    // if (ft_strcmp(n, "cy") == 0)
+	//     make_cylinder(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3), ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r), div_255(p->g), div_255(p->b)), NULL);
+    // else if (ft_strcmp(n, "co") == 0)
+	//     make_cone(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3), ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r), div_255(p->g), div_255(p->b)), stripe(white(), color(div_255(255), div_255(154), div_255(0)), 0.7, 90), NULL);
+    (void)n;
     free_split(split_tmp);
     return (0);
 }
 
-int cone(t_parse *p, char *line)
+int parse_cone(t_parse *p, char *line)
 {
-    if (cylinder(p, line) == 1)
+    if (parse_cylinder(p, line, "co") == 1)
         return (1);
     return (0);
 }

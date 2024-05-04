@@ -30,6 +30,9 @@ int check_rgb(char *split, t_parse *p)
         free_split(p->color);
         return (1);
     }
+    p->r = ft_atoi(p->color[0]);
+    p->g = ft_atoi(p->color[1]);
+    p->b = ft_atoi(p->color[2]);
     free_split(p->color);
     return (0);
 }
@@ -46,7 +49,7 @@ int check_range(char **split, t_parse *p)
     return (0);
 }
 
-int vector_range(char **split)
+int vector_range(char **split, t_parse *p)
 {
     char    **split_tmp;
     int     i;
@@ -80,9 +83,15 @@ int vector_range(char **split)
         }
         i++;
     }
-    free_split(split_tmp);
     if (count_comma(split[2]) == 1 || i != 3)
+    {
+        free_split(split_tmp);
         return (1);
+    }
+    p->vr_1 = ft_atof(split_tmp[0]);
+    p->vr_2 = ft_atof(split_tmp[1]);
+    p->vr_3 = ft_atof(split_tmp[2]);
+    free_split(split_tmp);
     return (0);
 }
 
@@ -93,7 +102,6 @@ int check_xyz(t_parse *p, char **split)
     int     j;
 
     i = -1;
-    (void)p;
     split_tmp = ft_split(split[1], ',');
     while (split_tmp[++i])
     {
@@ -112,13 +120,19 @@ int check_xyz(t_parse *p, char **split)
             }
         }
     }
-    free_split(split_tmp);
     if (i != 3)
+    {
+        free_split(split_tmp);
         return (1);
+    }
+    p->x = ft_atof(split_tmp[0]);
+    p->y = ft_atof(split_tmp[1]);
+    p->z = ft_atof(split_tmp[2]);
+    free_split(split_tmp);
     return (0);
 }
 
-int check_diameter(char *diameter)
+int check_diameter(char *diameter, t_parse *p)
 {
     int i;
 
@@ -133,5 +147,6 @@ int check_diameter(char *diameter)
             return (1);
         i++;
     }
+    p->diam = ft_atof(diameter);
     return (0);
 }

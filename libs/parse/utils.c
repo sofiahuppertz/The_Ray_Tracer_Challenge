@@ -13,12 +13,17 @@ void    free_split(char **split)
     free(split);
 }
 
-int    parsing_error(int tmp, int fd)
+int    parsing_error(int tmp, int fd, t_parse *p)
 {
+    close(fd);
+    if (p->A != 1 || p->C != 1 || p->L != 1)
+    {
+        printf("Parsing error: check A, C, L identifiers in map\n");
+        return (1);
+    }
     if (tmp == 1)
     {
         printf("Parsing error: incorrect character(s) or number(s) in map\n");
-        close(fd);
         return (1);
     }
     return (0);
@@ -46,17 +51,15 @@ double	ft_atof(char *str)
 {
 	int	    i;
     int     sign;
-    int     hasfract;
 	double	res;
-	double	tmp;
     double  fract;
+    double  div;
 
 	i = 0;
     sign = 1;
+    div = 1.0;
     res = 0.0;
-    tmp = 0.0;
     fract = 0.0;
-    hasfract = 0;
 	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
 		i++;
     if (str[i] == '-')
@@ -74,15 +77,10 @@ double	ft_atof(char *str)
 	    while (str[i] && str[i] >= '0' && str[i] <= '9')
         {
             fract = fract * 10 + str[i] - '0';
+            div *= 10;
             i++;
         }
-        hasfract = 1;
     }
-    tmp = res;
-    res = res + (fract / 10);
-    if (!hasfract)
-    {
-        res = tmp;
-    }
+    res = res + (fract / div);
 	return (res * sign);
 }

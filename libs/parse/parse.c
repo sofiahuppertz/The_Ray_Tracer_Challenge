@@ -24,16 +24,19 @@ int identify(t_parse *p, char *line)
 {
     if (ft_strncmp("A", line, 1) == 0)
     {
+        p->A++;
         if (ambiant_light(p, line) == 1)
             return (1);
     }
     else if (ft_strncmp("C", line, 1) == 0)
     {
+        p->C++;
         if (camera(p, line) == 1)
             return (1);
     }
     else if (ft_strncmp("L", line, 1) == 0)
     {
+        p->L++;
         if (light(p, line) == 1)
             return (1);
     }
@@ -71,6 +74,9 @@ int check_file_rt(int fd)
 
     res = 1;
     tmp = 0;
+    p.A = 0;
+    p.L = 0;
+    p.C = 0;
     while (res)
     {
         res = read_line(fd, &line, 4096);
@@ -80,7 +86,7 @@ int check_file_rt(int fd)
         if (!res)
             break ;
     }
-    if (parsing_error(tmp, fd) == 1)
+    if (parsing_error(tmp, fd, &p) == 1)
         return (1);
     return (0);
 }
@@ -95,10 +101,14 @@ int main(int ac, char **av)
     if (fd == -1)
     {
         perror("fd");
+        close(fd);
         return (1);
     }
     if (check_file_rt(fd) == 1)
+    {
+        close(fd);
         return (1);
+    }
     close(fd);
     return (0);
 }

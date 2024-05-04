@@ -2,8 +2,7 @@
 
 int main(void)
 {	
-
-
+	
 	t_plane *floor;
 	t_plane *left_wall;
 	t_plane *right_wall;

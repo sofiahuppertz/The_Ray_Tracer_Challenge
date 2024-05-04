@@ -58,7 +58,6 @@ static void add_to_material(t_material *material, t_attributes *attr)
     }
     free(attr->key);
     free(attr->value);
-    free(attr);
 }   
 
 void set_extras(t_shape *shape, t_attributes *first_extra, va_list extras)
@@ -73,13 +72,14 @@ void set_extras(t_shape *shape, t_attributes *first_extra, va_list extras)
     while (attr)
     {
         add_to_material(material, attr);
+        free(attr);
         attr = va_arg(extras, t_attributes *);
         if (!attr)
             break;
     }
 }
 
-t_attributes *checker(t_color *a, t_color *b, double width, double r_z)
+t_attributes *checker(t_color *a, t_color *b)
 {
     t_attributes *attr;
 
@@ -93,7 +93,6 @@ t_attributes *checker(t_color *a, t_color *b, double width, double r_z)
         return (NULL);
     strcpy(attr->key, "checker");
     attr->value = checker_pattern(a, b);
-    transform(attr->value, chain_tfs(scaling(width, width, width), rotation_z(degrees_to_radians(r_z)), NULL));
     return (attr);
 }
 

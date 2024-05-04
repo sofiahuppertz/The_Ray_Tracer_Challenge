@@ -4,6 +4,7 @@ SRC = attributes.c \
 	scene.c \
 	methods1.c \
 	methods2.c \
+	window.c \
 
 CAMERA_DIR = ../camera
 

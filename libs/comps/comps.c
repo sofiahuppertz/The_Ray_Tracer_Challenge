@@ -33,6 +33,7 @@ void free_comps(t_comps **comps)
     free(ptr->eyev);
     free(ptr->normalv);
     free(ptr->over_point);
+    free(ptr->under_point);
     free(ptr->reflectv);
     free(ptr);
     ptr = NULL;

@@ -78,4 +78,3 @@ void make_light(t_tuple *position, double brightness, t_color *color)
     }
     set_diffuse(_scene->material, brightness);
 }
-

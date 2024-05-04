@@ -5,8 +5,8 @@
 #include <stdarg.h>
 #include <string.h>
 
-#define HEIGHT 80
-#define WIDTH 80
+#define HEIGHT 10
+#define WIDTH 5
 
 typedef struct s_scene
 {
@@ -36,11 +36,15 @@ void make_cylinder(t_tuple *center, t_tuple *axis, double diameter, double heigh
 void make_cone(t_tuple *center, t_tuple *axis, double unit_d, double height, t_color *color, t_attributes *attributes, ...);
 void set_extras(t_shape *shape, t_attributes *first_extra, va_list extras);
 
-t_attributes *checker(t_color *a, t_color *b, double width,  double rotation_z);
+t_attributes *checker(t_color *a, t_color *b);
 t_attributes *stripe(t_color *a, t_color *b, double width, double rotation_z);
 t_attributes *rfl(double reflectivity);
 t_attributes *rfr(double refractive_index);
 t_attributes *tsy(double transparency);
 
+//Events
+int close_window(void *param);
+int key_press(int keycode, void *param);
+int set_events_and_display(t_canvas *canvas);
 
 # endif

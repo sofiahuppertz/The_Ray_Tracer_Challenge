@@ -28,6 +28,7 @@ void make_sphere(t_tuple *center, double diameter, t_color *color, t_attributes 
         va_end(extras);
     }
     set_shape(_scene->world, (t_shape *)&sp->shape);
+    free(center);
 }
 
 void make_plane(t_tuple *point, t_tuple *normal, t_color *color, t_attributes *attributes, ...)

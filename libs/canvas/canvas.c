@@ -37,12 +37,6 @@ t_canvas *canvas(int width, int height)
 	return canvas;
 }
 
-void display_image(t_canvas *canvas)
-{
-	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img.img, 0, 0);
-	mlx_loop(canvas->mlx);
-}
-
 void free_canvas(t_canvas *canvas)
 {
 	if (canvas)
@@ -50,11 +44,22 @@ void free_canvas(t_canvas *canvas)
 		if (canvas->img.img)
 		{
 			mlx_destroy_image(canvas->mlx, canvas->img.img);
+			canvas->img.img = NULL;
 		}
 		if (canvas->mlx_win)
 		{
 			mlx_destroy_window(canvas->mlx, canvas->mlx_win);
+			canvas->mlx_win = NULL;
 		}
+		//if (canvas->mlx)
+		//{
+		//	mlx_loop_end(canvas->mlx);
+		//	mlx_destroy_display(canvas->mlx);
+		//	free(canvas->mlx);
+		//}
 		free(canvas);
 	}
 }
+
+
+

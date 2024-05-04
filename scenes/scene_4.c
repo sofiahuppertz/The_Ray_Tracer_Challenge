@@ -1,3 +1,4 @@
+#include "libs/librt.h"
 
 int main(void)
 {
@@ -14,5 +15,6 @@ int main(void)
 	make_cone(point(0, 0, 1), vector(0, 1, 0), 0.5, 2.5, color(div_255(255), div_255(0), div_255(127)), stripe(white(), color(div_255(255), div_255(154), div_255(0)), 0.7, 90), NULL);
 	make_cylinder(point(0, -1.2, 1), vector(0, 1, 0), 1.6, 0.1, color(div_255(255), div_255(154), div_255(0)), NULL);
 	_scene->canvas = render(_scene->camera, _scene->world);
-	display_image(_scene->canvas);
+	set_events_and_display(_scene->canvas);
+	return (0);
 }

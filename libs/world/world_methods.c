@@ -32,13 +32,6 @@ t_color *shade_hit(const t_world w, const t_comps comps, int remaining)
         free(reflected);
         t_color *refracted_frac = scalar_color(*refracted, 1 - reflectance);
         free(refracted);
-        if (comps.t < 20)
-        {
-            printf("Reflectance: %f\n", reflectance);
-            print_color(*reflected_frac);
-            print_color(*refracted_frac);
-            print_color(*surface);
-        }
         return add_colors(surface, reflected_frac, refracted_frac, NULL);
     }
     reflected = reflected_color(w, comps, remaining);

@@ -20,6 +20,7 @@ typedef struct s_parse
     int     tsy;
     int     rfr;
     int     rfl;
+    int     count;
     char    **color;
     double     ratio;
 }       t_parse;
@@ -62,8 +63,8 @@ int     check_diameter(char *diameter);
 /* extra */
 int     checker(char **arg, t_parse *p);
 int     stripe(char **arg, t_parse *p);
-int     transparency(char **arg);
-int     refraction(char **arg);
-int     reflection(char **arg);
+int     transparency(char **arg, t_parse *p);
+int     refraction(char **arg, t_parse *p);
+int     reflection(char **arg, t_parse *p);
 
 #endif

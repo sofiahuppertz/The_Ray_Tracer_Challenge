@@ -95,6 +95,7 @@ int check_file_rt(int fd)
     p.C = 0;
     while (res)
     {
+        p.count = 0;
         res = read_line(fd, &line, 4096);
         init(&p);
         if (identify(&p, line) == 1)

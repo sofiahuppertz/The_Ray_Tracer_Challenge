@@ -26,6 +26,7 @@ int checker(char **arg, t_parse *p)
         free_split(arg);
         return (1);
     }
+    p->count += 3;
     return (0);
 }
 
@@ -74,10 +75,11 @@ int stripe(char **arg, t_parse *p)
             return (1);
         }
     }
+    p->count += 5;
     return (0);
 }
 
-int transparency(char **arg)
+int transparency(char **arg, t_parse *p)
 {
     int i;
 
@@ -94,15 +96,16 @@ int transparency(char **arg)
         return (1);
     }
     if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
-        arg[1][0] == '-')
+        arg[i + 1][0] == '-')
     {
         free_split(arg);
         return (1);
     }
+    p->count += 2;
     return (0);
 }
 
-int refraction(char **arg)
+int refraction(char **arg, t_parse *p)
 {
     int i;
 
@@ -119,15 +122,16 @@ int refraction(char **arg)
         return (1);
     }
     if (!(ft_atof(arg[i + 1]) >= 1.0 && ft_atof(arg[i + 1]) <= 3.0) ||
-        arg[1][0] == '-')
+        arg[i + 1][0] == '-')
     {
         free_split(arg);
         return (1);
     }
+    p->count += 2;
     return (0);
 }
 
-int reflection(char **arg)
+int reflection(char **arg, t_parse *p)
 {
     int i;
 
@@ -144,10 +148,11 @@ int reflection(char **arg)
         return (1);
     }
     if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
-        arg[1][0] == '-')
+        arg[i + 1][0] == '-')
     {
         free_split(arg);
         return (1);
     }
+    p->count += 2;
     return (0);
 }

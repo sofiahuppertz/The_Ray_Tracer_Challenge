@@ -1,4 +1,4 @@
-NAME = main
+NAME = miniRT
 SRC = main.c
 OBJ = $(SRC:.c=.o)
 

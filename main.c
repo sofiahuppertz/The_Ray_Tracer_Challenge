@@ -15,5 +15,5 @@ int main(void)
 	make_cylinder(point(-0.7, -0.3, 2.2),  norm(vector(1, 1, 0)), 0.7, 2.5, color(0, 0, 0),tsy(1.0), rfr(2.5), rfl(1.0), NULL);
 
 	_scene->canvas = render(_scene->camera, _scene->world);
-	//display_image(_scene->canvas);
+	set_events_and_display(_scene->canvas);
 }

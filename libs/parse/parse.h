@@ -33,6 +33,14 @@ typedef struct s_parse
     int     rfl;
     int     count;
     char    **color;
+    double  chk_fc;
+    double  chk_sc;
+    double  str_fc;
+    double  str_width;
+    double  str_rot;
+    double  tsy_range;
+    double  rfr_range;
+    double  rfl_range;
     double     ratio;
 }       t_parse;
 

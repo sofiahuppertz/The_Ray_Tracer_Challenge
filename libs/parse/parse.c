@@ -121,24 +121,24 @@ int check_file_rt(int fd)
     return (0);
 }
 
-int main(int ac, char **av)
-{
-    int   fd;
+// int main(int ac, char **av)
+// {
+//     int   fd;
 
-    if (check_cmd_line(ac, av) == 1)
-        return (1);
-    fd = open(av[ac - 1], O_RDONLY);
-    if (fd == -1)
-    {
-        perror("fd");
-        close(fd);
-        return (1);
-    }
-    if (check_file_rt(fd) == 1)
-    {
-        close(fd);
-        return (1);
-    }
-    close(fd);
-    return (0);
-}
+//     if (check_cmd_line(ac, av) == 1)
+//         return (1);
+//     fd = open(av[ac - 1], O_RDONLY);
+//     if (fd == -1)
+//     {
+//         perror("fd");
+//         close(fd);
+//         return (1);
+//     }
+//     if (check_file_rt(fd) == 1)
+//     {
+//         close(fd);
+//         return (1);
+//     }
+//     close(fd);
+//     return (0);
+// }

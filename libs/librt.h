@@ -20,5 +20,14 @@
 #include "sphere/sphere.h"
 #include "tuple/tuple.h"
 #include "world/world.h"
+#include "parse/parse.h"
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
 #endif

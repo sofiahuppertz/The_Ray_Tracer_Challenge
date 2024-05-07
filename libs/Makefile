@@ -19,6 +19,7 @@ SUBDIRS = camera \
 		sphere \
 		tuple \
 		world \
+		parse \
 
 LIBS = $(addsuffix /$@, $(SUBDIRS))
 

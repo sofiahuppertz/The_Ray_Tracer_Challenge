@@ -5,7 +5,7 @@ SRC = cone.c \
 
 OBJ = $(SRC:.c=.o)
 
-CYLINDRICAL_DIR = ../CYLINDRICAL
+CYLINDRICAL_DIR = ../cylindrical
 
 
 .SECONDARY: $(OBJ)

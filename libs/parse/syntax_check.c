@@ -39,12 +39,10 @@ int check_rgb(char *split, t_parse *p)
 
 int check_range(char **split, t_parse *p)
 {
+    (void)p;
     if (!split[1])
         return (1);
-    p->ratio = ft_atof(split[1]);
-    if (!p->ratio)
-        return (1);
-    if (!(p->ratio >= 0.0 && p->ratio <= 1.0) || split[1][0] == '-')
+    if (!(ft_atof(split[1]) >= 0.0 && ft_atof(split[1]) <= 1.0) || split[1][0] == '-')
         return (1);
     return (0);
 }

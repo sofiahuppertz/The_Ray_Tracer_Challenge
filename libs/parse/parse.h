@@ -11,82 +11,74 @@
 #include "libft/libft.h"
 #include "../librt.h"
 
-//typedef struct s_organized_params
-//{
-//    t_attributes *first;
-//    t_attributes *second;
-//    t_attributes *third;
-//    t_attributes *fourth;
-//    t_attributes *fifth;
-//    t_attributes *last; // This will always be NULL
-//
-//} t_params;
-//
-//typedef struct s_parse
-//{
-//    int     A;
-//    int     C;
-//    int     L;
-//    double     x;
-//    double     y;
-//    double     z;
-//    double     diam;
-//    double     vr_1;
-//    double     vr_2;
-//    double     vr_3;
-//    int     r;
-//    int     g;
-//    int     b;
-//    int     chk;
-//    int     str;
-//    int     tsy;
-//    int     rfr;
-//    int     rfl;
-//    int     count;
-//    char    **color;
-//    t_attributes *checker_attr;
-//    t_attributes *stripe_attr;
-//    t_attributes *transparency_attr;
-//    t_attributes *refraction_attr;
-//    t_attributes *reflection_attr;
-//    t_params *params;
-//}       t_parse;
-
-//Example appel fonction make:
-// make_plane(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3), color(div_255(p->r), div_255(p->g), div_255(p->b)), params->first, params->second, params->third, params->fourth, params->fifth, params->last);
-
 typedef struct s_parse
 {
-    int     A;
-    int     C;
-    int     L;
-    double     x;
-    double     y;
-    double     z;
-    double     diam;
-    double     vr_1;
-    double     vr_2;
-    double     vr_3;
-    int     r;
-    int     g;
-    int     b;
-    int     chk;
-    int     str;
-    int     tsy;
-    int     rfr;
-    int     rfl;
-    int     count;
-    char    **color;
-    double  chk_fc;
-    double  chk_sc;
-    double  str_fc;
-    double  str_width;
-    double  str_rot;
-    double  tsy_range;
-    double  rfr_range;
-    double  rfl_range;
-    double     ratio;
+   int     A;
+   int     C;
+   int     L;
+   double     x;
+   double     y;
+   double     z;
+   double     diam;
+   double     vr_1;
+   double     vr_2;
+   double     vr_3;
+   double  chk_fc;
+   double  chk_sc;
+   double  str_fc;
+   double  str_sc;
+   int     r;
+   int     g;
+   int     b;
+   int     chk;
+   int     str;
+   int     tsy;
+   int     rfr;
+   int     rfl;
+   int     count;
+   char    **color;
+   char    **color_2;
+   t_attributes *checker_attr;
+   t_attributes *stripe_attr;
+   t_attributes *transparency_attr;
+   t_attributes *refraction_attr;
+   t_attributes *reflection_attr;
+   t_attributes *params[6];
 }       t_parse;
+
+// typedef struct s_parse
+// {
+//     int     A;
+//     int     C;
+//     int     L;
+//     double     x;
+//     double     y;
+//     double     z;
+//     double     diam;
+//     double     vr_1;
+//     double     vr_2;
+//     double     vr_3;
+//     int     r;
+//     int     g;
+//     int     b;
+//     int     chk;
+//     int     str;
+//     int     tsy;
+//     int     rfr;
+//     int     rfl;
+//     int     count;
+//     char    **color;
+    // double  chk_fc;
+    // double  chk_sc;
+    // double  str_fc;
+    // double  str_sc;
+//     double  str_width;
+//     double  str_rot;
+//     double  tsy_range;
+//     double  rfr_range;
+//     double  rfl_range;
+//     double     ratio;
+// }       t_parse;
 
 /* read line */
 int     read_line(int fd, char **line, int buffer_size);

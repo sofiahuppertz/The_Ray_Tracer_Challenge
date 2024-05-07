@@ -79,6 +79,18 @@ void    init(t_parse *p)
     p->tsy = 0;
     p->rfr = 0;
     p->rfl = 0;
+    p->checker_attr = NULL;
+    p->stripe_attr = NULL;
+    p->transparency_attr = NULL;
+    p->refraction_attr = NULL;
+    p->reflection_attr = NULL;
+
+    p->params[0] = NULL;
+    p->params[1] = NULL;
+    p->params[2] = NULL;
+    p->params[3] = NULL;
+    p->params[4] = NULL;
+    p->params[5] = NULL;
 }
 
 int check_file_rt(int fd)

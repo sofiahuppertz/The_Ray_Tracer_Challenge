@@ -155,7 +155,9 @@ int parse_plan(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
-	// make_plane(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3), color(div_255(p->r), div_255(p->g), div_255(p->b)), NULL);
+	make_plane(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
+        color(div_255(p->r), div_255(p->g), div_255(p->b)), p->params[0],
+        p->params[1], p->params[2], p->params[3], p->params[4], p->params[5]);
     free_split(split);
     return (0);
 }

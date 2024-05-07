@@ -126,9 +126,9 @@ void add_intersection(t_intersection **_xs, t_intersection *new)
     {
         return;
     }
-    // if (!*xs)
-    //     *_xs = new;
-    // else
+    if (!*xs)
+        *_xs = new;
+    else
         *_xs = merge_sorted(_xs, &new);
 }
 

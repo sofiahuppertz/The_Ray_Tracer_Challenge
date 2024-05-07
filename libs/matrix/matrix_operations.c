@@ -121,12 +121,12 @@ double determinant(const t_matrix m)
 double cofactor(const t_matrix m, const int row, const int col)
 {
     if ((row + col) % 2 == 0)
-        return minor(m, row, col);
+        return compute_minor(m, row, col);
     else
-        return -minor(m, row, col);
+        return -compute_minor(m, row, col);
 }
 
-double minor(t_matrix m, int row, int col)
+double compute_minor(t_matrix m, int row, int col)
 {
     t_matrix *sub;
     double result;

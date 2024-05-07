@@ -66,7 +66,7 @@ t_matrix *submatrix(const t_matrix m, int row, int col);
 int equal_matrices(const t_matrix a, const t_matrix b);
 int is_square(const t_matrix m);
 double determinant(const t_matrix m);
-double minor(const t_matrix m, int row, int col);
+double compute_minor(const t_matrix m, int row, int col);
 double cofactor(const t_matrix m, int row, int col);
 
 

@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include "libft/libft.h"
-#include "../librt.h"
+#include "../libft/libft.h"
+#include "../scene/scene.h"
 
 typedef struct s_parse
 {

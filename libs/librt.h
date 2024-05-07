@@ -9,6 +9,7 @@
 #include "cylinder/cylinder.h"
 #include "cylindrical/cylindrical.h"
 #include "intersection/intersection.h"
+#include "libft/libft.h"
 #include "light/light.h"
 #include "material/material.h"
 #include "matrix/matrix.h"

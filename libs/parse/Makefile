@@ -1,37 +1,46 @@
-NAME = parse
+NAME = parse.a
 
-SRC = ./parse.c\
-		./read_line.c\
-		./utils.c\
-		./scene_elm.c\
-		./syntax_check.c\
-		./extra.c\
+SRC = parse.c \
+		read_line.c \
+		utils.c \
+		scene_elm.c \
+		syntax_check.c \
+		extra.c \
+
+SCENE_DIR = ../scene
+LIBFT_DIR = ../libft
 
 OBJ = $(SRC:.c=.o)
 
-INCLUDES = parse.h
-LIBFT = libft/libft.a
+.SECONDARY: $(OBJ)
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
+
 
 all : $(NAME)
 
 %.o : %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+$(NAME): $(OBJ) $(LIBFT_DIR) $(SCENE_DIR)/scene.a $(LIBFT_DIR)/libft.a
+	ar rcs $(NAME) $(OBJ)
+	
 
-$(LIBFT):
-	@make -sC libft
+$(LIBFT_DIR)/libft.a:
+	$(MAKE) -C $(LIBFT_DIR)
+
+$(SCENE_DIR)/scene.a:
+	$(MAKE) -C $(SCENE_DIR)
 
 clean :
 	rm -f $(OBJ)
-	make clean -C libft
+	make -C $(SCENE_DIR) fclean
+	make -C $(LIBFT_DIR) fclean
 
 fclean : clean
 	rm -f $(NAME)
-	make fclean -C libft
+	
 
 re : fclean all
 

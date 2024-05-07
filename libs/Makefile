@@ -8,9 +8,11 @@ SUBDIRS = camera \
 		cylinder \
 		cylindrical \
 		intersection \
+		libft \
 		light \
 		material \
 		matrix \
+		parse \
 		pattern \
 		plane \
 		ray \

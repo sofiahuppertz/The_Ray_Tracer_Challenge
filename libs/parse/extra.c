@@ -42,7 +42,7 @@ int parse_checker(char **arg, t_parse *p)
     }
     p->color = ft_split(arg[i + 1], ',');
     p->color_2 = ft_split(arg[i + 2], ',');
-    p->checker_attr = checker(color(ft_atoi(p->color[0]), ft_atoi(p->color[1]), ft_atoi(p->color[2])),\
+    p->checker_attr = checker(color(ft_atoi(p->color[0]), ft_atoi(p->color[1]), ft_atoi(p->color[2])),
         color(ft_atoi(p->color_2[0]), ft_atoi(p->color_2[1]), ft_atoi(p->color_2[2])));
     params_order(p->checker_attr, p);
     free_split(p->color);

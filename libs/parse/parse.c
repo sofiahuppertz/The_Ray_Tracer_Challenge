@@ -5,17 +5,26 @@ int identify_2(t_parse *p, char *line)
     if (ft_strncmp("pl", line, 2) == 0)
     {
         if (parse_plan(p, line) == 1)
+        {
+            printf("1\n");
             return (1);
+        }
     }
     else if (ft_strncmp("sp", line, 2) == 0)
     {
         if (parse_sphere(p, line) == 1)
+        {
+            printf("2\n");
             return (1);
+        }
     }
     else if (ft_strncmp("cy", line, 2) == 0)
     {
         if (parse_cylinder(p, line, "cy") == 1)
+        {
+            printf("3\n");
             return (1);
+        }
     }
     else if (ft_strncmp("co", line, 2) == 0)
     {
@@ -74,6 +83,8 @@ int check_cmd_line(int ac, char **av)
 
 void    init(t_parse *p)
 {
+    p->count = 0;
+
     p->chk = 0;
     p->str = 0;
     p->tsy = 0;
@@ -107,7 +118,6 @@ int check_file_rt(int fd)
     p.C = 0;
     while (res)
     {
-        p.count = 0;
         res = read_line(fd, &line, 4096);
         init(&p);
         if (identify(&p, line) == 1)

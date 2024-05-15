@@ -5,8 +5,8 @@ int main(void)
 	t_scene *_scene;
 
 	_scene = scene();
-	make_camera(point(0, -2, -10), point(0, 0, 1), degrees_to_radians(40));
 	make_ambient_light(0.2, color(1, 1, 1));
+	make_camera(point(0, -2, -10), point(0, 0, 1), degrees_to_radians(40));
 	make_light(point(-2, -2, -10), 0.9, color(div_255(255), div_255(215), div_255(168)));
 
 	make_plane(point(0, 2, 0), vector(0, 1, 0), color(div_255(250), div_255(189), div_255(65)), NULL);

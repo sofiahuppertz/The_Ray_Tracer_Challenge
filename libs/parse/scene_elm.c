@@ -17,7 +17,7 @@ int parse_ambiant_light(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
-    make_ambient_light(ft_atof(split[1]), color(p->r, p->g, p->b));
+    make_ambient_light(ft_atof(split[1]), color(div_255(p->r), div_255(p->g), div_255(p->b)));
     free_split(split);
     return (0);
 }
@@ -77,7 +77,7 @@ int parse_light(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
-	make_light(point(p->x, p->y, p->z), ft_atof(split[2]), color(p->r, p->g, p->b));
+	make_light(point(p->x, p->y, p->z), ft_atof(split[2]), color(div_255(p->r), div_255(p->g), div_255(p->b)));
     free_split(split);
     return (0);
 }
@@ -198,7 +198,7 @@ int parse_sphere(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
-	make_sphere(point(p->x, p->y, p->z), 1, color(div_255(p->r), div_255(p->g),
+	make_sphere(point(p->x, p->y, p->z), p->diam, color(div_255(p->r), div_255(p->g),
         div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
         p->params[4], p->params[5]);
     free_split(split);
@@ -226,7 +226,7 @@ int parse_cylinder(t_parse *p, char *line, char *n)
             return (1);
     }
     if (check_xyz(p, split) == 1 || check_diameter(split[3], p) == 1 ||
-        check_diameter(split[4], p) == 1 || check_rgb(split[5], p) == 1)
+        check_diameter(split[4], p) == 1 || check_rgb(split[5], p) == 1 || vector_range(split, p) == 1)
     {
         free_split(split);
         return (1);
@@ -245,6 +245,13 @@ int parse_cylinder(t_parse *p, char *line, char *n)
     if (ft_strcmp(n, "cy") == 0)
     {
 	    make_cylinder(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
+            ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r), div_255(p->g),
+            div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
+            p->params[4], p->params[5]);
+    }
+    else if (ft_strcmp(n, "co") == 0)
+    {
+        make_cone(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
             ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r), div_255(p->g),
             div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
             p->params[4], p->params[5]);

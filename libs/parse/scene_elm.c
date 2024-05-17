@@ -146,31 +146,46 @@ int check_extra(char **split, t_parse *p)
             {
                 p->chk++;
                 if (parse_checker(split, p) == 1)
+                {
+                    free(tmp);
                     return (1);
+                }
             }
             else if (ft_strcmp(tmp, "STRIPE") == 0)
             {
                 p->str++;
                 if (parse_stripe(split, p) == 1)
+                {
+                    free(tmp);
                     return (1);
+                }
             }
             else if (ft_strcmp(tmp, "TSY") == 0)
             {
                 p->tsy++;
                 if (parse_transparency(split, p) == 1)
+                {
+                    free(tmp);
                     return (1);
+                }
             }
             else if (ft_strcmp(tmp, "RFR") == 0)
             {
                 p->rfr++;
                 if (parse_refraction(split, p) == 1)
+                {
+                    free(tmp);
                     return (1);
+                }
             }
             else if (ft_strcmp(tmp, "RFL") == 0)
             {
                 p->rfl++;
                 if (parse_reflection(split, p) == 1)
+                {
+                    free(tmp);
                     return (1);
+                }
             }
             free(tmp);
         }
@@ -198,7 +213,7 @@ int parse_plan(t_parse *p, char *line)
     {
         if (check_extra(split, p) == 1)
         {
-            free_split(split);
+            // free_split(split);
             return (1);
         }
         if (count_nb_elm(split, 4 + p->count) == 1)

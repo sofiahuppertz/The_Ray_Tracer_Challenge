@@ -79,12 +79,15 @@ int check_cmd_line(int ac, char **av)
     if (ac == 2)
     {
         tmp = strrchr(av[last_arg], '.');
-        if (strcmp(tmp, ".rt") != 0)
+        if (tmp)
         {
-            printf("error: please enter a file.rt\n");
-            return (1);
+            if (strcmp(tmp, ".rt") != 0)
+            {
+                printf("error: please enter a file.rt\n");
+                return (1);
+            }
+            return (0);
         }
-        return (0);
     }
     printf("error: number of arg should be 2\n");
     return (1);

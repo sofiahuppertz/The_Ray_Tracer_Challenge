@@ -114,40 +114,49 @@ char    *rm_space(char *str)
     return (new);
 }
 
-double	ft_atof(char *str)
+double ft_atof(char *str)
 {
-	int	    i;
-    int     sign;
-	double	res;
-    double  fract;
-    double  div;
+    char    *endptr;
+    double  value;
 
-	i = 0;
-    sign = 1;
-    div = 1.0;
-    res = 0.0;
-    fract = 0.0;
-	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
-		i++;
-    if (str[i] == '-')
-		sign *= -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] && str[i] != '.' && str[i] >= '0' && str[i] <= '9')
-	{
-		res = res * 10 + str[i] - '0';
-		i++;
-	}
-    if (str[i] == '.')
-    {
-        i++;
-	    while (str[i] && str[i] >= '0' && str[i] <= '9')
-        {
-            fract = fract * 10 + str[i] - '0';
-            div *= 10;
-            i++;
-        }
-    }
-    res = res + (fract / div);
-	return (res * sign);
+    value = strtod(str, &endptr);
+    return (value);
 }
+
+// double	ft_atof(char *str)
+// {
+// 	int	    i;
+//     int     sign;
+// 	double	res;
+//     double  fract;
+//     double  div;
+
+// 	i = 0;
+//     sign = 1;
+//     div = 1.0;
+//     res = 0.0;
+//     fract = 0.0;
+// 	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
+// 		i++;
+//     if (str[i] == '-')
+// 		sign *= -1;
+// 	if (str[i] == '-' || str[i] == '+')
+// 		i++;
+// 	while (str[i] && str[i] != '.' && str[i] >= '0' && str[i] <= '9')
+// 	{
+// 		res = res * 10 + str[i] - '0';
+// 		i++;
+// 	}
+//     if (str[i] == '.')
+//     {
+//         i++;
+// 	    while (str[i] && str[i] >= '0' && str[i] <= '9')
+//         {
+//             fract = fract * 10 + str[i] - '0';
+//             div *= 10;
+//             i++;
+//         }
+//     }
+//     res = res + (fract / div);
+// 	return (res * sign);
+// }

@@ -111,12 +111,14 @@ int parse_transparency(char **arg, t_parse *p)
                 if (!arg[i + 1])
                 {
                     free_split(arg);
+                    free(tmp);
                     return (1);
                 }
                 if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
                     arg[i + 1][0] == '-')
                 {
                     free_split(arg);
+                    free(tmp);
                     return (1);
                 }
                 p->transparency_attr = tsy(ft_atof(arg[i + 1]));
@@ -125,6 +127,8 @@ int parse_transparency(char **arg, t_parse *p)
                 free(tmp);
                 break ;
             }
+            if (tmp)
+                free(tmp);
         }
         i++;
     }
@@ -161,6 +165,7 @@ int parse_refraction(char **arg, t_parse *p)
             {
                 if (!arg[i + 1])
                 {
+                    free(tmp);
                     free_split(arg);
                     return (1);
                 }
@@ -168,13 +173,13 @@ int parse_refraction(char **arg, t_parse *p)
                     arg[i + 1][0] == '-')
                 {
                     free_split(arg);
+                    free(tmp);
                     return (1);
                 }
                 p->refraction_attr = rfr(ft_atof(arg[i + 1]));
                 params_order(p->refraction_attr, p);
                 p->count += 2;
-                if (tmp)
-                    free(tmp);
+                free(tmp);
                 break ;
             }
             if (tmp)
@@ -216,12 +221,14 @@ int parse_reflection(char **arg, t_parse *p)
                 if (!arg[i + 1])
                 {
                     free_split(arg);
+                    free(tmp);
                     return (1);
                 }
                 if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
                     arg[i + 1][0] == '-')
                 {
                     free_split(arg);
+                    free(tmp);
                     return (1);
                 }
                 p->reflection_attr = rfl(ft_atof(arg[i + 1]));
@@ -230,6 +237,8 @@ int parse_reflection(char **arg, t_parse *p)
                 free(tmp);
                 break ;
             }
+            if (tmp)
+                free(tmp);
         }
         i++;
     }

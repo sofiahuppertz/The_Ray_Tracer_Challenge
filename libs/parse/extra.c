@@ -96,84 +96,156 @@ int parse_stripe(char **arg, t_parse *p)
 
 int parse_transparency(char **arg, t_parse *p)
 {
-    int i;
+    char    *tmp;
+    int     i;
 
     i = 0;
+    tmp = NULL;
     while (arg[i])
     {
-        if (ft_strcmp(arg[i], "TSY") == 0)
-            break ;
+        tmp = test(arg[i]);
+        if (tmp)
+        {
+            if (ft_strcmp(tmp, "TSY") == 0)
+            {
+                if (!arg[i + 1])
+                {
+                    free_split(arg);
+                    return (1);
+                }
+                if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
+                    arg[i + 1][0] == '-')
+                {
+                    free_split(arg);
+                    return (1);
+                }
+                p->transparency_attr = tsy(ft_atof(arg[i + 1]));
+                params_order(p->transparency_attr, p);
+                p->count += 2;
+                free(tmp);
+                break ;
+            }
+        }
         i++;
     }
-    if (!arg[i + 1])
-    {
-        free_split(arg);
-        return (1);
-    }
-    if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
-        arg[i + 1][0] == '-')
-    {
-        free_split(arg);
-        return (1);
-    }
-    p->transparency_attr = tsy(ft_atof(arg[i + 1]));
-    params_order(p->transparency_attr, p);
-    p->count += 2;
+    // if (!arg[i + 1])
+    // {
+    //     free_split(arg);
+    //     return (1);
+    // }
+    // if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
+    //     arg[i + 1][0] == '-')
+    // {
+    //     free_split(arg);
+    //     return (1);
+    // }
+    // p->transparency_attr = tsy(ft_atof(arg[i + 1]));
+    // params_order(p->transparency_attr, p);
+    // p->count += 2;
     return (0);
 }
 
 int parse_refraction(char **arg, t_parse *p)
 {
-    int i;
+    char    *tmp;
+    int     i;
 
     i = 0;
+    tmp = NULL;
     while (arg[i])
     {
-        if (ft_strcmp(arg[i], "RFR") == 0)
-            break ;
+        tmp = test(arg[i]);
+        if (tmp)
+        {
+            if (ft_strcmp(tmp, "RFR") == 0)
+            {
+                if (!arg[i + 1])
+                {
+                    free_split(arg);
+                    return (1);
+                }
+                if (!(ft_atof(arg[i + 1]) >= 1.0 && ft_atof(arg[i + 1]) <= 3.0) ||
+                    arg[i + 1][0] == '-')
+                {
+                    free_split(arg);
+                    return (1);
+                }
+                p->refraction_attr = rfr(ft_atof(arg[i + 1]));
+                params_order(p->refraction_attr, p);
+                p->count += 2;
+                if (tmp)
+                    free(tmp);
+                break ;
+            }
+            if (tmp)
+                free(tmp);
+        }
         i++;
     }
-    if (!arg[i + 1])
-    {
-        free_split(arg);
-        return (1);
-    }
-    if (!(ft_atof(arg[i + 1]) >= 1.0 && ft_atof(arg[i + 1]) <= 3.0) ||
-        arg[i + 1][0] == '-')
-    {
-        free_split(arg);
-        return (1);
-    }
-    p->refraction_attr = rfr(ft_atof(arg[i + 1]));
-    params_order(p->refraction_attr, p);
-    p->count += 2;
+    // if (!arg[i + 1])
+    // {
+    //     free_split(arg);
+    //     return (1);
+    // }
+    // if (!(ft_atof(arg[i + 1]) >= 1.0 && ft_atof(arg[i + 1]) <= 3.0) ||
+    //     arg[i + 1][0] == '-')
+    // {
+    //     free_split(arg);
+    //     return (1);
+    // }
+    // p->refraction_attr = rfr(ft_atof(arg[i + 1]));
+    // params_order(p->refraction_attr, p);
+    // p->count += 2;
     return (0);
 }
 
 int parse_reflection(char **arg, t_parse *p)
 {
-    int i;
+    char    *tmp;
+    int     i;
 
     i = 0;
+    tmp = NULL;
     while (arg[i])
     {
-        if (ft_strcmp(arg[i], "RFL") == 0)
-            break ;
+        tmp = test(arg[i]);
+        if (tmp)
+        {
+            if (ft_strcmp(tmp, "RFL") == 0)
+            {
+                if (!arg[i + 1])
+                {
+                    free_split(arg);
+                    return (1);
+                }
+                if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
+                    arg[i + 1][0] == '-')
+                {
+                    free_split(arg);
+                    return (1);
+                }
+                p->reflection_attr = rfl(ft_atof(arg[i + 1]));
+                params_order(p->reflection_attr, p);
+                p->count += 2;
+                free(tmp);
+                break ;
+            }
+        }
         i++;
     }
-    if (!arg[i + 1])
-    {
-        free_split(arg);
-        return (1);
-    }
-    if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
-        arg[i + 1][0] == '-')
-    {
-        free_split(arg);
-        return (1);
-    }
-    p->reflection_attr = rfl(ft_atof(arg[i + 1]));
-    params_order(p->reflection_attr, p);
-    p->count += 2;
+    // if (!arg[i + 1])
+    // {
+    //     free_split(arg);
+    //     return (1);
+    // }
+    // if (!(ft_atof(arg[i + 1]) >= 0.0 && ft_atof(arg[i + 1]) <= 1.0) ||
+    //     arg[i + 1][0] == '-')
+    // {
+    //     free_split(arg);
+    //     return (1);
+    // }
+    // p->reflection_attr = rfl(ft_atof(arg[i + 1]));
+    // params_order(p->reflection_attr, p);
+    // p->count += 2;
     return (0);
 }

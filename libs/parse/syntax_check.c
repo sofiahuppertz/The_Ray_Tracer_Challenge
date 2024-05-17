@@ -17,7 +17,8 @@ int check_rgb(char *split, t_parse *p)
         }
         while(p->color[i][++j])
         {
-            if (p->color[i][j] != 13 && p->color[i][j] != ',' && ft_isdigit(p->color[i][j]) == 0)
+            if (p->color[i][j] != 13 && p->color[i][j] != ',' &&
+                ft_isdigit(p->color[i][j]) == 0 && p->color[i][j] != 9)
             {
                 free_split(p->color);
                 return (1);
@@ -50,10 +51,12 @@ int check_range(char **split, t_parse *p)
 int vector_range(char **split, t_parse *p)
 {
     char    **split_tmp;
+    char    *tmp;
     int     i;
     int     j;
 
     i = 0;
+    tmp = NULL;
     split_tmp = ft_split(split[2], ',');
     while (split_tmp[i])
     {
@@ -63,21 +66,27 @@ int vector_range(char **split, t_parse *p)
             return (1);
         }
         j = 0;
-        while (split_tmp[i][j])
+        tmp = rm_space(split_tmp[i]);
+        if (tmp)
         {
-            if (split_tmp[i][0] == '+' || split_tmp[i][0] == '-')
-                j++;
-            if ((ft_isdigit(split_tmp[i][0]) != 0 || split_tmp[i][0] == '+' ||
-                split_tmp[i][0] == '-') && split_tmp[i][j] == '.')
-                j++;
-            if (split_tmp[i][j] && ft_isdigit(split_tmp[i][j]) == 0)
+            while (tmp[j])
             {
-                free_split(split_tmp);
-                return (1);
+                if (j == 0 && (tmp[j] == '+' || tmp[j] == '-'))
+                    j++;
+                else if ((ft_isdigit(tmp[0]) != 0 || tmp[0] == '+' ||
+                    tmp[0] == '-') && tmp[j] == '.')
+                    j++;
+                if (tmp[j] && ft_isdigit(tmp[j]) == 0 && tmp[j] != 9)
+                {
+                    free_split(split_tmp);
+                    free(tmp);
+                    return (1);
+                }
+                if (!tmp[j])
+                    break ;
+                j++;
             }
-            if (!split_tmp[i][j])
-                break ;
-            j++;
+            free(tmp);
         }
         i++;
     }
@@ -132,19 +141,29 @@ int check_xyz(t_parse *p, char **split)
 
 int check_diameter(char *diameter, t_parse *p)
 {
-    int i;
+    char    *tmp;
+    int     i;
 
     i = 0;
+    tmp = NULL;
     if (diameter[0] == '-')
         return (1);
-    while (diameter[i])
+    tmp = rm_space(diameter);
+    if (tmp)
     {
-        if (ft_isdigit(diameter[0]) != 0 && diameter[i] == '.')
+        while (tmp[i])
+        {
+            if (ft_isdigit(tmp[0]) != 0 && tmp[i] == '.')
+                i++;
+            if (ft_isdigit(tmp[i]) == 0)
+            {
+                free(tmp);
+                return (1);
+            }
             i++;
-        if (ft_isdigit(diameter[i]) == 0)
-            return (1);
-        i++;
+        }
+        p->diam = ft_atof(tmp);
+        free(tmp);
     }
-    p->diam = ft_atof(diameter);
     return (0);
 }

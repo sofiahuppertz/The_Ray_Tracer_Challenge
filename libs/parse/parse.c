@@ -42,19 +42,28 @@ int identify(t_parse *p, char *line)
     {
         p->A++;
         if (parse_ambiant_light(p, line) == 1)
+        {
+            printf("4\n");
             return (1);
+        }
     }
     else if (ft_strncmp("C", line, 1) == 0)
     {
         p->C++;
         if (parse_camera(p, line) == 1)
+        {
+            printf("5\n");
             return (1);
+        }
     }
     else if (ft_strncmp("L", line, 1) == 0)
     {
         p->L++;
         if (parse_light(p, line) == 1)
+        {
+            printf("6\n");
             return (1);
+        }
     }
     else if (identify_2(p, line) == 1)
         return (1);

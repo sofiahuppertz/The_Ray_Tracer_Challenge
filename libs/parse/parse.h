@@ -97,6 +97,7 @@ int     parsing_error(int tmp, int fd, t_parse *p);
 int     count_comma(char *line);
 int     count_nb_elm(char **line, int j);
 int     check_id(char *line);
+char    *rm_space(char *str);
 double	ft_atof(char *str);
 
 /* scene element */
@@ -121,5 +122,7 @@ int     parse_stripe(char **arg, t_parse *p);
 int     parse_transparency(char **arg, t_parse *p);
 int     parse_refraction(char **arg, t_parse *p);
 int     parse_reflection(char **arg, t_parse *p);
+
+char    *test(char *str);
 
 #endif

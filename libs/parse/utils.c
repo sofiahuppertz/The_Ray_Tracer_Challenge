@@ -77,6 +77,43 @@ int check_id(char *line)
     return (0);
 }
 
+char    *rm_space(char *str)
+{
+    char    *new;
+    int     i;
+    int     j;
+
+    i = 0;
+    j = 0;
+    new = NULL;
+    while (str[i])
+    {
+        if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-' || str[i] == '+'
+            || str[i] == '.')
+            j++;
+        i++;
+    }
+    new = malloc(sizeof(char) * (j + 1));
+    if (!new)
+        return (NULL);
+    j = 0;
+    i = 0;
+    while (str[i])
+    {
+        if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-' || str[i] == '+'
+            || str[i] == '.')
+        {
+            new[j] = str[i];
+            j++;
+        }
+        i++;
+    }
+    if (!new)
+        return (NULL);
+    new[j] = '\0';
+    return (new);
+}
+
 double	ft_atof(char *str)
 {
 	int	    i;

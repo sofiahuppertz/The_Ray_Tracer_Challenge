@@ -61,7 +61,10 @@ int parse_light(t_parse *p, char *line)
 
     split = ft_split(line, ' ');
     if (count_nb_elm(split, 4) == 1)
+    {
+        printf("a\n");
         return (1);
+    }
     if (check_xyz(p, split) == 1 || count_comma(split[1]) == 1)
     {
         free_split(split);
@@ -82,45 +85,94 @@ int parse_light(t_parse *p, char *line)
     return (0);
 }
 
+char    *test(char *str)
+{
+    char    *tmp;
+    int     i;
+    int     j;
+
+    i = 0;
+    j = 0;
+    while (str[i])
+    {
+        if (str[i] >= 'A' && str[i] <= 'Z')
+        {
+            while (str[i] >= 'A' && str[i] <= 'Z' && str[i] != '\0' && str[i] != 32 && str[i] != 9)
+            {
+                j++;
+                i++;
+            }
+            break ;
+        } 
+        i++;
+    }
+    tmp = malloc(sizeof(char) * (j + 1));
+    if (!tmp)
+        return (NULL);
+    i = 0;
+    j = 0;
+    while (str[i])
+    {
+        if (str[i] >= 'A' && str[i] <= 'Z')
+        {
+            while (str[i] >= 'A' && str[i] <= 'Z')
+            {
+                tmp[j] = str[i];
+                j++;
+                i++;
+            }
+            tmp[j] = '\0';
+            if (tmp[0] != '\0')
+                return (tmp);
+        } 
+        i++;
+    }
+    free(tmp);
+    return (NULL);
+}
+
 int check_extra(char **split, t_parse *p)
 {
-    int i;
+    char    *tmp;
+    int     i;
 
     i = 0;
     while(split[i])
     {
-        if (ft_isdigit(split[i][0]) == 0)
+        tmp = test(split[i]);
+        if (tmp != NULL && ft_isdigit(split[i][0]) == 0)
         {
-            if (ft_strcmp(split[i], "CHECKER") == 0)
+            if (ft_strcmp(tmp, "CHECKER") == 0)
             {
                 p->chk++;
                 if (parse_checker(split, p) == 1)
                     return (1);
             }
-            else if (ft_strcmp(split[i], "STRIPE") == 0)
+            else if (ft_strcmp(tmp, "STRIPE") == 0)
             {
                 p->str++;
                 if (parse_stripe(split, p) == 1)
                     return (1);
             }
-            else if (ft_strcmp(split[i], "TSY") == 0)
+            else if (ft_strcmp(tmp, "TSY") == 0)
             {
                 p->tsy++;
                 if (parse_transparency(split, p) == 1)
                     return (1);
             }
-            else if (ft_strcmp(split[i], "RFR") == 0)
+            else if (ft_strcmp(tmp, "RFR") == 0)
             {
                 p->rfr++;
                 if (parse_refraction(split, p) == 1)
                     return (1);
             }
-            else if (ft_strcmp(split[i], "RFL") == 0)
+            else if (ft_strcmp(tmp, "RFL") == 0)
             {
                 p->rfl++;
                 if (parse_reflection(split, p) == 1)
                     return (1);
             }
+            free(tmp);
         }
         i++;
     }
@@ -151,7 +203,6 @@ int parse_plan(t_parse *p, char *line)
         }
         if (count_nb_elm(split, 4 + p->count) == 1)
         {
-            printf("4 + p->count(%d) = %d\n\n", p->count, 4 + p->count);
             free_split(split);
             return (1);
         }

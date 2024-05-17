@@ -210,6 +210,7 @@ int parse_plan(t_parse *p, char *line)
     if (check_xyz(p, split) == 1 || check_rgb(split[3], p) == 1 ||
         vector_range(split, p) == 1)
     {
+        printf("quoi\n");
         free_split(split);
         return (1);
     }

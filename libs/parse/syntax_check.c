@@ -10,15 +10,17 @@ int check_rgb(char *split, t_parse *p)
     while (p->color[i])
     {
         j = -1;
-        if (ft_atoi(p->color[i]) < 0 || ft_atoi(p->color[i]) > 255)
+        if (ft_atof(p->color[i]) < 0.0 || ft_atof(p->color[i]) > 255.0)
         {
             free_split(p->color);
             return (1);
         }
         while(p->color[i][++j])
         {
-            if (p->color[i][j] != 13 && p->color[i][j] != ',' &&
-                ft_isdigit(p->color[i][j]) == 0 && p->color[i][j] != 9)
+            if (p->color[i][j] == '.')
+                ++j;
+            if (p->color[i][j]  && p->color[i][j] != 13 && ft_isdigit(p->color[i][j]) == 0
+                && p->color[i][j] != 9)
             {
                 free_split(p->color);
                 return (1);
@@ -31,9 +33,9 @@ int check_rgb(char *split, t_parse *p)
         free_split(p->color);
         return (1);
     }
-    p->r = ft_atoi(p->color[0]);
-    p->g = ft_atoi(p->color[1]);
-    p->b = ft_atoi(p->color[2]);
+    p->r = ft_atof(p->color[0]);
+    p->g = ft_atof(p->color[1]);
+    p->b = ft_atof(p->color[2]);
     free_split(p->color);
     return (0);
 }

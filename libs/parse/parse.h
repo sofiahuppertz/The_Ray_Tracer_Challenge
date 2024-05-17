@@ -27,9 +27,9 @@ typedef struct s_parse
    double  chk_sc;
    double  str_fc;
    double  str_sc;
-   int     r;
-   int     g;
-   int     b;
+   double     r;
+   double     g;
+   double     b;
    int     chk;
    int     str;
    int     tsy;

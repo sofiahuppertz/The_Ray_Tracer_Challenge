@@ -19,11 +19,13 @@ int    parsing_error(int tmp, int fd, t_parse *p)
     if (p->A != 1 || p->C != 1 || p->L != 1)
     {
         printf("Parsing error: check A, C, L identifiers in map\n");
+        close_window(NULL);
         return (1);
     }
     if (tmp == 1)
     {
         printf("Parsing error: incorrect character(s) or number(s) in map\n");
+        close_window(NULL);
         return (1);
     }
     return (0);

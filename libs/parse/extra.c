@@ -84,9 +84,9 @@ int parse_stripe(char **arg, t_parse *p)
     }
     p->color = ft_split(arg[i + 1], ',');
     p->color_2 = ft_split(arg[i + 2], ',');
-    p->stripe_attr = stripe(color(ft_atoi(p->color[0]), ft_atoi(p->color[1]),
-        ft_atoi(p->color[2])),color(ft_atoi(p->color_2[0]), ft_atoi(p->color_2[1]),
-        ft_atoi(p->color_2[2])), ft_atof(arg[i + 3]), ft_atof(arg[i + 4]));
+    p->stripe_attr = stripe(color(div_255(ft_atoi(p->color[0])), div_255(ft_atoi(p->color[1])),
+        div_255(ft_atoi(p->color[2]))), color(div_255(ft_atoi(p->color_2[0])), div_255(ft_atoi(p->color_2[1])),
+        div_255(ft_atoi(p->color_2[2]))), ft_atof(arg[i + 3]), ft_atof(arg[i + 4]));
     params_order(p->stripe_attr, p);
     free_split(p->color);
     free_split(p->color_2);

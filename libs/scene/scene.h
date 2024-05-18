@@ -5,8 +5,8 @@
 #include <stdarg.h>
 #include <string.h>
 
-#define HEIGHT 100
-#define WIDTH 50
+#define HEIGHT 80
+#define WIDTH 80
 
 typedef struct s_scene
 {

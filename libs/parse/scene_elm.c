@@ -61,10 +61,7 @@ int parse_light(t_parse *p, char *line)
 
     split = ft_split(line, ' ');
     if (count_nb_elm(split, 4) == 1)
-    {
-        printf("a\n");
         return (1);
-    }
     if (check_xyz(p, split) == 1 || count_comma(split[1]) == 1)
     {
         free_split(split);
@@ -225,7 +222,6 @@ int parse_plan(t_parse *p, char *line)
     if (check_xyz(p, split) == 1 || check_rgb(split[3], p) == 1 ||
         vector_range(split, p) == 1)
     {
-        printf("quoi\n");
         free_split(split);
         return (1);
     }

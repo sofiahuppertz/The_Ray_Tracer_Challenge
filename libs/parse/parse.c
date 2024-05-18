@@ -5,26 +5,17 @@ int identify_2(t_parse *p, char *line)
     if (ft_strncmp("pl", line, 2) == 0)
     {
         if (parse_plan(p, line) == 1)
-        {
-            printf("1\n");
             return (1);
-        }
     }
     else if (ft_strncmp("sp", line, 2) == 0)
     {
         if (parse_sphere(p, line) == 1)
-        {
-            printf("2\n");
             return (1);
-        }
     }
     else if (ft_strncmp("cy", line, 2) == 0)
     {
         if (parse_cylinder(p, line, "cy") == 1)
-        {
-            printf("3\n");
             return (1);
-        }
     }
     else if (ft_strncmp("co", line, 2) == 0)
     {
@@ -42,28 +33,19 @@ int identify(t_parse *p, char *line)
     {
         p->A++;
         if (parse_ambiant_light(p, line) == 1)
-        {
-            printf("4\n");
             return (1);
-        }
     }
     else if (ft_strncmp("C", line, 1) == 0)
     {
         p->C++;
         if (parse_camera(p, line) == 1)
-        {
-            printf("5\n");
             return (1);
-        }
     }
     else if (ft_strncmp("L", line, 1) == 0)
     {
         p->L++;
         if (parse_light(p, line) == 1)
-        {
-            printf("6\n");
             return (1);
-        }
     }
     else if (identify_2(p, line) == 1)
         return (1);

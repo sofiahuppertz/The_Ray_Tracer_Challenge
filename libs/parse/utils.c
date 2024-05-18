@@ -71,7 +71,6 @@ int check_id(char *line)
         && ft_strncmp("sp", line, 2) != 0 && ft_strncmp("cy", line, 2) != 0
         && ft_strncmp("co", line, 2) != 0 && line[0] != 0)
     {
-        printf("%d\n", line[0]);
         return (1);
     }
     return (0);

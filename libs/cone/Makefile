@@ -28,6 +28,6 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(CYLINDRICAL) clean
+	$(MAKE) -C $(CYLINDRICAL_DIR) clean
 
 .PHONY: clean re fclean all

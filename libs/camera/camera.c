@@ -1,5 +1,16 @@
-#include "camera.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:17:34 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:17:45 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "camera.h"
 
 static void fill_orientation(t_matrix *orientation, const t_tuple left, const t_tuple true_up, const t_tuple forward)
 {
@@ -20,7 +31,6 @@ static void fill_orientation(t_matrix *orientation, const t_tuple left, const t_
     orientation->m[3][2] = 0.0;
     orientation->m[3][3] = 1.0;
 }
-
 
 t_matrix *view_transformation(t_tuple *from, t_tuple *to, t_tuple *up)
 {
@@ -66,7 +76,6 @@ t_camera *camera(double hsize, double vsize, double field_of_view)
     return cam;
 }
 
-
 void pixel_size(t_camera *cam)
 {
     double half_view;
@@ -108,11 +117,11 @@ t_ray *ray_for_pixel(t_camera *cam, double pixel_x, double pixel_y)
 
     // Transform the pixel in world coordinates to camera coordinates
     pixel = point(world_cords.x, world_cords.y, -1);
-    transform((void*)pixel, inverse(*cam->vt));
+    transform((void *)pixel, inverse(*cam->vt));
 
     // Create the ray: origin is the camera, direction is the normed vector from the camera to the pixel
     origin = point(0, 0, 0);
-    transform((void*)origin, inverse(*cam->vt));
+    transform((void *)origin, inverse(*cam->vt));
     direction = sub_tuple(*pixel, *origin);
     r = ray(origin, direction);
     free(pixel);
@@ -129,7 +138,6 @@ void transform_camera(void *cam, t_matrix *vt)
         free_matrix(&c->vt);
     c->vt = vt;
 }
-
 
 t_canvas *render(t_camera *cam, t_world *w)
 {
@@ -168,7 +176,6 @@ void print_camera(const t_camera *cam)
     printf("pixel_size: %f\n", cam->pixel_size);
     print_matrix(cam->vt);
 }
-
 
 t_color *pixel_at(t_canvas *c, int x, int y)
 {

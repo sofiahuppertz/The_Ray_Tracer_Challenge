@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix_transformations.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:20:23 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:20:24 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "matrix.h"
 
 t_matrix *identity(const unsigned int size)
@@ -24,7 +36,6 @@ t_matrix *identity(const unsigned int size)
     return id;
 }
 
-
 t_matrix *translation(double x, double y, double z)
 {
     t_matrix *translation;
@@ -43,7 +54,7 @@ t_matrix *scaling(double x, double y, double z)
     t_matrix *scaling;
 
     scaling = identity(4);
-    if(!scaling)
+    if (!scaling)
         return (NULL);
     scaling->m[0][0] = x;
     scaling->m[1][1] = y;
@@ -114,7 +125,7 @@ t_matrix *shearing(double xy, double xz, double yx, double yz, double zx, double
     return shearing;
 }
 
-t_matrix *chain_tfs(t_matrix* initial, ...)
+t_matrix *chain_tfs(t_matrix *initial, ...)
 {
     va_list args;
     t_matrix *next_transform;
@@ -125,7 +136,7 @@ t_matrix *chain_tfs(t_matrix* initial, ...)
     result = initial;
     while (1)
     {
-        next_transform = (t_matrix *)va_arg(args, t_matrix*);
+        next_transform = (t_matrix *)va_arg(args, t_matrix *);
         if (next_transform == NULL)
             break;
         temp = mult_matrices(*result, *next_transform);
@@ -167,7 +178,6 @@ t_matrix *rotation_matrix(double angle, double x, double y, double z)
     r->m[2][2] = (z * z * oneMinusCos) + cosTheta;
 
     return r;
-    
 }
 
 void transform(void *elem, t_matrix *transformation)
@@ -181,5 +191,5 @@ void transform(void *elem, t_matrix *transformation)
         return;
     }
     tf = (t_tf *)elem;
-    tf->transform(elem, transformation);       
+    tf->transform(elem, transformation);
 }

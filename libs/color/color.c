@@ -1,5 +1,16 @@
-#include "color.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:18:16 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:18:18 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "color.h"
 
 double div_255(double color)
 {
@@ -9,7 +20,7 @@ double div_255(double color)
 t_color *color(double r, double g, double b)
 {
     t_color *color;
-    
+
     color = (t_color *)calloc(1, sizeof(t_color));
     if (!color)
     {
@@ -27,7 +38,6 @@ t_color *color(double r, double g, double b)
         color->b = 1;
     return color;
 }
-
 
 t_color *sum_color(const t_color c1, const t_color c2)
 {
@@ -86,7 +96,7 @@ t_color *sub_color(const t_color c1, const t_color c2)
 }
 
 t_color *scalar_color(const t_color c1, double scalar)
-{ 
+{
     t_color *product;
 
     product = NULL;
@@ -99,7 +109,7 @@ t_color *scalar_color(const t_color c1, double scalar)
 t_color *shur_product(const t_color c1, const t_color c2)
 {
     t_color *product;
-    
+
     product = NULL;
     product = color(c1.r * c2.r, c1.g * c2.g, c1.b * c2.b);
     if (!product)
@@ -115,7 +125,6 @@ t_color *average_colors(const t_color c1, const t_color c2)
 
     average = color((c1.r + c2.r) / 2, (c1.g + c2.g) / 2, (c1.b + c2.b) / 2);
     return average;
-
 }
 
 void print_color(const t_color c)
@@ -126,7 +135,7 @@ void print_color(const t_color c)
 t_color *colorcpy(const t_color c)
 {
     t_color *cpy;
-    
+
     cpy = (t_color *)calloc(1, sizeof(t_color));
     if (!cpy)
     {

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_line.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:21:19 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:21:19 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 
-void	ft_free_str(char **s)
+void ft_free_str(char **s)
 {
 	if (s != NULL && *s != NULL)
 	{
@@ -9,10 +21,10 @@ void	ft_free_str(char **s)
 	}
 }
 
-static int	save_line(char **str, char **line)
+static int save_line(char **str, char **line)
 {
-	int		l;
-	char	*tmp;
+	int l;
+	char *tmp;
 
 	l = 0;
 	while ((*str)[l] != '\n' && (*str)[l] != '\0')
@@ -36,7 +48,7 @@ static int	save_line(char **str, char **line)
 	return (1);
 }
 
-static int	filter(char **str, int fd, char **line, int r)
+static int filter(char **str, int fd, char **line, int r)
 {
 	if (r == 0 && !str[fd])
 	{
@@ -48,19 +60,19 @@ static int	filter(char **str, int fd, char **line, int r)
 	return (save_line(&str[fd], line));
 }
 
-void 	ft_read_else(char **tmp, char **str, char **buff, int fd)
+void ft_read_else(char **tmp, char **str, char **buff, int fd)
 {
 	*tmp = ft_strjoin(str[fd], *buff);
 	free(str[fd]);
 	str[fd] = *tmp;
 }
 
-int	read_line(int fd, char **line, int buffer_size)
+int read_line(int fd, char **line, int buffer_size)
 {
-	int			r;
-	char		*tmp;
-	static char	*str[256];
-	char		*buff;
+	int r;
+	char *tmp;
+	static char *str[256];
+	char *buff;
 
 	if (fd < 0 || !line || fd > 256 || buffer_size <= 0)
 		return (-1);
@@ -77,7 +89,7 @@ int	read_line(int fd, char **line, int buffer_size)
 		else
 			ft_read_else(&tmp, &(*str), &buff, fd);
 		if (ft_strchr(str[fd], '\n'))
-			break ;
+			break;
 	}
 	free(buff);
 	return (filter(str, fd, line, r));

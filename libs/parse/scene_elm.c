@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scene_elm.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:21:29 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:21:29 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 
 int parse_ambiant_light(t_parse *p, char *line)
 {
-    char    **split;
+    char **split;
 
     split = ft_split(line, ' ');
     if (count_nb_elm(split, 3) == 1)
@@ -24,8 +36,8 @@ int parse_ambiant_light(t_parse *p, char *line)
 
 int parse_camera(t_parse *p, char *line)
 {
-    char    **split;
-    int     i;
+    char **split;
+    int i;
 
     i = 0;
     split = ft_split(line, ' ');
@@ -50,14 +62,14 @@ int parse_camera(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
-    make_camera(point(p->x, p->y, p->z), point(p->vr_1,p->vr_2, p->vr_3), degrees_to_radians(ft_atoi(split[3])));
+    make_camera(point(p->x, p->y, p->z), point(p->vr_1, p->vr_2, p->vr_3), degrees_to_radians(ft_atoi(split[3])));
     free_split(split);
     return (0);
 }
 
 int parse_light(t_parse *p, char *line)
 {
-    char    **split;
+    char **split;
 
     split = ft_split(line, ' ');
     if (count_nb_elm(split, 4) == 1)
@@ -77,16 +89,16 @@ int parse_light(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
-	make_light(point(p->x, p->y, p->z), ft_atof(split[2]), color(div_255(p->r), div_255(p->g), div_255(p->b)));
+    make_light(point(p->x, p->y, p->z), ft_atof(split[2]), color(div_255(p->r), div_255(p->g), div_255(p->b)));
     free_split(split);
     return (0);
 }
 
-char    *test(char *str)
+char *test(char *str)
 {
-    char    *tmp;
-    int     i;
-    int     j;
+    char *tmp;
+    int i;
+    int j;
 
     i = 0;
     j = 0;
@@ -99,8 +111,8 @@ char    *test(char *str)
                 j++;
                 i++;
             }
-            break ;
-        } 
+            break;
+        }
         i++;
     }
     tmp = malloc(sizeof(char) * (j + 1));
@@ -121,7 +133,7 @@ char    *test(char *str)
             tmp[j] = '\0';
             if (tmp[0] != '\0')
                 return (tmp);
-        } 
+        }
         i++;
     }
     free(tmp);
@@ -130,11 +142,11 @@ char    *test(char *str)
 
 int check_extra(char **split, t_parse *p)
 {
-    char    *tmp;
-    int     i;
+    char *tmp;
+    int i;
 
     i = 0;
-    while(split[i])
+    while (split[i])
     {
         tmp = test(split[i]);
         if (tmp != NULL && ft_isdigit(split[i][0]) == 0)
@@ -198,7 +210,7 @@ int check_extra(char **split, t_parse *p)
 
 int parse_plan(t_parse *p, char *line)
 {
-    char    **split;
+    char **split;
 
     split = ft_split(line, ' ');
     if (count_nb_elm(split, 4) == 2)
@@ -225,16 +237,16 @@ int parse_plan(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
-	make_plane(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
-        color(div_255(p->r), div_255(p->g), div_255(p->b)), p->params[0],
-        p->params[1], p->params[2], p->params[3], p->params[4], p->params[5]);
+    make_plane(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
+               color(div_255(p->r), div_255(p->g), div_255(p->b)), p->params[0],
+               p->params[1], p->params[2], p->params[3], p->params[4], p->params[5]);
     free_split(split);
     return (0);
 }
 
 int parse_sphere(t_parse *p, char *line)
 {
-    char    **split;
+    char **split;
 
     split = ft_split(line, ' ');
     if (count_nb_elm(split, 4) == 2)
@@ -261,22 +273,21 @@ int parse_sphere(t_parse *p, char *line)
         free_split(split);
         return (1);
     }
-	make_sphere(point(p->x, p->y, p->z), p->diam, color(div_255(p->r), div_255(p->g),
-        div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
-        p->params[4], p->params[5]);
+    make_sphere(point(p->x, p->y, p->z), p->diam, color(div_255(p->r), div_255(p->g), div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
+                p->params[4], p->params[5]);
     free_split(split);
     return (0);
 }
 
 int parse_cylinder(t_parse *p, char *line, char *n)
 {
-    char    **split_tmp;
-    char    **split;
-    int     i;
+    char **split_tmp;
+    char **split;
+    int i;
 
     i = 0;
     split = ft_split(line, ' ');
-        if (count_nb_elm(split, 6) == 2)
+    if (count_nb_elm(split, 6) == 2)
     {
         free_split(split);
         return (1);
@@ -307,17 +318,15 @@ int parse_cylinder(t_parse *p, char *line, char *n)
     }
     if (ft_strcmp(n, "cy") == 0)
     {
-	    make_cylinder(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
-            ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r), div_255(p->g),
-            div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
-            p->params[4], p->params[5]);
+        make_cylinder(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
+                      ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r), div_255(p->g), div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
+                      p->params[4], p->params[5]);
     }
     else if (ft_strcmp(n, "co") == 0)
     {
         make_cone(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
-            ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r), div_255(p->g),
-            div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
-            p->params[4], p->params[5]);
+                  ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r), div_255(p->g), div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
+                  p->params[4], p->params[5]);
     }
     free_split(split);
     free_split(split_tmp);
@@ -364,7 +373,7 @@ int parse_cone(t_parse *p, char *line)
     //     }
     //     i++;
     // }
-	// make_cylinder(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
+    // make_cylinder(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
     //     ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r), div_255(p->g),
     //     div_255(p->b)), p->params[0], p->params[1], p->params[2], p->params[3],
     //     p->params[4], p->params[5]);

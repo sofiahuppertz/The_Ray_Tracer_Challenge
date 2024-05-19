@@ -1,4 +1,4 @@
-INC=/usr/X11/include
+INC=/usr/include
 ##
 ## Makefile for MiniLibX in /home/boulon/work/c/raytraceur/minilibx
 ## 
@@ -14,9 +14,9 @@ INC=/usr/X11/include
 
 
 UNAME = $(shell uname)
-cc	= gcc -g
+CC	= gcc
 ifeq ($(UNAME),FreeBSD)
-	cc = clang
+	CC = clang
 endif
 
 NAME		= libmlx.a
@@ -49,7 +49,7 @@ $(OBJ_DIR)/%.o: 	%.c
 					@$(eval CURRENT_INDEX=$(shell echo $$(($(CURRENT_INDEX)+1))))
 					@$(eval PERCENT=$(shell echo $$(($(CURRENT_INDEX) * 100 / $(TOTAL_FILES)))))
 					@printf "\r$(YELLOW)🔧 $(GREEN)%3d%% $(YELLOW)$(BOLD)Compiling: $(RESET)$(BLUE)$(ITALIC)%-50s $(MAGENTA)[%3d/%3d]$(RESET)" $(PERCENT) "$<" $(CURRENT_INDEX) $(TOTAL_FILES)
-					@$(cc) $(CFLAGS) $(IFLAGS) -c $< -o $@  > /dev/null 2>&1
+					@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@  > /dev/null 2>&1
 
 $(NAME)	: 			$(OBJ)
 					@ar -r $(NAME) $(OBJ) > /dev/null 2>&1
@@ -63,7 +63,7 @@ check: 				all
 show:
 					@printf "NAME  		: $(NAME)\n"
 					@printf "NAME_UNAME	: $(NAME_UNAME)\n"
-					@printf "cc		: $(cc)\n"
+					@printf "CC		: $(CC)\n"
 					@printf "CFLAGS		: $(CFLAGS)\n"
 					@printf "SRC		:\n	$(SRC)\n"
 					@printf "OBJ		:\n	$(OBJ)\n"

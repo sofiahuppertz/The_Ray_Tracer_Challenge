@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphere.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:24:25 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:24:27 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sphere.h"
 
-t_sphere *sphere( void )
+t_sphere *sphere(void)
 {
     t_sphere *sphere = NULL;
-    
+
     sphere = (t_sphere *)calloc(sizeof(t_sphere), 1);
     if (!sphere)
     {
@@ -26,8 +38,7 @@ t_sphere *sphere( void )
     return sphere;
 }
 
-
-void print_sphere( void *s )
+void print_sphere(void *s)
 {
     const t_sphere *sphere;
 
@@ -43,7 +54,7 @@ void print_sphere( void *s )
     printf("Transform:\n");
     print_matrix((const t_matrix *)(sphere->shape.tr));
     printf("Material:\n");
-    print_material((const t_material)*(sphere->shape.material));
+    print_material((const t_material) * (sphere->shape.material));
 }
 
 void free_sphere(void *s)
@@ -52,13 +63,12 @@ void free_sphere(void *s)
 
     sphere = (t_sphere *)s;
     if (!sphere)
-        return ;
+        return;
     free(sphere->o);
     free(sphere);
 }
 
-
-t_sphere *glass_sphere( void )
+t_sphere *glass_sphere(void)
 {
     t_sphere *s;
 

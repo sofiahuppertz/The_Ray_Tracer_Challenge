@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   window.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:24:00 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:24:01 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scene.h"
 
 int set_events_and_display(t_canvas *canvas)
 {
     mlx_key_hook(canvas->mlx_win, key_press, NULL);
-	mlx_hook(canvas->mlx_win, 17, 0, close_window, NULL);
-	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img.img, 0, 0);
-	mlx_loop(canvas->mlx);
-	return 0;
+    mlx_hook(canvas->mlx_win, 17, 0L, close_window, NULL);
+    mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img.img, 0, 0);
+    mlx_loop(canvas->mlx);
+    return 0;
 }
 
-int close_window( void *param )
+int close_window(void *param)
 {
     t_scene *_scene;
 
@@ -29,18 +41,18 @@ int close_window( void *param )
     {
         free_material(&_scene->material);
     }
-    if(_scene->canvas)
+    if (_scene->canvas)
     {
         free_canvas(_scene->canvas);
     }
     free(_scene);
-    return (0);
+    exit(0);
 }
 
 int key_press(int keycode, void *param)
 {
-	if (keycode == 65307)
+    if (keycode == 65307)
         close_window(NULL);
     (void)param;
-	return (0);
+    return (0);
 }

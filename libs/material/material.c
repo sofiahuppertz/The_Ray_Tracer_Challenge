@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   material.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:20:06 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:20:07 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "material.h"
 
-t_material *default_material( void )
+t_material *default_material(void)
 {
     t_material *material;
 
@@ -93,19 +105,18 @@ void print_material(const t_material material)
     printf("Reflective: %f\n", material.reflective);
     printf("Transparency: %f\n", material.transparency);
     printf("Refractive index: %f\n", material.refrac_index);
-
 }
 
-//void set_color(t_material *material, t_color *color)
+// void set_color(t_material *material, t_color *color)
 //{
-//    if (!material || !color)
-//    {
-//        printf("Error: set_color: NULL parameter.\n");
-//        return;
-//    }
-//    free(material->color);
-//    material->color = color;
-//}
+//     if (!material || !color)
+//     {
+//         printf("Error: set_color: NULL parameter.\n");
+//         return;
+//     }
+//     free(material->color);
+//     material->color = color;
+// }
 
 void set_pattern(t_material *material, t_pattern *pattern)
 {

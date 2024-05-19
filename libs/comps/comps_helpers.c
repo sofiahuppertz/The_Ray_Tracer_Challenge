@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   comps_helpers.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:18:37 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:18:38 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "comps.h"
 
 static double find_last_reflective_index(t_shape *containers)
@@ -9,7 +21,6 @@ static double find_last_reflective_index(t_shape *containers)
         ptr = ptr->container_next;
     return ptr->material->refrac_index;
 }
-
 
 static void find_shape_and_remove(t_shape **containers, t_shape *shape)
 {
@@ -40,7 +51,6 @@ static void find_shape_and_remove(t_shape **containers, t_shape *shape)
     prev->container_next = shape;
 }
 
-
 static void empty_container(t_shape **containers)
 {
     t_shape *curr;
@@ -56,17 +66,15 @@ static void empty_container(t_shape **containers)
     *containers = NULL;
 }
 
-
 void get_refractive_indices(const t_intersection hit, t_intersection *xs, t_comps *comps)
 {
     t_shape *containers;
     t_intersection *ptr;
     t_shape *curr_shape;
-    
 
     containers = NULL;
     ptr = xs;
-    while( ptr  )
+    while (ptr)
     {
         curr_shape = (t_shape *)ptr->object_ptr;
         if (ptr->t == hit.t)
@@ -74,7 +82,7 @@ void get_refractive_indices(const t_intersection hit, t_intersection *xs, t_comp
             if (!containers)
                 comps->n1 = 1.0;
             else
-                comps->n1 = find_last_reflective_index(containers);  
+                comps->n1 = find_last_reflective_index(containers);
         }
         find_shape_and_remove(&containers, curr_shape);
         if (ptr->t == hit.t)
@@ -82,14 +90,13 @@ void get_refractive_indices(const t_intersection hit, t_intersection *xs, t_comp
             if (!containers)
                 comps->n2 = 1.0;
             else
-                comps->n2 = find_last_reflective_index(containers);  
+                comps->n2 = find_last_reflective_index(containers);
             break;
         }
         ptr = ptr->next;
     }
     empty_container(&containers);
 }
-
 
 void compute_normal(t_comps *comps)
 {

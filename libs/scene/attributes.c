@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   attributes.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:23:40 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:23:42 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scene.h"
 
-static t_attributes *new_attr(void )
+static t_attributes *new_attr(void)
 {
     t_attributes *attr;
 
@@ -10,7 +22,7 @@ static t_attributes *new_attr(void )
     return attr;
 }
 
-static t_attributes *double_attr( void )
+static t_attributes *double_attr(void)
 {
     t_attributes *attr;
 
@@ -39,7 +51,7 @@ static void add_to_material(t_material *material, t_attributes *attr)
         return;
     if (!strcmp(attr->key, "checker") || !strcmp(attr->key, "stripe"))
     {
-        set_pattern(material, (t_pattern*)attr->value);
+        set_pattern(material, (t_pattern *)attr->value);
         free(attr->key);
         return;
     }
@@ -58,7 +70,7 @@ static void add_to_material(t_material *material, t_attributes *attr)
     }
     free(attr->key);
     free(attr->value);
-}   
+}
 
 void set_extras(t_shape *shape, t_attributes *first_extra, va_list extras)
 {
@@ -83,7 +95,7 @@ t_attributes *checker(t_color *a, t_color *b)
 {
     t_attributes *attr;
 
-    if (!a || !b )
+    if (!a || !b)
         return (NULL);
     attr = new_attr();
     if (!attr)
@@ -96,12 +108,11 @@ t_attributes *checker(t_color *a, t_color *b)
     return (attr);
 }
 
-
 t_attributes *stripe(t_color *a, t_color *b, double width, double r_z)
 {
     t_attributes *attr;
 
-    if (!a || !b )
+    if (!a || !b)
         return (NULL);
     attr = new_attr();
     if (!attr)
@@ -114,7 +125,6 @@ t_attributes *stripe(t_color *a, t_color *b, double width, double r_z)
     transform(attr->value, chain_tfs(scaling(width, width, width), rotation_z(degrees_to_radians(r_z)), NULL));
     return (attr);
 }
-
 
 t_attributes *rfl(double reflectivity)
 {
@@ -144,7 +154,6 @@ t_attributes *rfr(double refractive_index)
     strcpy(attr->key, "rfr");
     *(double *)attr->value = refractive_index;
     return (attr);
-
 }
 
 t_attributes *tsy(double transparency)

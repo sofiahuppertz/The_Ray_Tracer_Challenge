@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   world.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:30:11 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:30:12 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "world.h"
 
-
-t_world *empty_world( void )
+t_world *empty_world(void)
 {
     t_world *w;
 
@@ -11,8 +22,7 @@ t_world *empty_world( void )
     return w;
 }
 
-
-t_world *default_world( void )
+t_world *default_world(void)
 {
     t_world *w;
     t_material *m;
@@ -40,7 +50,7 @@ t_world *default_world( void )
         free_world(&w);
         return NULL;
     }
-    transform((void *)&s2->shape,  scaling(0.5, 0.5, 0.5));
+    transform((void *)&s2->shape, scaling(0.5, 0.5, 0.5));
 
     set_shape(w, (t_shape *)&s1->shape);
     set_shape(w, (t_shape *)&s2->shape);
@@ -79,7 +89,6 @@ void free_world(t_world **w)
     *w = NULL;
 }
 
-
 void set_light(t_world *w, t_point_light *l)
 {
     if (!w || !l)
@@ -90,6 +99,3 @@ void set_light(t_world *w, t_point_light *l)
     free_point_light(&(w->light));
     w->light = l;
 }
-
-
-

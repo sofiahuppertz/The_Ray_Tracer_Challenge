@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tuple_transformations.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:24:33 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:24:37 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tuple.h"
 
-// Apply transformation to tuple: If anything fails the function frees transformation matrix and returns without modifying the tuple
 void transform_tuple(void *tuple, t_matrix *transformation)
 {
     t_tuple *t;
@@ -10,7 +21,7 @@ void transform_tuple(void *tuple, t_matrix *transformation)
     after = NULL;
     before = NULL;
     t = (t_tuple *)tuple;
-    if (!transformation || !t )
+    if (!transformation || !t)
         return;
     before = tuple_to_matrix(*t);
     if (!before)
@@ -19,7 +30,7 @@ void transform_tuple(void *tuple, t_matrix *transformation)
         printf("Error 1: transform_tuple failed.\n");
         return;
     }
-    after = mult_matrices(*transformation, *before); 
+    after = mult_matrices(*transformation, *before);
     if (!after)
     {
         free_matrices(transformation, before, NULL);
@@ -32,11 +43,10 @@ void transform_tuple(void *tuple, t_matrix *transformation)
     free_matrices(transformation, before, after, NULL);
 }
 
-
 t_matrix *tuple_to_matrix(const t_tuple t)
 {
     t_matrix *new;
-    
+
     new = matrix(4, 1);
     if (!new)
         return NULL;
@@ -46,7 +56,6 @@ t_matrix *tuple_to_matrix(const t_tuple t)
     new->m[3][0] = t.w;
     return new;
 }
-
 
 t_tuple *matrix_to_tuple(const t_matrix m)
 {

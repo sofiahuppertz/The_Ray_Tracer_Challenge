@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reflectance.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:29:52 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:29:54 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "world.h"
 
 double schlick(const t_comps comps)
@@ -9,7 +21,7 @@ double schlick(const t_comps comps)
     double r0;
 
     cos = dot(*comps.eyev, *comps.normalv);
-    if (comps.n1 >comps.n2)
+    if (comps.n1 > comps.n2)
     {
         n = comps.n1 / comps.n2;
         sin2_t = n * n * (1.0 - cos * cos);

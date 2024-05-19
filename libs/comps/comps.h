@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   comps.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:18:26 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:18:28 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COMPS_H
-# define COMPS_H
+#define COMPS_H
 
 #include "../shape/shape.h"
 
@@ -19,17 +31,13 @@ typedef struct s_comps
     int inside;
 } t_comps;
 
-// Constructor
 t_comps *prep_comps(const t_intersection hit, const t_ray r, t_intersection *xs);
 
-// Helpers
 void compute_normal(t_comps *comps);
 void compute_epsilon_boundaries(t_comps *comps);
 void get_refractive_indices(const t_intersection hit, t_intersection *xs, t_comps *comps);
 
-
-// Others
 void print_comps(t_comps *comps);
 void free_comps(t_comps **comps);
 
-# endif
+#endif

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:19:06 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:19:07 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cylinder.h"
 
-t_cylinder *cylinder( void )
+t_cylinder *cylinder(void)
 {
     t_cylinder *cylinder;
 
@@ -26,9 +38,7 @@ void free_cylinder(void *s)
 
     cylinder = (t_cylinder *)s;
     if (!cylinder)
-        return ;
+        return;
     free(cylinder->c.o);
     free(cylinder);
 }
-
-

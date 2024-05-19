@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   world.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:30:14 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:30:16 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef WORLD_H
-# define WORLD_H
+#define WORLD_H
 
 #include "../light/light.h"
 #include "../comps/comps.h"
@@ -8,16 +20,15 @@
 #include "../cylinder/cylinder.h"
 #include "../cone/cone.h"
 
-typedef struct s_world 
+typedef struct s_world
 {
     t_point_light *light;
     t_shape *shapes;
 } t_world;
 
-
 // Constructors
-t_world *default_world( void );
-t_world *empty_world( void );
+t_world *default_world(void);
+t_world *empty_world(void);
 
 // Setters -ish
 void set_shape(t_world *w, t_shape *new_shape);

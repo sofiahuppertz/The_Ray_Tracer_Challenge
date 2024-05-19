@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   refraction.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:29:59 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:30:01 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "world.h"
 
 static t_ray *find_refracted_ray(const t_comps comps, double n_ratio, double cos_i, double sin2_t)
@@ -26,9 +38,8 @@ static t_color *compute_refracted_color(const t_world w, t_shape *shape, t_ray *
     free(temp_color);
     free_ray(&refracted_ray);
     return final_color;
-}   
+}
 
-        
 t_color *refracted_color(const t_world w, const t_comps comps, int remaining)
 {
     t_shape *shape;
@@ -51,6 +62,3 @@ t_color *refracted_color(const t_world w, const t_comps comps, int remaining)
     refracted_ray = find_refracted_ray(comps, n_ratio, cos_i, sin2_t);
     return compute_refracted_color(w, shape, refracted_ray, remaining);
 }
-
-
-

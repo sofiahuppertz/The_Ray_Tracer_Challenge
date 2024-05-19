@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ring.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:23:02 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:23:03 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pattern.h"
 
 t_pattern *ring(t_color *a, t_color *b)
@@ -9,7 +21,7 @@ t_pattern *ring(t_color *a, t_color *b)
     {
         printf("Error: ring calloc failed.\n");
     }
-    pattern(a , b, ring);
+    pattern(a, b, ring);
     ring->local_pattern = ring_at;
     return ring;
 }

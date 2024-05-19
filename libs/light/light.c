@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:19:51 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:19:53 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "light.h"
 
-// Point light assigns the intensity and position to the light, it does not create new copies of the parameters.
 t_point_light *point_light(t_color *intensity, t_tuple *position)
 {
     t_point_light *light;
@@ -21,7 +32,6 @@ t_point_light *point_light(t_color *intensity, t_tuple *position)
     return light;
 }
 
-
 void free_point_light(t_point_light **light)
 {
     if (!light || !*light)
@@ -32,24 +42,10 @@ void free_point_light(t_point_light **light)
     *light = NULL;
 }
 
-
 void print_point_light(const t_point_light light)
 {
     printf("Intensity: ");
     print_color((const t_color)(*light.intensity));
     printf("Position: ");
-    print_tuple((const t_tuple*)light.position);
+    print_tuple((const t_tuple *)light.position);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

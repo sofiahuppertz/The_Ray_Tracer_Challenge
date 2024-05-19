@@ -1,12 +1,23 @@
-#include "tuple.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tuple.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:24:54 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:24:56 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "tuple.h"
 
 t_tuple *tuple(const double x, const double y, const double z, const double w)
 {
     t_tuple *tuple;
-    
-    tuple =  NULL;
-    tuple = (t_tuple*)calloc(1, sizeof(t_tuple));
+
+    tuple = NULL;
+    tuple = (t_tuple *)calloc(1, sizeof(t_tuple));
     if (!tuple)
     {
         printf("Error: tuple memory allocation failed.\n");
@@ -22,7 +33,6 @@ t_tuple *tuple(const double x, const double y, const double z, const double w)
     tuple->tf.transform = transform_tuple;
     return tuple;
 }
-
 
 t_tuple *point(const double x, const double y, const double z)
 {
@@ -40,7 +50,7 @@ t_tuple *point(const double x, const double y, const double z)
 t_tuple *vector(const double x, const double y, const double z)
 {
     t_tuple *vector;
-    
+
     vector = tuple(x, y, z, 0.0);
     if (!vector)
     {
@@ -151,7 +161,7 @@ double dot(const t_tuple a, const t_tuple b)
 t_tuple *cross(const t_tuple a, const t_tuple b)
 {
     t_tuple *prod;
-    
+
     if (a.w == 1.0 || b.w == 1.0)
         printf("Error: cross product: passing point to vector operation.\n");
     prod = vector(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
@@ -162,7 +172,6 @@ void print_tuple(const t_tuple *a)
 {
     printf("x: %f, y: %f, z: %f, w: %f\n", a->x, a->y, a->z, a->w);
 }
-
 
 t_tuple *tuplecpy(const t_tuple a)
 {
@@ -189,14 +198,13 @@ t_tuple *reflection(const t_tuple in, const t_tuple normal)
     return reflect;
 }
 
-
 void tupletype(t_tuple *a)
 {
     if (a->w == 1.0)
         a->tf.type = POINT;
     else if (a->w == 0.0)
         a->tf.type = VECTOR;
-    else 
+    else
         a->tf.type = IDK;
     if (a->tf.type == IDK)
         print_tuple(a);
@@ -213,7 +221,7 @@ void free_tuples(t_tuple **initial, ...)
     {
         free(*t);
         t = NULL;
-        t = (t_tuple **)va_arg(args, t_tuple**);
+        t = (t_tuple **)va_arg(args, t_tuple **);
         if (!t || !*t)
             break;
     }

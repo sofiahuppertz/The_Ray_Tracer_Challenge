@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:21:07 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:21:07 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 
 int identify_2(t_parse *p, char *line)
@@ -54,8 +66,8 @@ int identify(t_parse *p, char *line)
 
 int check_cmd_line(int ac, char **av)
 {
-    char    *tmp;
-    int     last_arg;
+    char *tmp;
+    int last_arg;
 
     last_arg = ac - 1;
     if (ac == 2)
@@ -75,7 +87,7 @@ int check_cmd_line(int ac, char **av)
     return (1);
 }
 
-void    init(t_parse *p)
+void init(t_parse *p)
 {
     p->count = 0;
 
@@ -101,9 +113,9 @@ void    init(t_parse *p)
 int check_file_rt(int fd)
 {
     t_parse p;
-    char    *line;
-    int     res;
-    int     tmp;
+    char *line;
+    int res;
+    int tmp;
 
     res = 1;
     tmp = 0;
@@ -118,7 +130,7 @@ int check_file_rt(int fd)
             tmp = 1;
         free(line);
         if (!res)
-            break ;
+            break;
     }
     if (parsing_error(tmp, fd, &p) == 1)
         return (1);

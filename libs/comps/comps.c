@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   comps.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:18:33 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:18:33 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "comps.h"
 
 t_comps *prep_comps(const t_intersection hit, const t_ray r, t_intersection *xs)
@@ -23,7 +35,6 @@ t_comps *prep_comps(const t_intersection hit, const t_ray r, t_intersection *xs)
     return comps;
 }
 
-
 void free_comps(t_comps **comps)
 {
     t_comps *ptr;
@@ -39,7 +50,6 @@ void free_comps(t_comps **comps)
     ptr = NULL;
     *comps = NULL;
 }
-
 
 void print_comps(t_comps *comps)
 {

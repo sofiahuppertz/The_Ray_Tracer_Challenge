@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   plane.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:23:21 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:23:22 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "plane.h"
 
-t_plane *plane( void )
+t_plane *plane(void)
 {
     t_plane *plane;
 
@@ -10,9 +22,10 @@ t_plane *plane( void )
         printf("Error: plane: calloc failed\n");
         return (NULL);
     }
-    shape( PLANE , &(plane->shape));
+    shape(PLANE, &(plane->shape));
     plane->shape.local_intersect = intersect_plane;
-    plane->shape.local_normal_at = plane_normal_at;;
+    plane->shape.local_normal_at = plane_normal_at;
+    ;
     plane->shape.local_print = print_plane;
     plane->shape.local_free = free_plane;
     return (plane);
@@ -25,7 +38,7 @@ t_matrix *find_rotation_matrix(const t_tuple normal)
     t_tuple *axis;
     double dot_product;
     double rotation_angle;
-    
+
     object_normal = vector(0, 1, 0);
     dot_product = dot(*object_normal, normal);
     if (dot_product == 1)

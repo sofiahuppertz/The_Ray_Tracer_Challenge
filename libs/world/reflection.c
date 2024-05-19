@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reflection.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:29:56 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:29:57 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "world.h"
 
 t_color *reflected_color(const t_world w, const t_comps comps, int remaining)
@@ -16,6 +28,4 @@ t_color *reflected_color(const t_world w, const t_comps comps, int remaining)
     free_ray(&reflected_ray);
     free(color);
     return reflected_color;
-
 }
-

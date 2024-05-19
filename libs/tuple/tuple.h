@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tuple.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:25:00 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:25:02 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TUPLE_H
-# define TUPLE_H
+#define TUPLE_H
 
 #include "../matrix/matrix.h"
-
 
 typedef struct s_tuple
 {
@@ -40,6 +51,5 @@ void transform_tuple(void *tuple, t_matrix *transformation);
 
 void print_tuple(const t_tuple *a);
 void free_tuples(t_tuple **initial, ...);
-
 
 #endif

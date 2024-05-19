@@ -273,7 +273,7 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
 				xgcv.clip_mask = clip_pix;
 				xgcv.function = GXcopy;
 				xgcv.plane_mask = AllPlanes;
-				img->gc = XCreateGC(xvar->display, xvar->root, GcclipMask|GCFunction|
+				img->gc = XCreateGC(xvar->display, xvar->root, GCClipMask|GCFunction|
 								GCPlaneMask, &xgcv);
 				XSync(xvar->display, False);
 				XDestroyImage(clip_img);

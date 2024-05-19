@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   phong_reflection_model.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:20:01 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:20:03 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "light.h"
 
 t_color *lighting(const t_material material, const t_shape object, const t_point_light light, const t_tuple position, const t_tuple eyev, const t_tuple normalv, int in_shadow)
@@ -12,7 +24,7 @@ t_color *lighting(const t_material material, const t_shape object, const t_point
     double lDotN;
     double eDotR;
 
-    temp = pattern_at_object(material.pattern, object, position);  
+    temp = pattern_at_object(material.pattern, object, position);
 
     effective_color = shur_product(*temp, *(light.intensity));
 
@@ -29,7 +41,7 @@ t_color *lighting(const t_material material, const t_shape object, const t_point
         free(effective_color);
         return ambient;
     }
-    
+
     diffuse = black();
     specular = black();
 
@@ -51,6 +63,6 @@ t_color *lighting(const t_material material, const t_shape object, const t_point
     free(effective_color);
     free_tuples(&lightv, &reflectv, NULL);
 
-    t_color *final =  add_colors(ambient, specular, diffuse, NULL);
+    t_color *final = add_colors(ambient, specular, diffuse, NULL);
     return final;
 }

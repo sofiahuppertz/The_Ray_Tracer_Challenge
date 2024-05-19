@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylindrical.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:19:19 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:19:21 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cylindrical.h"
 
-void cyl( t_cyl *cyl)
+void cyl(t_cyl *cyl)
 {
-    shape(CYLINDRICAL, (t_shape *)cyl); 
+    shape(CYLINDRICAL, (t_shape *)cyl);
     cyl->shape.local_intersect = intersect_cyl;
     cyl->shape.local_normal_at = cyl_normal_at;
     cyl->o = point(0, 0, 0);
@@ -17,11 +29,10 @@ void cyl( t_cyl *cyl)
     cyl->closed = 0;
 }
 
-
 void set_bounds(t_cyl *cyl, double min_y, double max_y)
 {
     if (!cyl)
-        return ;
+        return;
     cyl->min_y = min_y;
     cyl->max_y = max_y;
 }
@@ -29,6 +40,6 @@ void set_bounds(t_cyl *cyl, double min_y, double max_y)
 void set_closed(t_cyl *cyl, int closed)
 {
     if (!cyl)
-        return ;
+        return;
     cyl->closed = closed;
 }

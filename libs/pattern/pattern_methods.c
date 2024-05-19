@@ -1,21 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pattern_methods.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:22:49 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:22:51 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pattern.h"
 
 t_pattern *patterncpy(t_pattern p)
 {
     t_pattern *new;
-  
+
     new = NULL;
-    new = calloc(1, sizeof(t_pattern));  
+    new = calloc(1, sizeof(t_pattern));
     if (!new)
     {
         printf("Error: stripe_pattern : calloc failed.\n");
-        return NULL; 
+        return NULL;
     }
     pattern(colorcpy(*p.a), colorcpy(*p.b), new);
     new->local_pattern = p.local_pattern;
     transform((void *)new, matrixcpy(*p.tr));
     return new;
-
 }
 
 void add_pattern(t_pattern **list, t_pattern *pattern)
@@ -37,7 +48,6 @@ void print_pattern(const t_pattern pattern)
     print_color(*pattern.b);
 }
 
-
 void set_pattern_tr(void *s, t_matrix *transformation)
 {
     t_pattern *p;
@@ -52,4 +62,3 @@ void set_pattern_tr(void *s, t_matrix *transformation)
         free_matrix(&p->tr);
     p->tr = transformation;
 }
-

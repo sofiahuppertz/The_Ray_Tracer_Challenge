@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   world_methods.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:30:06 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:30:07 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "world.h"
 
 t_intersection *intersect_world(const t_world w, const t_ray r)
@@ -8,7 +20,6 @@ t_intersection *intersect_world(const t_world w, const t_ray r)
     return xs;
 }
 
-
 t_color *shade_hit(const t_world w, const t_comps comps, int remaining)
 {
     t_color *surface;
@@ -17,7 +28,7 @@ t_color *shade_hit(const t_world w, const t_comps comps, int remaining)
     t_material *material;
     double reflectance;
     int shadowed;
-    
+
     material = NULL;
     material = ((t_shape *)(comps.object_ptr))->material;
     shadowed = is_shadowed(w, *comps.over_point);
@@ -39,7 +50,6 @@ t_color *shade_hit(const t_world w, const t_comps comps, int remaining)
     return add_colors(surface, reflected, refracted, NULL);
 }
 
-
 t_color *color_at(const t_world w, const t_ray r, int remaining)
 {
     t_intersection *xs;
@@ -60,5 +70,3 @@ t_color *color_at(const t_world w, const t_ray r, int remaining)
     free_intersections(&xs);
     return c;
 }
-
-

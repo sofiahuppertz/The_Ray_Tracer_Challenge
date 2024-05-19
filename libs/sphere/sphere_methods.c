@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphere_methods.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:24:22 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:24:23 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sphere.h"
 
 void sphere_normal_at(void *s, const t_tuple object_point, t_tuple **normal)
@@ -13,7 +25,6 @@ void sphere_normal_at(void *s, const t_tuple object_point, t_tuple **normal)
     }
 }
 
-
 static double calculate_discriminant(double *a, double *b, double *c, const t_ray r, const t_tuple s_o)
 {
     t_tuple *sphere_to_ray;
@@ -28,7 +39,6 @@ static double calculate_discriminant(double *a, double *b, double *c, const t_ra
     return d;
 }
 
-
 void intersect_sphere(void *s, const t_ray transformed_ray, t_intersection **xs_list)
 {
     t_sphere *sphere;
@@ -37,7 +47,7 @@ void intersect_sphere(void *s, const t_ray transformed_ray, t_intersection **xs_
     double c;
     double d;
 
-    if (!xs_list )
+    if (!xs_list)
     {
         printf("Error: intersect_sphere: xs_list has no adress.\n");
         return;

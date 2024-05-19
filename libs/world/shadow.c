@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shadow.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:30:03 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:30:04 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "world.h"
 
 static t_intersection *shadow_casting_hit(t_intersection **xs)
@@ -8,7 +20,7 @@ static t_intersection *shadow_casting_hit(t_intersection **xs)
     if (!xs || !(*xs))
         return NULL;
     hit = *xs;
-    while (hit) 
+    while (hit)
     {
         if (hit && hit->t >= 0)
         {
@@ -20,7 +32,6 @@ static t_intersection *shadow_casting_hit(t_intersection **xs)
     }
     return NULL;
 }
-
 
 int is_shadowed(const t_world w, const t_tuple point)
 {
@@ -37,7 +48,7 @@ int is_shadowed(const t_world w, const t_tuple point)
     _hit = shadow_casting_hit(&xs);
     if (_hit && _hit->t < distance)
     {
-        
+
         free_ray(&r);
         free_intersections(&xs);
         return 1;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix_operations.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:20:19 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:20:20 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "matrix.h"
 
 int equal_matrices(const t_matrix a, const t_matrix b)
@@ -41,7 +53,7 @@ t_matrix *mult_matrices(const t_matrix a, const t_matrix b)
     }
     result = matrix(a.rows, b.cols);
     if (!result)
-       return (NULL);
+        return (NULL);
     i = 0;
     while (i < a.rows)
     {
@@ -90,7 +102,6 @@ t_matrix *transpose(t_matrix **m)
     free_matrix(m);
     *m = after;
     return *m;
-
 }
 
 double determinant(const t_matrix m)
@@ -106,7 +117,7 @@ double determinant(const t_matrix m)
         return -1;
     }
     if (m.rows == 2 && m.cols == 2)
-        det  = m.m[0][0] * m.m[1][1] - m.m[0][1] * m.m[1][0];
+        det = m.m[0][0] * m.m[1][1] - m.m[0][1] * m.m[1][0];
     else
     {
         while (i < m.cols)
@@ -145,12 +156,12 @@ t_matrix *submatrix(const t_matrix m, const int row, const int col)
     int i_sub;
     int j_sub;
 
-    sub =  matrix(m.rows - 1, m.cols - 1);
+    sub = matrix(m.rows - 1, m.cols - 1);
     if (!sub)
         return NULL;
     i = 0;
     i_sub = 0;
-    while(i < m.rows)
+    while (i < m.rows)
     {
         if (i == row)
             i++;
@@ -172,7 +183,7 @@ t_matrix *submatrix(const t_matrix m, const int row, const int col)
             i++;
             i_sub++;
         }
-    }    
+    }
     return sub;
 }
 
@@ -185,7 +196,7 @@ t_matrix *inverse(const t_matrix m)
     t_matrix *inv;
 
     det = determinant(m);
-    if (!is_square(m) || det == 0 )
+    if (!is_square(m) || det == 0)
     {
         printf("Stop: inverse: matrix is not invertible.\n");
         return NULL;
@@ -205,7 +216,6 @@ t_matrix *inverse(const t_matrix m)
     }
     return inv;
 }
-
 
 t_matrix *matrixcpy(const t_matrix m)
 {

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   extra.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:21:03 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:21:03 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 
-void    params_order(t_attributes *extra, t_parse *p)
+void params_order(t_attributes *extra, t_parse *p)
 {
     if (!p->params[0])
         p->params[0] = extra;
@@ -16,13 +28,13 @@ void    params_order(t_attributes *extra, t_parse *p)
 
 int parse_checker(char **arg, t_parse *p)
 {
-    int     i;
+    int i;
 
     i = 0;
     while (arg[i])
     {
         if (ft_strcmp(arg[i], "CHECKER") == 0)
-            break ;
+            break;
         i++;
     }
     if (!arg[i + 1])
@@ -43,7 +55,7 @@ int parse_checker(char **arg, t_parse *p)
     p->color = ft_split(arg[i + 1], ',');
     p->color_2 = ft_split(arg[i + 2], ',');
     p->checker_attr = checker(color(ft_atoi(p->color[0]), ft_atoi(p->color[1]), ft_atoi(p->color[2])),
-        color(ft_atoi(p->color_2[0]), ft_atoi(p->color_2[1]), ft_atoi(p->color_2[2])));
+                              color(ft_atoi(p->color_2[0]), ft_atoi(p->color_2[1]), ft_atoi(p->color_2[2])));
     params_order(p->checker_attr, p);
     free_split(p->color);
     free_split(p->color_2);
@@ -59,7 +71,7 @@ int parse_stripe(char **arg, t_parse *p)
     while (arg[i])
     {
         if (ft_strcmp(arg[i], "STRIPE") == 0)
-            break ;
+            break;
         i++;
     }
     if (!arg[i + 1])
@@ -85,8 +97,10 @@ int parse_stripe(char **arg, t_parse *p)
     p->color = ft_split(arg[i + 1], ',');
     p->color_2 = ft_split(arg[i + 2], ',');
     p->stripe_attr = stripe(color(div_255(ft_atoi(p->color[0])), div_255(ft_atoi(p->color[1])),
-        div_255(ft_atoi(p->color[2]))), color(div_255(ft_atoi(p->color_2[0])), div_255(ft_atoi(p->color_2[1])),
-        div_255(ft_atoi(p->color_2[2]))), ft_atof(arg[i + 3]), ft_atof(arg[i + 4]));
+                                  div_255(ft_atoi(p->color[2]))),
+                            color(div_255(ft_atoi(p->color_2[0])), div_255(ft_atoi(p->color_2[1])),
+                                  div_255(ft_atoi(p->color_2[2]))),
+                            ft_atof(arg[i + 3]), ft_atof(arg[i + 4]));
     params_order(p->stripe_attr, p);
     free_split(p->color);
     free_split(p->color_2);
@@ -96,8 +110,8 @@ int parse_stripe(char **arg, t_parse *p)
 
 int parse_transparency(char **arg, t_parse *p)
 {
-    char    *tmp;
-    int     i;
+    char *tmp;
+    int i;
 
     i = 0;
     tmp = NULL;
@@ -125,7 +139,7 @@ int parse_transparency(char **arg, t_parse *p)
                 params_order(p->transparency_attr, p);
                 p->count += 2;
                 free(tmp);
-                break ;
+                break;
             }
             if (tmp)
                 free(tmp);
@@ -151,8 +165,8 @@ int parse_transparency(char **arg, t_parse *p)
 
 int parse_refraction(char **arg, t_parse *p)
 {
-    char    *tmp;
-    int     i;
+    char *tmp;
+    int i;
 
     i = 0;
     tmp = NULL;
@@ -180,7 +194,7 @@ int parse_refraction(char **arg, t_parse *p)
                 params_order(p->refraction_attr, p);
                 p->count += 2;
                 free(tmp);
-                break ;
+                break;
             }
             if (tmp)
                 free(tmp);
@@ -206,8 +220,8 @@ int parse_refraction(char **arg, t_parse *p)
 
 int parse_reflection(char **arg, t_parse *p)
 {
-    char    *tmp;
-    int     i;
+    char *tmp;
+    int i;
 
     i = 0;
     tmp = NULL;
@@ -235,7 +249,7 @@ int parse_reflection(char **arg, t_parse *p)
                 params_order(p->reflection_attr, p);
                 p->count += 2;
                 free(tmp);
-                break ;
+                break;
             }
             if (tmp)
                 free(tmp);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:23:32 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:23:34 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ray.h"
 
 t_ray *ray(t_tuple *origin, t_tuple *direction)
@@ -26,7 +38,7 @@ void transform_ray(void *ray, t_matrix *transformation)
 {
     t_ray *r;
     t_matrix *t_copy;
-    
+
     r = (t_ray *)ray;
     if (!transformation)
     {
@@ -44,14 +56,12 @@ void transform_ray(void *ray, t_matrix *transformation)
     transform((void *)r->di, t_copy);
 }
 
-
 void print_ray(const t_ray *r)
 {
     printf("Ray origin:\n");
-    print_tuple((const t_tuple*)(r->o));
+    print_tuple((const t_tuple *)(r->o));
     printf("Ray direction:\n");
-    print_tuple((const t_tuple*)(r->di));
-
+    print_tuple((const t_tuple *)(r->di));
 }
 
 t_tuple *position(const t_ray r, const double t)
@@ -81,9 +91,8 @@ void free_ray(t_ray **r)
     if ((*r)->o)
     {
         free((*r)->o);
-
     }
-    if ((*r)->di) 
+    if ((*r)->di)
     {
         free((*r)->di);
         (*r)->di = NULL;
@@ -103,7 +112,7 @@ t_ray *raycpy(const t_ray r)
     {
         printf("Error: raycpy: origin memory allocation failed.\n");
         return NULL;
-    } 
+    }
     direction = tuplecpy((const t_tuple)(*r.di));
     if (!direction)
     {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   methods1.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:23:44 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:42:54 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scene.h"
 
 void make_camera(t_tuple *view_point, t_tuple *orientation, double field_of_view)
@@ -12,7 +24,7 @@ void make_camera(t_tuple *view_point, t_tuple *orientation, double field_of_view
         printf("Error: make_camera: invalid arguments.\n");
         return;
     }
-    cam = camera(HEIGHT, WIDTH, field_of_view);
+    cam = camera(WIDTH, HEIGHT, field_of_view);
     if (!cam)
         return;
     vt = view_transformation(view_point, orientation, vector(0, 1, 0));
@@ -28,7 +40,6 @@ void make_camera(t_tuple *view_point, t_tuple *orientation, double field_of_view
     }
     _scene->camera = cam;
 }
-
 
 void make_ambient_light(double ratio, t_color *color)
 {
@@ -51,7 +62,6 @@ void make_ambient_light(double ratio, t_color *color)
     set_ambient(_scene->material, ratio);
     set_ambient_color(_scene->material, color);
 }
-
 
 void make_light(t_tuple *position, double brightness, t_color *color)
 {

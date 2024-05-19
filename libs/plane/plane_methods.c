@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   plane_methods.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:23:18 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:23:19 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "plane.h"
 
 void plane_normal_at(void *p, const t_tuple object_point, t_tuple **normal)
@@ -35,5 +47,4 @@ void print_plane(void *p)
     print_material(*_plane->shape.material);
     printf("Transform:\n");
     print_matrix((void *)_plane->shape.tr);
-
 }

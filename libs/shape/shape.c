@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shape.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:24:12 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:24:13 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "shape.h"
 
-t_shape *abstract_shape( void )
+t_shape *abstract_shape(void)
 {
     static int id = 0;
     t_shape *shape;
@@ -39,8 +50,7 @@ t_shape *abstract_shape( void )
     return shape;
 }
 
-
-void shape( t_elem type , t_shape *shape)
+void shape(t_elem type, t_shape *shape)
 {
     static int id = 0;
 
@@ -64,7 +74,6 @@ void shape( t_elem type , t_shape *shape)
     shape->container_next = NULL;
     shape->can_cast_shadow = 1;
 }
-
 
 void set_transform(void *s, t_matrix *transformation)
 {
@@ -108,4 +117,3 @@ void free_shape(t_shape *shape_list)
         curr_shape = next_shape;
     }
 }
-

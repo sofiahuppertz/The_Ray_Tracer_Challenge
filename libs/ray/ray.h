@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:23:35 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:23:37 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RAY_H
-# define RAY_H
+#define RAY_H
 
 #include "../matrix/matrix.h"
 #include "../tuple/tuple.h"
 
-typedef struct s_ray {
+typedef struct s_ray
+{
     t_tf tf;
     t_tuple *o;
     t_tuple *di;
@@ -18,6 +31,5 @@ void print_ray(const t_ray *r);
 void free_ray(t_ray **r);
 
 t_tuple *position(t_ray r, double t);
-
 
 #endif

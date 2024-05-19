@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:22:43 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:22:44 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pattern.h"
 
 t_pattern *checker_pattern(t_color *a, t_color *b)
@@ -9,7 +21,7 @@ t_pattern *checker_pattern(t_color *a, t_color *b)
     {
         printf("Error: checker calloc failed.\n");
     }
-    pattern(a , b, checker);
+    pattern(a, b, checker);
     checker->local_pattern = checker_at;
     return checker;
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setters.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:20:13 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:20:14 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "material.h"
 
 void set_ambient(t_material *material, double ambient)
@@ -65,7 +77,6 @@ void set_shininess(t_material *material, double shininess)
     else
         material->shininess = shininess;
 }
-
 
 void set_reflective(t_material *material, double reflective)
 {

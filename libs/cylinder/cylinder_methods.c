@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder_methods.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:19:03 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:19:04 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cylinder.h"
 
-void print_cylinder( void *s)
+void print_cylinder(void *s)
 {
     const t_cylinder *cylinder;
-    
+
     cylinder = (t_cylinder *)s;
     if (!cylinder)
-        return ;
+        return;
     printf("Cylinder %d\n", cylinder->c.shape.id);
     printf("Origin: ");
     print_tuple((const t_tuple *)(cylinder->c.o));
@@ -16,7 +28,6 @@ void print_cylinder( void *s)
     printf("Material:\n");
     print_material(*(cylinder->c.shape.material));
 }
-
 
 double disc_cylinder(void *cyl, const t_ray ray, t_intersection **_xs, double *a, double *b)
 {
@@ -40,12 +51,11 @@ int cylinder_check_cap(const t_ray r, double t, double y)
     double x;
     double z;
 
-    (void )y;
+    (void)y;
     x = r.o->x + t * r.di->x;
     z = r.o->z + t * r.di->z;
     return (pow(x, 2) + pow(z, 2)) <= 1;
 }
-
 
 void cylinder_normal(t_tuple object_point, t_tuple **normal)
 {

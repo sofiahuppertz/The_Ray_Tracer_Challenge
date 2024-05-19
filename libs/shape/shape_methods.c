@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shape_methods.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:24:06 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:24:07 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "shape.h"
 
@@ -55,7 +66,6 @@ t_intersection *intersect_shapes(t_shape *shapes, const t_ray ray)
     return final_xs;
 }
 
-
 t_tuple *normal_at(t_shape *shape, const t_tuple point)
 {
     t_tuple *normal;
@@ -66,7 +76,7 @@ t_tuple *normal_at(t_shape *shape, const t_tuple point)
         printf("Error: normal_at: NULL pointer.\n");
         return NULL;
     }
-    //transform point to object space
+    // transform point to object space
     transform((void *)&point, inverse(*shape->tr));
     if (shape->tf.type == SHAPE)
     {
@@ -78,7 +88,7 @@ t_tuple *normal_at(t_shape *shape, const t_tuple point)
     shape->local_normal_at((void *)shape, point, &normal);
     if (!normal)
         return NULL;
-    //transform normal by inverse of the transpose and normalize
+    // transform normal by inverse of the transpose and normalize
     tr = inverse(*shape->tr);
     transform((void *)normal, transpose(&tr));
     normal->w = 0;

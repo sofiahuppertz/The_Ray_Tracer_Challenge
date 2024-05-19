@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gradient.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:22:46 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:22:47 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pattern.h"
 
 t_pattern *gradient(t_color *a, t_color *b)
@@ -9,7 +21,7 @@ t_pattern *gradient(t_color *a, t_color *b)
     {
         printf("Error: gradient calloc failed.\n");
     }
-    pattern(a , b, gradient);
+    pattern(a, b, gradient);
     gradient->local_pattern = gradient_at;
     return gradient;
 }

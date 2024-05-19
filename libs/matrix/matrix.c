@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:20:27 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:20:46 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "matrix.h"
 
 t_matrix *matrix(const int rows, const int cols)
@@ -54,7 +66,7 @@ void free_matrix(t_matrix **matrix)
 {
     int i;
 
-    i = 0;   
+    i = 0;
     while (i < (*matrix)->rows)
     {
         free((*matrix)->m[i]);
@@ -67,12 +79,10 @@ void free_matrix(t_matrix **matrix)
     *matrix = NULL;
 }
 
-
 double degrees_to_radians(double degrees)
 {
-    return degrees * M_PI / 180;
+    return degrees * PI / 180;
 }
-
 
 void free_matrices(t_matrix *initial, ...)
 {

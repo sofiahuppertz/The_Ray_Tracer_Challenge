@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cone_methods.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:18:49 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:18:50 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cone.h"
 
 void print_cone(void *s)
@@ -6,7 +18,7 @@ void print_cone(void *s)
 
     cone = (t_cone *)s;
     if (!cone)
-        return ;
+        return;
     printf("Cone\n");
     printf("Origin: ");
     print_tuple((const t_tuple *)(cone->c.o));
@@ -17,7 +29,6 @@ void print_cone(void *s)
     print_matrix(cone->c.shape.tr);
     printf("Material:\n");
     print_material(*(cone->c.shape.material));
-
 }
 
 double disc_cone(void *cyl, const t_ray ray, t_intersection **_xs, double *a, double *b)
@@ -55,7 +66,3 @@ int cone_check_cap(const t_ray r, double t, double y)
     z = r.o->z + t * r.di->z;
     return (pow(x, 2) + pow(z, 2)) <= y;
 }
-
-
-
-

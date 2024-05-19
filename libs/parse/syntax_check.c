@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_check.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:21:33 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:21:33 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 
 int check_rgb(char *split, t_parse *p)
@@ -15,12 +27,11 @@ int check_rgb(char *split, t_parse *p)
             free_split(p->color);
             return (1);
         }
-        while(p->color[i][++j])
+        while (p->color[i][++j])
         {
             if (p->color[i][j] == '.')
                 ++j;
-            if (p->color[i][j]  && p->color[i][j] != 13 && ft_isdigit(p->color[i][j]) == 0
-                && p->color[i][j] != 9)
+            if (p->color[i][j] && p->color[i][j] != 13 && ft_isdigit(p->color[i][j]) == 0 && p->color[i][j] != 9)
             {
                 free_split(p->color);
                 return (1);
@@ -52,10 +63,10 @@ int check_range(char **split, t_parse *p)
 
 int vector_range(char **split, t_parse *p)
 {
-    char    **split_tmp;
-    char    *tmp;
-    int     i;
-    int     j;
+    char **split_tmp;
+    char *tmp;
+    int i;
+    int j;
 
     i = 0;
     tmp = NULL;
@@ -76,7 +87,8 @@ int vector_range(char **split, t_parse *p)
                 if (j == 0 && (tmp[j] == '+' || tmp[j] == '-'))
                     j++;
                 else if ((ft_isdigit(tmp[0]) != 0 || tmp[0] == '+' ||
-                    tmp[0] == '-') && tmp[j] == '.')
+                          tmp[0] == '-') &&
+                         tmp[j] == '.')
                     j++;
                 if (tmp[j] && ft_isdigit(tmp[j]) == 0 && tmp[j] != 9)
                 {
@@ -85,7 +97,7 @@ int vector_range(char **split, t_parse *p)
                     return (1);
                 }
                 if (!tmp[j])
-                    break ;
+                    break;
                 j++;
             }
             free(tmp);
@@ -106,9 +118,9 @@ int vector_range(char **split, t_parse *p)
 
 int check_xyz(t_parse *p, char **split)
 {
-    char    **split_tmp;
-    int     i;
-    int     j;
+    char **split_tmp;
+    int i;
+    int j;
 
     i = -1;
     split_tmp = ft_split(split[1], ',');
@@ -120,7 +132,8 @@ int check_xyz(t_parse *p, char **split)
         while (split_tmp[i][++j])
         {
             if ((ft_isdigit(split_tmp[i][0]) == 1 || split_tmp[i][0] == '+' ||
-                split_tmp[i][0] == '-') && split_tmp[i][j] == '.')
+                 split_tmp[i][0] == '-') &&
+                split_tmp[i][j] == '.')
                 j++;
             if (count_comma(split[1]) == 1 || ft_isdigit(split_tmp[i][j]) == 0)
             {
@@ -143,8 +156,8 @@ int check_xyz(t_parse *p, char **split)
 
 int check_diameter(char *diameter, t_parse *p)
 {
-    char    *tmp;
-    int     i;
+    char *tmp;
+    int i;
 
     i = 0;
     tmp = NULL;

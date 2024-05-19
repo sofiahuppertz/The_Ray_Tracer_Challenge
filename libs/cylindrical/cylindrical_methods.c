@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylindrical_methods.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:19:15 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:19:17 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cylindrical.h"
 
 static t_intersection *find_solutions(t_cyl *cyl, const t_ray ray, double disc, double a, double b)
 {
     t_intersection *_xs;
-    t_intersection *cap_xs; 
+    t_intersection *cap_xs;
     double t0;
     double t1;
 
@@ -19,7 +31,7 @@ static t_intersection *find_solutions(t_cyl *cyl, const t_ray ray, double disc, 
     }
     double y0 = ray.o->y + (t0 * ray.di->y);
     if (cyl->min_y < y0 && y0 < cyl->max_y)
-        _xs = xs(t0, CYLINDRICAL, (void*)cyl);
+        _xs = xs(t0, CYLINDRICAL, (void *)cyl);
 
     double y1 = ray.o->y + (t1 * ray.di->y);
     if (cyl->min_y < y1 && y1 < cyl->max_y)
@@ -38,13 +50,12 @@ void intersect_cyl(void *s, const t_ray transformed_ray, t_intersection **_xs)
 
     a = 0;
     b = 0;
-    cyl = (t_cyl *)s;   
-    *_xs =  NULL;
+    cyl = (t_cyl *)s;
+    *_xs = NULL;
     disc = cyl->local_calc_disc(cyl, transformed_ray, _xs, &a, &b);
     if (disc < 0)
-        return ;
+        return;
     *_xs = find_solutions(cyl, transformed_ray, disc, a, b);
-
 }
 
 void intersect_caps(t_cyl *cyl, const t_ray r, t_intersection **_xs)
@@ -54,12 +65,12 @@ void intersect_caps(t_cyl *cyl, const t_ray r, t_intersection **_xs)
     t_intersection *i2 = NULL;
 
     if (!cyl->closed || equal(r.di->y, 0))
-        return ;
+        return;
 
     t = (cyl->min_y - r.o->y) / r.di->y;
     if (cyl->local_check_cap(r, t, fabs(cyl->min_y)))
         i1 = xs(t, CYLINDRICAL, cyl);
-    
+
     t = (cyl->max_y - r.o->y) / r.di->y;
     if (cyl->local_check_cap(r, t, fabs(cyl->max_y)))
         i2 = xs(t, CYLINDRICAL, cyl);
@@ -73,8 +84,8 @@ void cyl_normal_at(void *s, const t_tuple object_point, t_tuple **normal)
 
     cyl = (t_cyl *)s;
     if (!cyl)
-        return ;
-    
+        return;
+
     dist = pow(object_point.x, 2) + pow(object_point.z, 2);
 
     if (dist < 1 && object_point.y >= cyl->max_y - EPSILON)

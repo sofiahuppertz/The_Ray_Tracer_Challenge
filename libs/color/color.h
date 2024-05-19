@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:18:20 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:18:22 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COLOR_H
 #define COLOR_H
 
@@ -5,12 +17,12 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-typedef struct s_color {
+typedef struct s_color
+{
     double r;
     double g;
     double b;
 } t_color;
-
 
 t_color *color(double r, double g, double b);
 t_color *black(void);
@@ -27,4 +39,4 @@ double div_255(double color);
 
 void print_color(const t_color c);
 
-# endif
+#endif

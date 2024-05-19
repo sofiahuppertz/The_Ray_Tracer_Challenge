@@ -2,7 +2,7 @@ NAME = miniRT
 SRC = main.c
 OBJ = $(SRC:.c=.o)
 
-INCLUDE = -Iminilibx -Ilibs
+INCLUDES = -Ilibs -Iminilibx
 
 MLX_FLAGS = -Lminilibx -lmlx -lXext -lX11 -lm -lz
 MLX_PATH = minilibx
@@ -12,10 +12,10 @@ RT_PATH = libs
 
 
 %.o: %.c
-	cc -g -Wall -Wextra -Werror  $(INCLUDE) -c $< -o $@
+	cc -g -Wall -Wextra -Werror  $(INCLUDES) -c $< -o $@
 
-$(NAME): $(OBJ) $(RT_PATH)/librt.a $(MLX_PATH)/libmlx.a
-	gcc -o $(NAME) $(OBJ) $(RT_FLAGS) $(MLX_FLAGS)
+$(NAME): $(MLX_PATH)/libmlx.a $(RT_PATH)/librt.a $(OBJ)
+	cc $(OBJ) $(RT_FLAGS) $(MLX_FLAGS) -o $(NAME)
 
 
 $(MLX_PATH)/libmlx.a:

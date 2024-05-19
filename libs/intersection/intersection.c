@@ -1,5 +1,16 @@
-#include "intersection.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   intersection.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:19:34 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:19:35 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "intersection.h"
 
 t_intersection *xs(const double t, const t_elem object, void *object_ptr)
 {
@@ -22,23 +33,23 @@ t_intersection *merge_sorted(t_intersection **first, t_intersection **next)
 {
     t_intersection *result = NULL;
 
-    if (*first == NULL) return *next;
-    if (*next == NULL) return *first;
+    if (*first == NULL)
+        return *next;
+    if (*next == NULL)
+        return *first;
 
-
-    if ((*first)->t <= (*next)->t) 
+    if ((*first)->t <= (*next)->t)
     {
         result = *first;
         result->next = merge_sorted(&((*first)->next), next);
-    } 
-    else 
+    }
+    else
     {
         result = *next;
         result->next = merge_sorted(first, &((*next)->next));
     }
     return result;
 }
-
 
 t_intersection *intersections(t_intersection *initial, ...)
 {
@@ -48,17 +59,17 @@ t_intersection *intersections(t_intersection *initial, ...)
 
     va_start(args, initial);
     first = initial;
-    if (first ==  NULL)
+    if (first == NULL)
         printf("Error: first arg of intersections is NULL\n");
     else
     {
         while (1)
         {
-            next = (t_intersection *)va_arg(args, t_intersection*);
+            next = (t_intersection *)va_arg(args, t_intersection *);
             if (next == NULL)
                 break;
             first = merge_sorted(&first, &next);
-        }  
+        }
     }
     return first;
 }
@@ -90,7 +101,7 @@ t_intersection *hit(t_intersection **xs)
     hit = *xs;
     if (hit->t < 0)
     {
-        while (hit) 
+        while (hit)
         {
             hit = hit->next;
             if (hit && hit->t >= 0)
@@ -101,7 +112,6 @@ t_intersection *hit(t_intersection **xs)
     else
         return hit;
 }
-
 
 void print_intersections(const t_intersection *i)
 {

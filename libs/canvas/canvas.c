@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   canvas.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 19:17:16 by shuppert          #+#    #+#             */
+/*   Updated: 2024/05/19 19:48:24 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "canvas.h"
 
-void	draw_pixel(t_data *data, int x, int y, const t_color *color)
+void draw_pixel(t_data *data, int x, int y, const t_color *color)
 {
-	char			*dst;
-	unsigned int	_color;
-	unsigned int	_r;
-	unsigned int	_g;
-	unsigned int	_b;
+	char *dst;
+	unsigned int _color;
+	unsigned int _r;
+	unsigned int _g;
+	unsigned int _b;
 
 	_r = (unsigned int)(color->r * 255);
 	if (_r > 255)
@@ -34,7 +46,7 @@ t_canvas *canvas(int width, int height)
 	canvas->mlx_win = mlx_new_window(canvas->mlx, width, height, "Default Window Title");
 	canvas->img.img = mlx_new_image(canvas->mlx, width, height);
 	canvas->img.addr = mlx_get_data_addr(canvas->img.img, &canvas->img.bits_per_pixel, &canvas->img.line_length, &canvas->img.endian);
-	return canvas;
+	return (canvas);
 }
 
 void free_canvas(t_canvas *canvas)
@@ -51,15 +63,12 @@ void free_canvas(t_canvas *canvas)
 			mlx_destroy_window(canvas->mlx, canvas->mlx_win);
 			canvas->mlx_win = NULL;
 		}
-		//if (canvas->mlx)
-		//{
-		//	mlx_loop_end(canvas->mlx);
-		//	mlx_destroy_display(canvas->mlx);
-		//	free(canvas->mlx);
-		//}
+		if (canvas->mlx)
+		{
+			mlx_destroy_display(canvas->mlx);
+			if (canvas->mlx)
+				free(canvas->mlx);
+		}
 		free(canvas);
 	}
 }
-
-
-

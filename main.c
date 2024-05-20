@@ -6,7 +6,7 @@
 /*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:30:35 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/20 15:40:46 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/20 16:13:10 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int ac, char **av)
         return (1);
     }
     close(fd);
-    printf( CYAN"              ___                       ___                       ___                 \n"RESET);
+    printf( CYAN"          ___                       ___                       ___                 \n"RESET);
     printf( CYAN"         /__/\\        ___          /__/\\        ___          /  /\\          ___   \n"RESET);
     printf( CYAN"        |  |::\\      /  /\\         \\  \\:\\      /  /\\        /  /::\\        /  /\\  \n"RESET);
     printf( CYAN"        |  |:|:\\    /  /:/          \\  \\:\\    /  /:/       /  /:/\\:\\      /  /:/  \n"RESET);

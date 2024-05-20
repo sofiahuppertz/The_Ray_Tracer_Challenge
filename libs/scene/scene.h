@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:56 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:55:57 by shuppert         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:33:16 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#define HEIGHT 1000
-#define WIDTH 1000
+#define HEIGHT 100
+#define WIDTH 100
 
 typedef struct s_scene
 {

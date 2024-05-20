@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:00 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:24:01 by shuppert         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:24:28 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int close_window(void *param)
         free_canvas(_scene->canvas);
     }
     free(_scene);
+    printf(MAGENTA "Bye 👋\n" RESET);
     exit(0);
 }
 

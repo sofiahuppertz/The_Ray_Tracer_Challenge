@@ -3,9 +3,14 @@ NAME = parse.a
 SRC = parse.c \
 		read_line.c \
 		utils.c \
+		utils_2.c \
 		scene_elm.c \
+		scene_elm_2.c \
 		syntax_check.c \
+		syntax_check_utils.c \
+		check_extra.c \
 		extra.c \
+		extra_utils.c \
 
 SCENE_DIR = ../scene
 LIBFT_DIR = ../libft

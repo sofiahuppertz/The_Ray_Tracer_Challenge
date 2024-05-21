@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 19:21:41 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:21:41 by shuppert         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "parse.h"
 
-void free_split(char **split)
+void    free_split(char **split)
 {
     int i;
 
@@ -25,7 +13,7 @@ void free_split(char **split)
     free(split);
 }
 
-int parsing_error(int tmp, int fd, t_parse *p)
+int    parsing_error(int tmp, int fd, t_parse *p)
 {
     close(fd);
     if (p->A != 1 || p->C != 1 || p->L != 1)
@@ -80,55 +68,14 @@ int count_nb_elm(char **line, int j)
 
 int check_id(char *line)
 {
-    if (ft_strncmp("A", line, 1) != 0 && ft_strncmp("C", line, 1) != 0 && ft_strncmp("L", line, 1) != 0 && ft_strncmp("pl", line, 2) != 0 && ft_strncmp("sp", line, 2) != 0 && ft_strncmp("cy", line, 2) != 0 && ft_strncmp("co", line, 2) != 0 && line[0] != 0)
+    if (ft_strncmp("A", line, 1) != 0 && ft_strncmp("C", line, 1) != 0
+        && ft_strncmp("L", line, 1) != 0 && ft_strncmp("pl", line, 2) != 0
+        && ft_strncmp("sp", line, 2) != 0 && ft_strncmp("cy", line, 2) != 0
+        && ft_strncmp("co", line, 2) != 0 && line[0] != 0)
     {
         return (1);
     }
     return (0);
-}
-
-char *rm_space(char *str)
-{
-    char *new;
-    int i;
-    int j;
-
-    i = 0;
-    j = 0;
-    new = NULL;
-    while (str[i])
-    {
-        if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-' || str[i] == '+' || str[i] == '.')
-            j++;
-        i++;
-    }
-    new = malloc(sizeof(char) * (j + 1));
-    if (!new)
-        return (NULL);
-    j = 0;
-    i = 0;
-    while (str[i])
-    {
-        if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-' || str[i] == '+' || str[i] == '.')
-        {
-            new[j] = str[i];
-            j++;
-        }
-        i++;
-    }
-    if (!new)
-        return (NULL);
-    new[j] = '\0';
-    return (new);
-}
-
-double ft_atof(char *str)
-{
-    char *endptr;
-    double value;
-
-    value = strtod(str, &endptr);
-    return (value);
 }
 
 // double	ft_atof(char *str)

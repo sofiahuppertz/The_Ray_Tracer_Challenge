@@ -1,42 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   syntax_check.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 19:21:33 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:21:33 by shuppert         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "parse.h"
 
 int check_rgb(char *split, t_parse *p)
 {
     int i;
-    int j;
 
     i = 0;
     p->color = ft_split(split, ',');
     while (p->color[i])
     {
-        j = -1;
-        if (ft_atof(p->color[i]) < 0.0 || ft_atof(p->color[i]) > 255.0)
-        {
-            free_split(p->color);
+        if (check_rgb_syntax(p->color, p->color[i]) == 1)
             return (1);
-        }
-        while (p->color[i][++j])
-        {
-            if (p->color[i][j] == '.')
-                ++j;
-            if (p->color[i][j] && p->color[i][j] != 13 && ft_isdigit(p->color[i][j]) == 0 && p->color[i][j] != 9)
-            {
-                free_split(p->color);
-                return (1);
-            }
-        }
         i++;
     }
     if (i != 3 || p->color[2][0] == 13 || count_comma(split) == 1)
@@ -63,45 +36,18 @@ int check_range(char **split, t_parse *p)
 
 int vector_range(char **split, t_parse *p)
 {
-    char **split_tmp;
-    char *tmp;
-    int i;
-    int j;
+    char    **split_tmp;
+    char    *tmp;
+    int     i;
 
     i = 0;
     tmp = NULL;
     split_tmp = ft_split(split[2], ',');
     while (split_tmp[i])
     {
-        if (ft_atof(split_tmp[i]) < -1 || ft_atof(split_tmp[i]) > 1)
-        {
-            free_split(split_tmp);
-            return (1);
-        }
-        j = 0;
         tmp = rm_space(split_tmp[i]);
-        if (tmp)
-        {
-            while (tmp[j])
-            {
-                if (j == 0 && (tmp[j] == '+' || tmp[j] == '-'))
-                    j++;
-                else if ((ft_isdigit(tmp[0]) != 0 || tmp[0] == '+' ||
-                          tmp[0] == '-') &&
-                         tmp[j] == '.')
-                    j++;
-                if (tmp[j] && ft_isdigit(tmp[j]) == 0 && tmp[j] != 9)
-                {
-                    free_split(split_tmp);
-                    free(tmp);
-                    return (1);
-                }
-                if (!tmp[j])
-                    break;
-                j++;
-            }
-            free(tmp);
-        }
+        if (check_vector_syntax(split_tmp, split_tmp[i], tmp) == 1)
+            return (1);
         i++;
     }
     if (count_comma(split[2]) == 1 || i != 3)
@@ -118,29 +64,15 @@ int vector_range(char **split, t_parse *p)
 
 int check_xyz(t_parse *p, char **split)
 {
-    char **split_tmp;
-    int i;
-    int j;
+    char    **split_tmp;
+    int     i;
 
     i = -1;
     split_tmp = ft_split(split[1], ',');
     while (split_tmp[++i])
     {
-        j = -1;
-        if (split_tmp[i][0] == '+' || split_tmp[i][0] == '-')
-            j++;
-        while (split_tmp[i][++j])
-        {
-            if ((ft_isdigit(split_tmp[i][0]) == 1 || split_tmp[i][0] == '+' ||
-                 split_tmp[i][0] == '-') &&
-                split_tmp[i][j] == '.')
-                j++;
-            if (count_comma(split[1]) == 1 || ft_isdigit(split_tmp[i][j]) == 0)
-            {
-                free_split(split_tmp);
-                return (1);
-            }
-        }
+        if (check_xyz_syntax(split, split_tmp, split_tmp[i]) == 1)
+            return (1);
     }
     if (i != 3)
     {
@@ -156,8 +88,8 @@ int check_xyz(t_parse *p, char **split)
 
 int check_diameter(char *diameter, t_parse *p)
 {
-    char *tmp;
-    int i;
+    char    *tmp;
+    int     i;
 
     i = 0;
     tmp = NULL;

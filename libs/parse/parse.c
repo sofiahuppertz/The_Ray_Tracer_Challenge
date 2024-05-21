@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 19:21:07 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:21:07 by shuppert         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "parse.h"
 
 int identify_2(t_parse *p, char *line)
@@ -26,7 +14,7 @@ int identify_2(t_parse *p, char *line)
     }
     else if (ft_strncmp("cy", line, 2) == 0)
     {
-        if (parse_cylinder(p, line, "cy") == 1)
+        if (parse_cylinder(p, line) == 1)
             return (1);
     }
     else if (ft_strncmp("co", line, 2) == 0)
@@ -66,8 +54,8 @@ int identify(t_parse *p, char *line)
 
 int check_cmd_line(int ac, char **av)
 {
-    char *tmp;
-    int last_arg;
+    char    *tmp;
+    int     last_arg;
 
     last_arg = ac - 1;
     if (ac == 2)
@@ -87,10 +75,9 @@ int check_cmd_line(int ac, char **av)
     return (1);
 }
 
-void init(t_parse *p)
+void    init(t_parse *p)
 {
     p->count = 0;
-
     p->chk = 0;
     p->str = 0;
     p->tsy = 0;
@@ -113,9 +100,9 @@ void init(t_parse *p)
 int check_file_rt(int fd)
 {
     t_parse p;
-    char *line;
-    int res;
-    int tmp;
+    char    *line;
+    int     res;
+    int     tmp;
 
     res = 1;
     tmp = 0;
@@ -130,31 +117,9 @@ int check_file_rt(int fd)
             tmp = 1;
         free(line);
         if (!res)
-            break;
+            break ;
     }
     if (parsing_error(tmp, fd, &p) == 1)
         return (1);
     return (0);
 }
-
-// int main(int ac, char **av)
-// {
-//     int   fd;
-
-//     if (check_cmd_line(ac, av) == 1)
-//         return (1);
-//     fd = open(av[ac - 1], O_RDONLY);
-//     if (fd == -1)
-//     {
-//         perror("fd");
-//         close(fd);
-//         return (1);
-//     }
-//     if (check_file_rt(fd) == 1)
-//     {
-//         close(fd);
-//         return (1);
-//     }
-//     close(fd);
-//     return (0);
-// }

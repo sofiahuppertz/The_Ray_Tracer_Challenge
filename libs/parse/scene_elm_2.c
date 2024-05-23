@@ -12,6 +12,8 @@
 
 #include "parse.h"
 
+// check_point(split[2], "pos") == 1
+
 int	parse_cylinder_utils(t_parse *p, char **split)
 {
 	char	**split_tmp;
@@ -21,7 +23,9 @@ int	parse_cylinder_utils(t_parse *p, char **split)
 	split_tmp = ft_split(split[2], ',');
 	while (split_tmp[++i])
 	{
-		if (ft_atof(split_tmp[i]) < -1 || ft_atof(split_tmp[i]) > 1)
+		if (ft_atof(split_tmp[i]) < -1 || ft_atof(split_tmp[i]) > 1
+			|| check_point(split[3], "pos") == 1
+			|| check_point(split[4], "pos") == 1)
 		{
 			free_split(split);
 			free_split(split_tmp);
@@ -90,7 +94,8 @@ int	parse_plan_utils(t_parse *p, char **split)
 int	parse_sphere_utils(t_parse *p, char **split)
 {
 	if (check_xyz(p, split) == 1 || check_rgb(split[3], p) == 1
-		|| check_diameter(split[2], p) == 1)
+		|| check_diameter(split[2], p) == 1
+		|| check_point(split[2], "pos") == 1)
 	{
 		free_split(split);
 		return (1);

@@ -68,6 +68,7 @@ int		identify_2(t_parse *p, char *line);
 int		identify(t_parse *p, char *line);
 int		check_file_rt(int fd);
 int		check_cmd_line(int ac, char **av);
+void	init(t_parse *p);
 
 /* utils */
 void	free_split(char **split);
@@ -109,6 +110,7 @@ int		check_rgb_syntax(char **color_tab, char *color_str);
 int		check_vector_syntax_utils(char **split_tmp, char *tmp, int j);
 int		check_vector_syntax(char **split_tmp, char *split_tmp_str, char *tmp);
 int		check_xyz_syntax(char **split, char **split_tmp, char *split_tmp_str);
+int		check_point(char *str, char *sign);
 
 /* extra */
 int		parse_checker(char **arg, t_parse *p);

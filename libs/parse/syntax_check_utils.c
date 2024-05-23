@@ -15,8 +15,10 @@
 int	check_rgb_syntax(char **color_tab, char *color_str)
 {
 	int	j;
+	int	yes;
 
 	j = -1;
+	yes = 0;
 	if (ft_atof(color_str) < 0.0 || ft_atof(color_str) > 255.0)
 	{
 		free_split(color_tab);
@@ -24,8 +26,11 @@ int	check_rgb_syntax(char **color_tab, char *color_str)
 	}
 	while (color_str[++j])
 	{
-		if (color_str[j] == '.')
+		if (color_str[j] == '.' && yes == 0)
+		{
+			yes = 1;
 			++j;
+		}
 		if (color_str[j] && color_str[j] != 13 && ft_isdigit(color_str[j]) == 0
 			&& color_str[j] != 9)
 		{
@@ -67,7 +72,7 @@ int	check_vector_syntax(char **split_tmp, char *split_tmp_str, char *tmp)
 		while (tmp[j])
 		{
 			j = check_vector_syntax_utils(split_tmp, tmp, j);
-			if (j == -1)
+			if (j == -1 || check_point(tmp, "neg") == 1)
 				return (1);
 			if (!tmp[j])
 				break ;
@@ -95,6 +100,29 @@ int	check_xyz_syntax(char **split, char **split_tmp, char *split_tmp_str)
 			free_split(split_tmp);
 			return (1);
 		}
+	}
+	return (0);
+}
+
+int	check_point(char *str, char *sign)
+{
+	int	yes;
+	int	j;
+
+	j = -1;
+	yes = 0;
+	while (str[++j])
+	{
+		if (ft_strcmp(sign, "neg") == 0 && j == 0 && str[j] == '-')
+			++j;
+		if (str[j] == '.' && yes == 0)
+		{
+			yes = 1;
+			++j;
+		}
+		if (str[j] && str[j] != 13 && ft_isdigit(str[j]) == 0
+			&& str[j] != 9)
+			return (1);
 	}
 	return (0);
 }

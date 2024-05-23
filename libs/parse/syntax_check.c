@@ -47,6 +47,8 @@ int	check_range(char **split, t_parse *p)
 	if (!(ft_atof(split[1]) >= 0.0 && ft_atof(split[1]) <= 1.0)
 		|| split[1][0] == '-')
 		return (1);
+	if (check_point(split[1], "pos") == 1)
+		return (1);
 	return (0);
 }
 
@@ -87,7 +89,8 @@ int	check_xyz(t_parse *p, char **split)
 	split_tmp = ft_split(split[1], ',');
 	while (split_tmp[++i])
 	{
-		if (check_xyz_syntax(split, split_tmp, split_tmp[i]) == 1)
+		if (check_xyz_syntax(split, split_tmp, split_tmp[i]) == 1
+			|| check_point(split_tmp[i], "neg") == 1)
 			return (1);
 	}
 	if (i != 3)

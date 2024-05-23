@@ -1,6 +1,7 @@
 NAME = intersection.a
 
 SRC = camera.c \
+		camera_2.c \
 
 OBJ = $(SRC:.c=.o)
 

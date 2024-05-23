@@ -1,7 +1,9 @@
 NAME = material.a
 
 SRC = material.c \
+	material_2.c \
 	setters.c \
+	setters_2.c \
 
 OBJ = $(SRC:.c=.o)
 

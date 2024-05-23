@@ -1,6 +1,7 @@
 NAME = ray.a
 
-SRC = ray.c
+SRC = ray.c \
+		ray_2.c \
 
 OBJ = $(SRC:.c=.o)
 

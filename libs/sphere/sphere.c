@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:25 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:53:40 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:53:44 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	free_sphere(void *s)
 
 t_sphere	*glass_sphere(void)
 {
-	t_sphere *s;
+	t_sphere	*s;
 
 	s = sphere();
 	if (!s)

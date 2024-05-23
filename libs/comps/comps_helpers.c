@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:18:37 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:44:01 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:00:50 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,27 +97,4 @@ void	get_refractive_indices(const t_intersection hit, t_intersection *xs,
 		ptr = ptr->next;
 	}
 	empty_container(&containers);
-}
-
-void	compute_normal(t_comps *comps)
-{
-	comps->normalv = normal_at(comps->object_ptr, *comps->point);
-	if (dot(*comps->normalv, *comps->eyev) < 0)
-	{
-		comps->inside = 1;
-		neg_tuple(comps->normalv);
-	}
-	else
-		comps->inside = 0;
-}
-
-void	compute_epsilon_boundaries(t_comps *comps)
-{
-	t_tuple *normalv_cpy;
-
-	normalv_cpy = tuplecpy(*comps->normalv);
-	scalar_tuple(normalv_cpy, EPSILON);
-	comps->over_point = add_tuple(*comps->point, *normalv_cpy);
-	comps->under_point = sub_tuple(*comps->point, *normalv_cpy);
-	free(normalv_cpy);
 }

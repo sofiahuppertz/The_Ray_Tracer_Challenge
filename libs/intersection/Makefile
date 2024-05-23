@@ -1,6 +1,7 @@
 NAME = intersection.a
 
 SRC = intersection.c \
+	intersection_2.c \
 
 OBJ = $(SRC:.c=.o)
 

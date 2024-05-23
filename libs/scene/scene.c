@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:52 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:52:35 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:49:42 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_scene	*scene(void)
 {
-	static t_scene *scene;
+	static t_scene	*scene;
 
 	if (!scene)
 	{

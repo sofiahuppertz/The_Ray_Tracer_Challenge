@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:18 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:49:30 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:34:39 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ void	intersect_plane(void *p, const t_ray transformed_ray,
 
 void	print_plane(void *p)
 {
-	t_plane *_plane;
+	t_plane	*_plane;
 
 	_plane = (t_plane *)p;
-
 	printf("Plane: ");
 	print_material(*_plane->shape.material);
 	printf("Transform:\n");

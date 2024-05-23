@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:19 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:47:11 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:28:11 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,37 +73,6 @@ t_matrix	*mult_matrices(const t_matrix a, const t_matrix b)
 	return (result);
 }
 
-t_matrix	*transpose(t_matrix **m)
-{
-	t_matrix	*before;
-	t_matrix	*after;
-	int			i;
-	int			j;
-
-	before = *m;
-	after = matrix(before->cols, before->rows);
-	if (!after)
-	{
-		free(*m);
-		printf("Error: transpose: memory allocation failed.\n");
-		return (NULL);
-	}
-	i = 0;
-	while (i < before->rows)
-	{
-		j = 0;
-		while (j < before->cols)
-		{
-			after->m[j][i] = before->m[i][j];
-			j++;
-		}
-		i++;
-	}
-	free_matrix(m);
-	*m = after;
-	return (*m);
-}
-
 double	determinant(const t_matrix m)
 {
 	double	det;
@@ -127,119 +96,4 @@ double	determinant(const t_matrix m)
 		}
 	}
 	return (det);
-}
-
-double	cofactor(const t_matrix m, const int row, const int col)
-{
-	if ((row + col) % 2 == 0)
-		return (compute_minor(m, row, col));
-	else
-		return (-compute_minor(m, row, col));
-}
-
-double	compute_minor(t_matrix m, int row, int col)
-{
-	t_matrix	*sub;
-	double		result;
-
-	sub = submatrix(m, row, col);
-	result = determinant(*sub);
-	free_matrix(&sub);
-	return (result);
-}
-
-t_matrix	*submatrix(const t_matrix m, const int row, const int col)
-{
-	t_matrix	*sub;
-	int			i;
-	int			j;
-	int			i_sub;
-	int			j_sub;
-
-	sub = matrix(m.rows - 1, m.cols - 1);
-	if (!sub)
-		return (NULL);
-	i = 0;
-	i_sub = 0;
-	while (i < m.rows)
-	{
-		if (i == row)
-			i++;
-		else
-		{
-			j = 0;
-			j_sub = 0;
-			while (j < m.cols)
-			{
-				if (j == col)
-					j++;
-				else
-				{
-					sub->m[i_sub][j_sub] = m.m[i][j];
-					j++;
-					j_sub++;
-				}
-			}
-			i++;
-			i_sub++;
-		}
-	}
-	return (sub);
-}
-
-t_matrix	*inverse(const t_matrix m)
-{
-	double		det;
-	double		cof;
-	int			i;
-	int			j;
-	t_matrix	*inv;
-
-	det = determinant(m);
-	if (!is_square(m) || det == 0)
-	{
-		printf("Stop: inverse: matrix is not invertible.\n");
-		return (NULL);
-	}
-	inv = matrix(m.rows, m.cols);
-	i = 0;
-	while (i < m.rows)
-	{
-		j = 0;
-		while (j < m.cols)
-		{
-			cof = cofactor(m, i, j);
-			inv->m[j][i] = cof / det;
-			j++;
-		}
-		i++;
-	}
-	return inv;
-}
-
-t_matrix	*matrixcpy(const t_matrix m)
-{
-	t_matrix *copy;
-	int i;
-	int j;
-
-	copy = NULL;
-	copy = matrix(m.rows, m.cols);
-	if (!copy)
-	{
-		printf("Error: matrixcpy: memory allocation failed.\n");
-		return NULL;
-	}
-	i = 0;
-	while (i < m.rows)
-	{
-		j = 0;
-		while (j < m.cols)
-		{
-			copy->m[i][j] = m.m[i][j];
-			j++;
-		}
-		i++;
-	}
-	return copy;
 }

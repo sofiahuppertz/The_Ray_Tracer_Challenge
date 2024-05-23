@@ -1,6 +1,9 @@
 NAME = tuple.a
 
 SRC = tuple.c \
+	tuple_2.c \
+	tuple_3.c \
+	tuple_4.c \
 	tuple_transformations.c \
 
 MATRIX_DIR = ../matrix

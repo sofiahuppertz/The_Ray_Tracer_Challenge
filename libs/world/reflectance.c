@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:29:52 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:54:42 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 15:00:57 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 double	schlick(const t_comps comps)
 {
-	double cos;
-	double n;
-	double sin2_t;
-	double cos_t;
-	double r0;
+	double	cos;
+	double	n;
+	double	sin2_t;
+	double	cos_t;
+	double	r0;
 
 	cos = dot(*comps.eyev, *comps.normalv);
 	if (comps.n1 > comps.n2)

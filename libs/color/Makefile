@@ -1,6 +1,8 @@
 NAME = color.a
 
-SRC = color.c
+SRC = color.c \
+	color_2.c \
+	color_3.c \
 
 OBJ = $(SRC:.c=.o)
 

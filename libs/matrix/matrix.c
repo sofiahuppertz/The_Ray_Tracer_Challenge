@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:27 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:47:22 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:31:44 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ double	degrees_to_radians(double degrees)
 
 void	free_matrices(t_matrix *initial, ...)
 {
-	va_list ap;
-	t_matrix *m;
+	va_list		ap;
+	t_matrix	*m;
 
 	va_start(ap, initial);
 	m = initial;

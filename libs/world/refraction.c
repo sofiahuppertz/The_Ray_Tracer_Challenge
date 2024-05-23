@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:29:59 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:55:43 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 15:02:01 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static t_color	*compute_refracted_color(const t_world w, t_shape *shape,
 	return (final_color);
 }
 
+// Check if the material is transparent, if the recursion has reached its limit,
+// or if the conditions for total internal reflection are met l.54
+// Compute the refracted color l.63
 t_color	*refracted_color(const t_world w, const t_comps comps, int remaining)
 {
 	t_shape	*shape;
@@ -51,9 +54,6 @@ t_color	*refracted_color(const t_world w, const t_comps comps, int remaining)
 	double	sin2_t;
 
 	shape = (t_shape *)comps.object_ptr;
-	// Check if the material is transparent,
-		// if the recursion has reached its limit,
-		// or if the conditions for total internal reflection are met
 	if (shape->material->transparency == 0 || remaining == 0)
 		return (black());
 	n_ratio = comps.n1 / comps.n2;
@@ -61,7 +61,6 @@ t_color	*refracted_color(const t_world w, const t_comps comps, int remaining)
 	sin2_t = n_ratio * n_ratio * (1 - (cos_i * cos_i));
 	if (sin2_t > 1)
 		return (black());
-	// Compute the refracted color
 	refracted_ray = find_refracted_ray(comps, n_ratio, cos_i, sin2_t);
 	return (compute_refracted_color(w, shape, refracted_ray, remaining));
 }

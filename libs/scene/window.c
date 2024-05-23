@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:00 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:52:58 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:49:27 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	set_events_and_display(t_canvas *canvas)
 	mlx_key_hook(canvas->mlx_win, key_press, NULL);
 	mlx_hook(canvas->mlx_win, 17, 0L, close_window, NULL);
 	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img.img, 0,
-			0);
+		0);
 	mlx_loop(canvas->mlx);
 	return (0);
 }

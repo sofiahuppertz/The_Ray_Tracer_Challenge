@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:32 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:50:43 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:37:54 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	transform_ray(void *ray, t_matrix *transformation)
 	if (!t_copy)
 	{
 		free_matrix(&transformation);
-		printf("Error: transform_ray: matrixcpy failed: couldn't tranform ray.\n");
+		printf("Error: transform_ray: matrixcpy failed.\n");
 		return ;
 	}
 	transform((void *)r->o, transformation);
@@ -99,27 +99,4 @@ void	free_ray(t_ray **r)
 	}
 	free(*r);
 	*r = NULL;
-}
-
-t_ray	*raycpy(const t_ray r)
-{
-	t_ray *cpy;
-	t_tuple *origin;
-	t_tuple *direction;
-
-	origin = tuplecpy((const t_tuple)(*r.o));
-	if (!origin)
-	{
-		printf("Error: raycpy: origin memory allocation failed.\n");
-		return (NULL);
-	}
-	direction = tuplecpy((const t_tuple)(*r.di));
-	if (!direction)
-	{
-		printf("Error: raycpy: direction memory allocation failed.\n");
-		free(origin);
-		return (NULL);
-	}
-	cpy = ray(origin, direction);
-	return (cpy);
 }

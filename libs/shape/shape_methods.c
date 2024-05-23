@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:06 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:53:15 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:52:56 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,24 @@ void	print_shapes(t_shape *shapes)
 	}
 }
 
+// transform ray l.34
+// check if shape is concrete l.39
+// call local_intersect l.45
 t_intersection	*intersect(const t_shape *shape, const t_ray ray, t_elem type)
 {
 	t_intersection	*xs;
 	t_ray			*transformed_ray;
 
 	xs = NULL;
-	// transform ray
 	transformed_ray = raycpy(ray);
 	if (!transformed_ray)
 		return (NULL);
 	transform((void *)transformed_ray, inverse(*shape->tr));
-	// check if shape is concrete
 	if (type <= SHAPE)
 	{
 		printf("Interset: incorrect type.\n");
 		return (NULL);
 	}
-	// call local_intersect
 	shape->local_intersect((void *)shape, *transformed_ray, &xs);
 	free_ray(&transformed_ray);
 	return (xs);
@@ -66,6 +66,9 @@ t_intersection	*intersect_shapes(t_shape *shapes, const t_ray ray)
 	return (final_xs);
 }
 
+// transform point to object space l.79
+// call local_normal_at l.86
+// transform normal by inverse of the transpose and normalize l.91
 t_tuple	*normal_at(t_shape *shape, const t_tuple point)
 {
 	t_tuple		*normal;
@@ -76,19 +79,16 @@ t_tuple	*normal_at(t_shape *shape, const t_tuple point)
 		printf("Error: normal_at: NULL pointer.\n");
 		return (NULL);
 	}
-	// transform point to object space
 	transform((void *)&point, inverse(*shape->tr));
 	if (shape->tf.type == SHAPE)
 	{
 		printf("Error: normal_at: abstract type.\n");
 		return (NULL);
 	}
-	// call local_normal_at
 	normal = NULL;
 	shape->local_normal_at((void *)shape, point, &normal);
 	if (!normal)
 		return (NULL);
-	// transform normal by inverse of the transpose and normalize
 	tr = inverse(*shape->tr);
 	transform((void *)normal, transpose(&tr));
 	normal->w = 0;
@@ -98,7 +98,7 @@ t_tuple	*normal_at(t_shape *shape, const t_tuple point)
 t_color	*pattern_at_object(const t_pattern *pattern, const t_shape object,
 		const t_tuple point)
 {
-	t_color *res;
+	t_color	*res;
 
 	if (!pattern || !pattern->local_pattern)
 	{
@@ -111,7 +111,7 @@ t_color	*pattern_at_object(const t_pattern *pattern, const t_shape object,
 		return (NULL);
 	}
 	transform((void *)&point, chain_tfs(inverse(*object.tr),
-				inverse(*pattern->tr), NULL));
+			inverse(*pattern->tr), NULL));
 	res = pattern->local_pattern((void *)pattern, point);
 	return (res);
 }

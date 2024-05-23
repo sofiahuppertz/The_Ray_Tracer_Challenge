@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:10 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:46:48 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:14:24 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include "../pattern/pattern.h"
 
-# define Vacuum 1.0
-# define Air 1.00029
-# define Water 0.333
-# define Glass 1.52
-# define Diamond 2.417
+# define VACUUM 1.0
+# define AIR 1.00029
+# define WATER 0.333
+# define GLASS 1.52
+# define DIAMOND 2.417
 
 typedef struct s_material
 {

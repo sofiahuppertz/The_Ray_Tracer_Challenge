@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:18:52 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:44:30 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:01:52 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	free_cone(void *s)
 
 void	cone_normal(t_tuple object_point, t_tuple **normal)
 {
-	double y;
+	double	y;
 
 	y = sqrt(pow(object_point.x, 2) + pow(object_point.z, 2));
 	if (object_point.y > 0)

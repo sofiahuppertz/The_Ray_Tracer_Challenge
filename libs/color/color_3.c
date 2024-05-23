@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solid.c                                            :+:      :+:    :+:   */
+/*   color_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 19:23:07 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:33:32 by lchiu            ###   ########.fr       */
+/*   Created: 2024/05/23 13:29:07 by lchiu             #+#    #+#             */
+/*   Updated: 2024/05/23 13:29:35 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pattern.h"
+#include "color.h"
 
-t_pattern	*solid(t_color *a)
+t_color	*colorcpy(const t_color c)
 {
-	t_pattern	*solid;
+	t_color	*cpy;
 
-	solid = (t_pattern *)calloc(1, sizeof(t_pattern));
-	if (!solid)
+	cpy = (t_color *)calloc(1, sizeof(t_color));
+	if (!cpy)
 	{
-		printf("Error: solid calloc failed.\n");
+		printf("Error: colorcpy: unable to allocate memory.\n");
+		return (NULL);
 	}
-	pattern(a, colorcpy(*a), solid);
-	solid->local_pattern = solid_at;
-	return (solid);
+	cpy->r = c.r;
+	cpy->g = c.g;
+	cpy->b = c.b;
+	return (cpy);
 }
 
-t_color	*solid_at(void *pattern, const t_tuple point)
+t_color	*black(void)
 {
-	t_pattern	*solid;
+	return (color(0, 0, 0));
+}
 
-	(void)point;
-	solid = (t_pattern *)pattern;
-	return (colorcpy(*solid->a));
+t_color	*white(void)
+{
+	return (color(1, 1, 1));
 }

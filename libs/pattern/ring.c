@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:02 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:48:33 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:33:15 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_pattern	*ring(t_color *a, t_color *b)
 
 t_color	*ring_at(void *pattern, const t_tuple point)
 {
-	t_pattern *ring;
-	double variable;
+	t_pattern	*ring;
+	double		variable;
 
 	ring = (t_pattern *)pattern;
 	variable = sqrt(pow(point.x, 2) + pow(point.z, 2));

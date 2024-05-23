@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:47 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:52:19 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:50:15 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	make_cylinder(t_tuple *center, t_tuple *axis, double diameter,
 	set_closed(&cy->c, 1);
 	radius = diameter / 2.0;
 	transform(&cy->c.shape, chain_tfs(translation(center->x, center->y,
-					center->z), rotate, scaling(radius, 1, radius), NULL));
+				center->z), rotate, scaling(radius, 1, radius), NULL));
 	set_pattern(cy->c.shape.material, solid(color));
 	if (attributes)
 	{
@@ -138,8 +138,8 @@ void	make_cone(t_tuple *c, t_tuple *axis, double unit_d, double height,
 	radius = unit_d / 2.0;
 	set_pattern(co->c.shape.material, solid(color));
 	transform(&co->c.shape, chain_tfs(translation(c->x, c->y, c->z), rotate,
-				scaling(radius, 1, radius), translation(0, height / 2.0, 0),
-				NULL));
+			scaling(radius, 1, radius), translation(0, height / 2.0, 0),
+			NULL));
 	if (attributes)
 	{
 		va_start(extras, attributes);

@@ -2,7 +2,10 @@ NAME = matrix.a
 
 SRC = matrix.c \
 	matrix_operations.c \
-	matrix_transformations.c 
+	matrix_operations_2.c \
+	matrix_operations_3.c \
+	matrix_transformations.c \
+	matrix_transformations_2.c \
 
 OBJ = $(SRC:.c=.o)
 

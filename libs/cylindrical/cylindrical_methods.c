@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:19:15 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:45:16 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:03:31 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,13 @@ void	intersect_caps(t_cyl *cyl, const t_ray r, t_intersection **_xs)
 
 void	cyl_normal_at(void *s, const t_tuple object_point, t_tuple **normal)
 {
-	t_cyl *cyl;
-	double dist;
+	t_cyl	*cyl;
+	double	dist;
 
 	cyl = (t_cyl *)s;
 	if (!cyl)
 		return ;
-
 	dist = pow(object_point.x, 2) + pow(object_point.z, 2);
-
 	if (dist < 1 && object_point.y >= cyl->max_y - EPSILON)
 	{
 		*normal = vector(0, 1, 0);

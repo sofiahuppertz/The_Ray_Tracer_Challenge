@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:21 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:49:38 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:35:03 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_plane	*plane(void)
 	shape(PLANE, &(plane->shape));
 	plane->shape.local_intersect = intersect_plane;
 	plane->shape.local_normal_at = plane_normal_at;
-	;
 	plane->shape.local_print = print_plane;
 	plane->shape.local_free = free_plane;
 	return (plane);

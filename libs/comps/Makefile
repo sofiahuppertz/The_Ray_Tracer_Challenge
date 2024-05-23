@@ -2,6 +2,7 @@ NAME = comps.a
 
 SRC = comps.c \
 	comps_helpers.c \
+	comps_helpers_2.c \
 
 OBJ = $(SRC:.c=.o)
 

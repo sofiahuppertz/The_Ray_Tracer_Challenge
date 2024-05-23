@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:30:03 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:55:05 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:59:53 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_shadowed(const t_world w, const t_tuple point)
 	t_intersection	*_hit;
 	double			distance;
 
-	ray_direction = sub_tuple((const t_tuple)*w.light->position, point);
+	ray_direction = sub_tuple((const t_tuple) * w.light->position, point);
 	distance = mag(*ray_direction);
 	r = ray(tuplecpy(point), ray_direction);
 	xs = intersect_world(w, *r);

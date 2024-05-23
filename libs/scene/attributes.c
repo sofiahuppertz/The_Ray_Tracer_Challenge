@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:40 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:51:33 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:48:45 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ t_attributes	*stripe(t_color *a, t_color *b, double width, double r_z)
 	strcpy(attr->key, "stripe");
 	attr->value = stripe_pattern(a, b);
 	transform(attr->value, chain_tfs(scaling(width, width, width),
-				rotation_z(degrees_to_radians(r_z)), NULL));
+			rotation_z(degrees_to_radians(r_z)), NULL));
 	return (attr);
 }
 

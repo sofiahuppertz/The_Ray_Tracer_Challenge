@@ -6,7 +6,7 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:22:39 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:47:48 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:34:07 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_color	*blended_at(void *pattern, const t_tuple point)
 
 t_pattern	*blended(t_pattern *patterns)
 {
-	t_pattern *blended;
+	t_pattern	*blended;
 
 	blended = (t_pattern *)calloc(1, sizeof(t_pattern));
 	if (!blended)

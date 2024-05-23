@@ -1,86 +1,95 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/23 11:15:52 by lchiu             #+#    #+#             */
+/*   Updated: 2024/05/23 11:15:52 by lchiu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 
-void    free_split(char **split)
+void	free_split(char **split)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (split[i])
-    {
-        free(split[i]);
-        i++;
-    }
-    free(split);
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
 
-int    parsing_error(int tmp, int fd, t_parse *p)
+int	parsing_error(int tmp, int fd, t_parse *p)
 {
-    close(fd);
-    if (p->A != 1 || p->C != 1 || p->L != 1)
-    {
-        printf("Parsing error: check A, C, L identifiers in map\n");
-        close_window(NULL);
-        return (1);
-    }
-    if (tmp == 1)
-    {
-        printf("Parsing error: incorrect character(s) or number(s) in map\n");
-        close_window(NULL);
-        return (1);
-    }
-    return (0);
+	close(fd);
+	if (p->a != 1 || p->c != 1 || p->l != 1)
+	{
+		printf("Parsing error: check A, C, L identifiers in map\n");
+		close_window(NULL);
+		return (1);
+	}
+	if (tmp == 1)
+	{
+		printf("Parsing error: incorrect character(s) or number(s) in map\n");
+		close_window(NULL);
+		return (1);
+	}
+	return (0);
 }
 
-int count_comma(char *line)
+int	count_comma(char *line)
 {
-    int i;
-    int count;
+	int	i;
+	int	count;
 
-    i = 0;
-    count = 0;
-    while (line[i])
-    {
-        if (line[i] == ',')
-            count++;
-        i++;
-    }
-    if (count != 2)
-        return (1);
-    return (0);
+	i = 0;
+	count = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			count++;
+		i++;
+	}
+	if (count != 2)
+		return (1);
+	return (0);
 }
 
-int count_nb_elm(char **line, int j)
+int	count_nb_elm(char **line, int j)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (line[i])
-        i++;
-    if (i > j)
-        return (1);
-    if (i < j)
-    {
-        // free_split(line);
-        return (2);
-    }
-    return (0);
+	i = 0;
+	while (line[i])
+		i++;
+	if (i > j)
+		return (1);
+	if (i < j)
+		return (2);
+	return (0);
 }
 
-int check_id(char *line)
+int	check_id(char *line)
 {
-    if (ft_strncmp("A", line, 1) != 0 && ft_strncmp("C", line, 1) != 0
-        && ft_strncmp("L", line, 1) != 0 && ft_strncmp("pl", line, 2) != 0
-        && ft_strncmp("sp", line, 2) != 0 && ft_strncmp("cy", line, 2) != 0
-        && ft_strncmp("co", line, 2) != 0 && line[0] != 0)
-    {
-        return (1);
-    }
-    return (0);
+	if (ft_strncmp("A", line, 1) != 0 && ft_strncmp("C", line, 1) != 0
+		&& ft_strncmp("L", line, 1) != 0 && ft_strncmp("pl", line, 2) != 0
+		&& ft_strncmp("sp", line, 2) != 0 && ft_strncmp("cy", line, 2) != 0
+		&& ft_strncmp("co", line, 2) != 0 && line[0] != 0)
+	{
+		return (1);
+	}
+	return (0);
 }
 
 // double	ft_atof(char *str)
 // {
-// 	int	    i;
+// 	int		 i;
 //     int     sign;
 // 	double	res;
 //     double  fract;
@@ -105,7 +114,7 @@ int check_id(char *line)
 //     if (str[i] == '.')
 //     {
 //         i++;
-// 	    while (str[i] && str[i] >= '0' && str[i] <= '9')
+// 		 while (str[i] && str[i] >= '0' && str[i] <= '9')
 //         {
 //             fract = fract * 10 + str[i] - '0';
 //             div *= 10;

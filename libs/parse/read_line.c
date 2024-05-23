@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_line.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/23 11:09:52 by lchiu             #+#    #+#             */
+/*   Updated: 2024/05/23 11:09:52 by lchiu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 
 void	ft_free_str(char **s)
@@ -48,7 +60,7 @@ static int	filter(char **str, int fd, char **line, int r)
 	return (save_line(&str[fd], line));
 }
 
-void 	ft_read_else(char **tmp, char **str, char **buff, int fd)
+void	ft_read_else(char **tmp, char **str, char **buff, int fd)
 {
 	*tmp = ft_strjoin(str[fd], *buff);
 	free(str[fd]);

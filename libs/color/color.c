@@ -3,157 +3,157 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:18:16 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:18:18 by shuppert         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:43:28 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "color.h"
 
-double div_255(double color)
+double	div_255(double color)
 {
-    return color / 255.0;
+	return (color / 255.0);
 }
 
-t_color *color(double r, double g, double b)
+t_color	*color(double r, double g, double b)
 {
-    t_color *color;
+	t_color	*color;
 
-    color = (t_color *)calloc(1, sizeof(t_color));
-    if (!color)
-    {
-        printf("Error: color: failed to allocate memory.\n");
-        return NULL;
-    }
-    color->r = r;
-    if (r >= 1)
-        color->r = 1;
-    color->g = g;
-    if (g >= 1)
-        color->g = 1;
-    color->b = b;
-    if (b >= 1)
-        color->b = 1;
-    return color;
+	color = (t_color *)calloc(1, sizeof(t_color));
+	if (!color)
+	{
+		printf("Error: color: failed to allocate memory.\n");
+		return (NULL);
+	}
+	color->r = r;
+	if (r >= 1)
+		color->r = 1;
+	color->g = g;
+	if (g >= 1)
+		color->g = 1;
+	color->b = b;
+	if (b >= 1)
+		color->b = 1;
+	return (color);
 }
 
-t_color *sum_color(const t_color c1, const t_color c2)
+t_color	*sum_color(const t_color c1, const t_color c2)
 {
-    t_color *sum;
+	t_color	*sum;
 
-    sum = NULL;
-    sum = color(c1.r + c2.r, c1.g + c2.g, c1.b + c2.b);
-    if (!sum)
-        printf("Error: sum_color: failed.\n");
-    return sum;
+	sum = NULL;
+	sum = color(c1.r + c2.r, c1.g + c2.g, c1.b + c2.b);
+	if (!sum)
+		printf("Error: sum_color: failed.\n");
+	return (sum);
 }
 
-t_color *add_colors(t_color *initial, ...)
+t_color	*add_colors(t_color *initial, ...)
 {
-    t_color *result;
-    t_color *next_add;
-    va_list args;
+	t_color	*result;
+	t_color	*next_add;
+	va_list	args;
 
-    if (!initial)
-    {
-        printf("Error: add_colors: initial null pointer.\n");
-        return (NULL);
-    }
-    result = colorcpy(*initial);
-    va_start(args, initial);
-    while (1)
-    {
-        next_add = va_arg(args, t_color *);
-        if (next_add == NULL)
-            break;
-        result->r += next_add->r;
-        if (result->r > 1)
-            result->r = 1;
-        result->g += next_add->g;
-        if (result->g > 1)
-            result->g = 1;
-        result->b += next_add->b;
-        if (result->b > 1)
-            result->b = 1;
-        free(next_add);
-    }
-    va_end(args);
-    free(initial);
-    return result;
+	if (!initial)
+	{
+		printf("Error: add_colors: initial null pointer.\n");
+		return (NULL);
+	}
+	result = colorcpy(*initial);
+	va_start(args, initial);
+	while (1)
+	{
+		next_add = va_arg(args, t_color *);
+		if (next_add == NULL)
+			break ;
+		result->r += next_add->r;
+		if (result->r > 1)
+			result->r = 1;
+		result->g += next_add->g;
+		if (result->g > 1)
+			result->g = 1;
+		result->b += next_add->b;
+		if (result->b > 1)
+			result->b = 1;
+		free(next_add);
+	}
+	va_end(args);
+	free(initial);
+	return (result);
 }
 
-t_color *sub_color(const t_color c1, const t_color c2)
+t_color	*sub_color(const t_color c1, const t_color c2)
 {
-    t_color *diff;
+	t_color	*diff;
 
-    diff = NULL;
-    diff = color(c1.r - c2.r, c1.g - c2.g, c1.b - c2.b);
-    if (!diff)
-        printf("Error: sub_color: failed.\n");
-    return diff;
+	diff = NULL;
+	diff = color(c1.r - c2.r, c1.g - c2.g, c1.b - c2.b);
+	if (!diff)
+		printf("Error: sub_color: failed.\n");
+	return (diff);
 }
 
-t_color *scalar_color(const t_color c1, double scalar)
+t_color	*scalar_color(const t_color c1, double scalar)
 {
-    t_color *product;
+	t_color	*product;
 
-    product = NULL;
-    product = color(c1.r * scalar, c1.g * scalar, c1.b * scalar);
-    if (!product)
-        printf("Error: scalar_color: failed.\n");
-    return product;
+	product = NULL;
+	product = color(c1.r * scalar, c1.g * scalar, c1.b * scalar);
+	if (!product)
+		printf("Error: scalar_color: failed.\n");
+	return (product);
 }
 
-t_color *shur_product(const t_color c1, const t_color c2)
+t_color	*shur_product(const t_color c1, const t_color c2)
 {
-    t_color *product;
+	t_color	*product;
 
-    product = NULL;
-    product = color(c1.r * c2.r, c1.g * c2.g, c1.b * c2.b);
-    if (!product)
-    {
-        printf("Error: shur_product: failed.\n");
-    }
-    return product;
+	product = NULL;
+	product = color(c1.r * c2.r, c1.g * c2.g, c1.b * c2.b);
+	if (!product)
+	{
+		printf("Error: shur_product: failed.\n");
+	}
+	return (product);
 }
 
-t_color *average_colors(const t_color c1, const t_color c2)
+t_color	*average_colors(const t_color c1, const t_color c2)
 {
-    t_color *average;
+	t_color	*average;
 
-    average = color((c1.r + c2.r) / 2, (c1.g + c2.g) / 2, (c1.b + c2.b) / 2);
-    return average;
+	average = color((c1.r + c2.r) / 2, (c1.g + c2.g) / 2, (c1.b + c2.b) / 2);
+	return (average);
 }
 
-void print_color(const t_color c)
+void	print_color(const t_color c)
 {
-    printf("(%f, %f, %f)\n", c.r, c.g, c.b);
+	printf("(%f, %f, %f)\n", c.r, c.g, c.b);
 }
 
-t_color *colorcpy(const t_color c)
+t_color	*colorcpy(const t_color c)
 {
-    t_color *cpy;
+	t_color	*cpy;
 
-    cpy = (t_color *)calloc(1, sizeof(t_color));
-    if (!cpy)
-    {
-        printf("Error: colorcpy: unable to allocate memory.\n");
-        return (NULL);
-    }
-    cpy->r = c.r;
-    cpy->g = c.g;
-    cpy->b = c.b;
-    return cpy;
+	cpy = (t_color *)calloc(1, sizeof(t_color));
+	if (!cpy)
+	{
+		printf("Error: colorcpy: unable to allocate memory.\n");
+		return (NULL);
+	}
+	cpy->r = c.r;
+	cpy->g = c.g;
+	cpy->b = c.b;
+	return (cpy);
 }
 
-t_color *black(void)
+t_color	*black(void)
 {
-    return color(0, 0, 0);
+	return (color(0, 0, 0));
 }
 
-t_color *white(void)
+t_color	*white(void)
 {
-    return color(1, 1, 1);
+	return (color(1, 1, 1));
 }

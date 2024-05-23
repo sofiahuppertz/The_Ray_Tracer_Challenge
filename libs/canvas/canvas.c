@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   canvas.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:17:16 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:48:24 by shuppert         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:42:52 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "canvas.h"
 
-void draw_pixel(t_data *data, int x, int y, const t_color *color)
+void	draw_pixel(t_data *data, int x, int y, const t_color *color)
 {
-	char *dst;
-	unsigned int _color;
-	unsigned int _r;
-	unsigned int _g;
-	unsigned int _b;
+	char			*dst;
+	unsigned int	_color;
+	unsigned int	_r;
+	unsigned int	_g;
+	unsigned int	_b;
 
 	_r = (unsigned int)(color->r * 255);
 	if (_r > 255)
@@ -34,22 +34,27 @@ void draw_pixel(t_data *data, int x, int y, const t_color *color)
 	*(unsigned int *)dst = _color;
 }
 
-t_canvas *canvas(int width, int height)
+t_canvas	*canvas(int width, int height)
 {
-	t_canvas *canvas = (t_canvas *)calloc(1, sizeof(t_canvas));
+	t_canvas	*canvas;
+
+	canvas = (t_canvas *)calloc(1, sizeof(t_canvas));
 	if (!canvas)
 	{
 		printf("Error: memory allocation failed in canvas().\n");
-		return NULL;
+		return (NULL);
 	}
 	canvas->mlx = mlx_init();
-	canvas->mlx_win = mlx_new_window(canvas->mlx, width, height, "Default Window Title");
+	canvas->mlx_win = mlx_new_window(canvas->mlx, width, height,
+			"Default Window Title");
 	canvas->img.img = mlx_new_image(canvas->mlx, width, height);
-	canvas->img.addr = mlx_get_data_addr(canvas->img.img, &canvas->img.bits_per_pixel, &canvas->img.line_length, &canvas->img.endian);
+	canvas->img.addr = mlx_get_data_addr(canvas->img.img,
+			&canvas->img.bits_per_pixel, &canvas->img.line_length,
+			&canvas->img.endian);
 	return (canvas);
 }
 
-void free_canvas(t_canvas *canvas)
+void	free_canvas(t_canvas *canvas)
 {
 	if (canvas)
 	{

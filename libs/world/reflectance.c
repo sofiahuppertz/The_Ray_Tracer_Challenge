@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   reflectance.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:29:52 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:29:54 by shuppert         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:54:42 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "world.h"
 
-double schlick(const t_comps comps)
+double	schlick(const t_comps comps)
 {
-    double cos;
-    double n;
-    double sin2_t;
-    double cos_t;
-    double r0;
+	double cos;
+	double n;
+	double sin2_t;
+	double cos_t;
+	double r0;
 
-    cos = dot(*comps.eyev, *comps.normalv);
-    if (comps.n1 > comps.n2)
-    {
-        n = comps.n1 / comps.n2;
-        sin2_t = n * n * (1.0 - cos * cos);
-        if (sin2_t > 1.0)
-            return 1.0;
-        cos_t = sqrt(1.0 - sin2_t);
-        cos = cos_t;
-    }
-    r0 = pow((comps.n1 - comps.n2) / (comps.n1 + comps.n2), 2);
-    return r0 + (1 - r0) * pow((1 - cos), 5);
+	cos = dot(*comps.eyev, *comps.normalv);
+	if (comps.n1 > comps.n2)
+	{
+		n = comps.n1 / comps.n2;
+		sin2_t = n * n * (1.0 - cos * cos);
+		if (sin2_t > 1.0)
+			return (1.0);
+		cos_t = sqrt(1.0 - sin2_t);
+		cos = cos_t;
+	}
+	r0 = pow((comps.n1 - comps.n2) / (comps.n1 + comps.n2), 2);
+	return (r0 + (1 - r0) * pow((1 - cos), 5));
 }

@@ -3,172 +3,172 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:19:34 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:19:35 by shuppert         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:45:53 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intersection.h"
 
-t_intersection *xs(const double t, const t_elem object, void *object_ptr)
+t_intersection	*xs(const double t, const t_elem object, void *object_ptr)
 {
-    t_intersection *i;
+	t_intersection	*i;
 
-    i = (t_intersection *)calloc(1, sizeof(t_intersection));
-    if (!i)
-    {
-        printf("Error: could not allocate memory for intersection\n");
-        return NULL;
-    }
-    i->t = t;
-    i->object = object;
-    i->object_ptr = object_ptr;
-    i->next = NULL;
-    return i;
+	i = (t_intersection *)calloc(1, sizeof(t_intersection));
+	if (!i)
+	{
+		printf("Error: could not allocate memory for intersection\n");
+		return (NULL);
+	}
+	i->t = t;
+	i->object = object;
+	i->object_ptr = object_ptr;
+	i->next = NULL;
+	return (i);
 }
 
-t_intersection *merge_sorted(t_intersection **first, t_intersection **next)
+t_intersection	*merge_sorted(t_intersection **first, t_intersection **next)
 {
-    t_intersection *result = NULL;
+	t_intersection	*result;
 
-    if (*first == NULL)
-        return *next;
-    if (*next == NULL)
-        return *first;
-
-    if ((*first)->t <= (*next)->t)
-    {
-        result = *first;
-        result->next = merge_sorted(&((*first)->next), next);
-    }
-    else
-    {
-        result = *next;
-        result->next = merge_sorted(first, &((*next)->next));
-    }
-    return result;
+	result = NULL;
+	if (*first == NULL)
+		return (*next);
+	if (*next == NULL)
+		return (*first);
+	if ((*first)->t <= (*next)->t)
+	{
+		result = *first;
+		result->next = merge_sorted(&((*first)->next), next);
+	}
+	else
+	{
+		result = *next;
+		result->next = merge_sorted(first, &((*next)->next));
+	}
+	return (result);
 }
 
-t_intersection *intersections(t_intersection *initial, ...)
+t_intersection	*intersections(t_intersection *initial, ...)
 {
-    t_intersection *first;
-    t_intersection *next;
-    va_list args;
+	t_intersection	*first;
+	t_intersection	*next;
+	va_list			args;
 
-    va_start(args, initial);
-    first = initial;
-    if (first == NULL)
-        printf("Error: first arg of intersections is NULL\n");
-    else
-    {
-        while (1)
-        {
-            next = (t_intersection *)va_arg(args, t_intersection *);
-            if (next == NULL)
-                break;
-            first = merge_sorted(&first, &next);
-        }
-    }
-    return first;
+	va_start(args, initial);
+	first = initial;
+	if (first == NULL)
+		printf("Error: first arg of intersections is NULL\n");
+	else
+	{
+		while (1)
+		{
+			next = (t_intersection *)va_arg(args, t_intersection *);
+			if (next == NULL)
+				break ;
+			first = merge_sorted(&first, &next);
+		}
+	}
+	return (first);
 }
 
-int count_intersections(t_intersection *xs)
+int	count_intersections(t_intersection *xs)
 {
-    t_intersection *temp;
-    int count;
+	t_intersection	*temp;
+	int				count;
 
-    temp = xs;
-    count = 0;
-    if (temp)
-    {
-        while (temp)
-        {
-            temp = temp->next;
-            count++;
-        }
-    }
-    return count;
+	temp = xs;
+	count = 0;
+	if (temp)
+	{
+		while (temp)
+		{
+			temp = temp->next;
+			count++;
+		}
+	}
+	return (count);
 }
 
-t_intersection *hit(t_intersection **xs)
+t_intersection	*hit(t_intersection **xs)
 {
-    t_intersection *hit;
+	t_intersection	*hit;
 
-    if (!xs || !(*xs))
-        return NULL;
-    hit = *xs;
-    if (hit->t < 0)
-    {
-        while (hit)
-        {
-            hit = hit->next;
-            if (hit && hit->t >= 0)
-                return hit;
-        }
-        return NULL;
-    }
-    else
-        return hit;
+	if (!xs || !(*xs))
+		return (NULL);
+	hit = *xs;
+	if (hit->t < 0)
+	{
+		while (hit)
+		{
+			hit = hit->next;
+			if (hit && hit->t >= 0)
+				return (hit);
+		}
+		return (NULL);
+	}
+	else
+		return (hit);
 }
 
-void print_intersections(const t_intersection *i)
+void	print_intersections(const t_intersection *i)
 {
-    t_intersection *tmp;
+	t_intersection	*tmp;
 
-    if (!i)
-    {
-        printf("Error: print_intersection: i is NULL\n");
-        return;
-    }
-    tmp = (t_intersection *)i;
-    while (tmp)
-    {
-        printf("t: %f\nobject: %d\n", tmp->t, tmp->object);
-        tmp = tmp->next;
-    }
+	if (!i)
+	{
+		printf("Error: print_intersection: i is NULL\n");
+		return ;
+	}
+	tmp = (t_intersection *)i;
+	while (tmp)
+	{
+		printf("t: %f\nobject: %d\n", tmp->t, tmp->object);
+		tmp = tmp->next;
+	}
 }
 
-void add_intersection(t_intersection **_xs, t_intersection *new)
+void	add_intersection(t_intersection **_xs, t_intersection *new)
 {
-    if (!new)
-    {
-        return;
-    }
-    if (!*_xs)
-        *_xs = new;
-    else
-        *_xs = merge_sorted(_xs, &new);
+	if (!new)
+	{
+		return ;
+	}
+	if (!*_xs)
+		*_xs = new;
+	else
+		*_xs = merge_sorted(_xs, &new);
 }
 
-void free_intersections(t_intersection **initial)
+void	free_intersections(t_intersection **initial)
 {
-    t_intersection *temp;
-    t_intersection *next;
+	t_intersection	*temp;
+	t_intersection	*next;
 
-    if (!initial || !(*initial))
-        return;
-    temp = *initial;
-    while (temp->next)
-    {
-        next = temp->next;
-        free(temp);
-        temp = next;
-    }
-    free(temp);
-    temp = NULL;
+	if (!initial || !(*initial))
+		return ;
+	temp = *initial;
+	while (temp->next)
+	{
+		next = temp->next;
+		free(temp);
+		temp = next;
+	}
+	free(temp);
+	temp = NULL;
 }
 
-t_tuple *position_at(const double t, const t_ray r)
+t_tuple	*position_at(const double t, const t_ray r)
 {
-    t_tuple *position;
-    t_tuple *temp;
+	t_tuple *position;
+	t_tuple *temp;
 
-    temp = tuplecpy((const t_tuple)(*r.di));
-    scalar_tuple(temp, t);
+	temp = tuplecpy((const t_tuple)(*r.di));
+	scalar_tuple(temp, t);
 
-    position = add_tuple((const t_tuple)(*r.o), (const t_tuple)(*temp));
-    free(temp);
-    return position;
+	position = add_tuple((const t_tuple)(*r.o), (const t_tuple)(*temp));
+	free(temp);
+	return (position);
 }

@@ -3,43 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   cylindrical.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:19:19 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/19 19:19:21 by shuppert         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:45:25 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cylindrical.h"
 
-void cyl(t_cyl *cyl)
+void	cyl(t_cyl *cyl)
 {
-    shape(CYLINDRICAL, (t_shape *)cyl);
-    cyl->shape.local_intersect = intersect_cyl;
-    cyl->shape.local_normal_at = cyl_normal_at;
-    cyl->o = point(0, 0, 0);
-    if (!cyl->o)
-    {
-        printf("Error: cyl: point failed.\n");
-        free(cyl);
-        return;
-    }
-    cyl->max_y = INFINITY;
-    cyl->min_y = -INFINITY;
-    cyl->closed = 0;
+	shape(CYLINDRICAL, (t_shape *)cyl);
+	cyl->shape.local_intersect = intersect_cyl;
+	cyl->shape.local_normal_at = cyl_normal_at;
+	cyl->o = point(0, 0, 0);
+	if (!cyl->o)
+	{
+		printf("Error: cyl: point failed.\n");
+		free(cyl);
+		return ;
+	}
+	cyl->max_y = INFINITY;
+	cyl->min_y = -INFINITY;
+	cyl->closed = 0;
 }
 
-void set_bounds(t_cyl *cyl, double min_y, double max_y)
+void	set_bounds(t_cyl *cyl, double min_y, double max_y)
 {
-    if (!cyl)
-        return;
-    cyl->min_y = min_y;
-    cyl->max_y = max_y;
+	if (!cyl)
+		return ;
+	cyl->min_y = min_y;
+	cyl->max_y = max_y;
 }
 
-void set_closed(t_cyl *cyl, int closed)
+void	set_closed(t_cyl *cyl, int closed)
 {
-    if (!cyl)
-        return;
-    cyl->closed = closed;
+	if (!cyl)
+		return ;
+	cyl->closed = closed;
 }

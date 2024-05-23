@@ -3,57 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:00 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/20 15:24:28 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/23 12:52:58 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
 
-int set_events_and_display(t_canvas *canvas)
+int	set_events_and_display(t_canvas *canvas)
 {
-    mlx_key_hook(canvas->mlx_win, key_press, NULL);
-    mlx_hook(canvas->mlx_win, 17, 0L, close_window, NULL);
-    mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img.img, 0, 0);
-    mlx_loop(canvas->mlx);
-    return 0;
+	mlx_key_hook(canvas->mlx_win, key_press, NULL);
+	mlx_hook(canvas->mlx_win, 17, 0L, close_window, NULL);
+	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img.img, 0,
+			0);
+	mlx_loop(canvas->mlx);
+	return (0);
 }
 
-int close_window(void *param)
+int	close_window(void *param)
 {
-    t_scene *_scene;
+	t_scene	*_scene;
 
-    _scene = scene();
-    if (!_scene)
-        return (1);
-    (void)param;
-    if (_scene->world)
-    {
-        free_world(&_scene->world);
-    }
-    if (_scene->camera)
-    {
-        free_camera(&_scene->camera);
-    }
-    if (_scene->material)
-    {
-        free_material(&_scene->material);
-    }
-    if (_scene->canvas)
-    {
-        free_canvas(_scene->canvas);
-    }
-    free(_scene);
-    printf(MAGENTA "Bye 👋\n" RESET);
-    exit(0);
+	_scene = scene();
+	if (!_scene)
+		return (1);
+	(void)param;
+	if (_scene->world)
+	{
+		free_world(&_scene->world);
+	}
+	if (_scene->camera)
+	{
+		free_camera(&_scene->camera);
+	}
+	if (_scene->material)
+	{
+		free_material(&_scene->material);
+	}
+	if (_scene->canvas)
+	{
+		free_canvas(_scene->canvas);
+	}
+	free(_scene);
+	printf(MAGENTA "Bye 👋\n" RESET);
+	exit(0);
 }
 
-int key_press(int keycode, void *param)
+int	key_press(int keycode, void *param)
 {
-    if (keycode == 65307)
-        close_window(NULL);
-    (void)param;
-    return (0);
+	if (keycode == 65307)
+		close_window(NULL);
+	(void)param;
+	return (0);
 }

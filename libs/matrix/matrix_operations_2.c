@@ -3,30 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_operations_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:27:29 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/23 14:30:35 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:42:58 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
 
-t_matrix	*transpose(t_matrix **m)
+static void copy_values(t_matrix *after, t_matrix *before)
 {
-	t_matrix	*before;
-	t_matrix	*after;
-	int			i;
-	int			j;
+	int	i;
+	int	j;
 
-	before = *m;
-	after = matrix(before->cols, before->rows);
-	if (!after)
-	{
-		free(*m);
-		printf("Error: transpose: memory allocation failed.\n");
-		return (NULL);
-	}
 	i = 0;
 	while (i < before->rows)
 	{
@@ -38,6 +28,21 @@ t_matrix	*transpose(t_matrix **m)
 		}
 		i++;
 	}
+}
+
+t_matrix	*transpose(t_matrix **m)
+{
+	t_matrix	*before;
+	t_matrix	*after;
+
+	before = *m;
+	after = matrix(before->cols, before->rows);
+	if (!after)
+	{
+		free(*m);
+		return (NULL);
+	}
+	copy_values(after, before);
 	free_matrix(m);
 	*m = after;
 	return (*m);
@@ -71,10 +76,7 @@ t_matrix	*matrixcpy(const t_matrix m)
 	copy = NULL;
 	copy = matrix(m.rows, m.cols);
 	if (!copy)
-	{
-		printf("Error: matrixcpy: memory allocation failed.\n");
 		return (NULL);
-	}
 	i = 0;
 	while (i < m.rows)
 	{

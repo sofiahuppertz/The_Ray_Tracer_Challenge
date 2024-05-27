@@ -3,53 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   cylindrical_methods.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:19:15 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 15:00:37 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:06:56 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cylindrical.h"
 
-static void swap_if_needed(double *t0, double *t1) {
-	if (*t0 > *t1) {
-		double tmp = *t0;
+static void	swap_if_needed(double *t0, double *t1)
+{
+	double	tmp;
+
+	if (*t0 > *t1)
+	{
+		tmp = *t0;
 		*t0 = *t1;
 		*t1 = tmp;
 	}
 }
 
-static t_intersection *find_solutions(t_cyl *cyl, const t_ray ray, double disc, t_disc_vars *vars) 
+static t_intersection	*find_solutions(t_cyl *cyl, const t_ray ray,
+		double disc, t_disc_vars *vars)
 {
-	t_intersection *_xs;
-	t_intersection *cap_xs;
-	t_inter_info i;
+	t_intersection	*_xs;
+	t_intersection	*cap_xs;
+	t_inter_info	i;
 
 	_xs = NULL;
 	cap_xs = NULL;
 	i.t0 = (-vars->b - sqrt(disc)) / (2 * vars->a);
 	i.t1 = (-vars->b + sqrt(disc)) / (2 * vars->a);
 	swap_if_needed(&i.t0, &i.t1);
-
 	i.y0 = ray.o->y + (i.t0 * ray.di->y);
 	if (cyl->min_y < i.y0 && i.y0 < cyl->max_y)
 		_xs = xs(i.t0, CYLINDRICAL, (void *)cyl);
-
 	i.y1 = ray.o->y + (i.t1 * ray.di->y);
 	if (cyl->min_y < i.y1 && i.y1 < cyl->max_y)
 		add_intersection(&_xs, xs(i.t1, CYLINDRICAL, (void *)cyl));
 	intersect_caps(cyl, ray, &cap_xs);
 	add_intersection(&_xs, cap_xs);
-
 	return (_xs);
 }
 
 void	intersect_cyl(void *s, const t_ray transformed_ray,
 		t_intersection **_xs)
 {
-	t_cyl	*cyl;
-	double	disc;
+	t_cyl		*cyl;
+	double		disc;
 	t_disc_vars	vars;
 
 	vars.a = 0;

@@ -3,8 +3,11 @@ NAME = scene.a
 SRC = attributes.c \
 	attributes_2.c \
 	scene.c \
+	make_cone.c \
+	make_cylinder.c \
+	make_plane.c \
+	make_sphere.c \
 	methods1.c \
-	methods2.c \
 	window.c \
 
 CAMERA_DIR = ../camera

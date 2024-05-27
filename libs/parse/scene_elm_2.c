@@ -73,21 +73,25 @@ int	parse_cone(t_parse *p, char *line, char *str)
 
 int	parse_plan_utils(t_parse *p, char **split)
 {
+	t_make_plane  pl;
 	if (check_xyz(p, split) == 1 || check_rgb(split[3], p) == 1
 		|| vector_range(split, p) == 1)
 	{
 		free_split(split);
 		return (1);
 	}
-	make_plane(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
-		color(div_255(p->r), div_255(p->g), div_255(p->b)), p->params[0],
-		p->params[1], p->params[2], p->params[3], p->params[4],
-		p->params[5]);
+	pl.point = point(p->x, p->y, p->z);
+	pl.normal = vector(p->vr_1, p->vr_2, p->vr_3);
+	pl.color = color(div_255(p->r), div_255(p->g), div_255(p->b));
+	make_plane(pl, p->params[0], p->params[1], p->params[2], p->params[3],
+	p->params[4], p->params[5]);
 	return (0);
 }
 
 int	parse_sphere_utils(t_parse *p, char **split)
 {
+	t_make_sphere	sp;
+
 	if (check_xyz(p, split) == 1 || check_rgb(split[3], p) == 1
 		|| check_diameter(split[2], p) == 1
 		|| check_point(split[2], "pos") == 1)
@@ -95,8 +99,10 @@ int	parse_sphere_utils(t_parse *p, char **split)
 		free_split(split);
 		return (1);
 	}
-	make_sphere(point(p->x, p->y, p->z), p->diam, color(div_255(p->r),
-			div_255(p->g), div_255(p->b)), p->params[0], p->params[1],
+	sp.center = point(p->x, p->y, p->z);
+	sp.diameter = p->diam;
+	sp.color = color(div_255(p->r), div_255(p->g), div_255(p->b));
+	make_sphere(sp, p->params[0], p->params[1],
 		p->params[2], p->params[3], p->params[4], p->params[5]);
 	return (0);
 }

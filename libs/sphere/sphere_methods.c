@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_methods.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:22 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:53:33 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 11:18:29 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,35 @@ void	sphere_normal_at(void *s, const t_tuple object_point, t_tuple **normal)
 	}
 }
 
-static double	calculate_discriminant(double *a, double *b, double *c,
-		const t_ray r, const t_tuple s_o)
+static	double *get_vars( void )
+{
+	static double vars[3];
+
+	return vars;
+}
+
+static double	calculate_discriminant(const t_ray r, const t_tuple s_o)
 {
 	t_tuple	*sphere_to_ray;
+	double *vars;
 	double	d;
 
 	sphere_to_ray = sub_tuple((*r.o), s_o);
-	*a = dot((*r.di), (*r.di));
-	*b = 2 * dot((*r.di), (*sphere_to_ray));
-	*c = dot((*sphere_to_ray), (*sphere_to_ray)) - 1;
-	d = *b * *b - 4 * *a * *c;
+	vars = get_vars();
+	vars[0] = dot((*r.di), (*r.di));
+	vars[1] = 2 * dot((*r.di), (*sphere_to_ray));
+	vars[2] = dot((*sphere_to_ray), (*sphere_to_ray)) - 1;
+	d = vars[1] * vars[1] - 4 * vars[0] * vars[2];
 	free(sphere_to_ray);
 	return (d);
 }
+
 
 void	intersect_sphere(void *s, const t_ray transformed_ray,
 		t_intersection **xs_list)
 {
 	t_sphere	*sphere;
-	double		a;
-	double		b;
-	double		c;
+	double		*vars;
 	double		d;
 
 	if (!xs_list)
@@ -55,11 +62,12 @@ void	intersect_sphere(void *s, const t_ray transformed_ray,
 		return ;
 	}
 	sphere = (t_sphere *)s;
-	d = calculate_discriminant(&a, &b, &c, transformed_ray, (*sphere->o));
+	d = calculate_discriminant(transformed_ray, (*sphere->o));
+	vars = get_vars();
 	if (d > 0)
 	{
-		*xs_list = intersections(xs((-b - sqrt(d)) / (2 * a), SPHERE,
-					(void *)sphere), xs((-b + sqrt(d)) / (2 * a), SPHERE,
+		*xs_list = intersections(xs((-vars[1] - sqrt(d)) / (2 * vars[0]), SPHERE,
+					(void *)sphere), xs((-vars[1] + sqrt(d)) / (2 * vars[0]), SPHERE,
 					(void *)sphere), NULL);
 		if (!*xs_list)
 			printf("Error: something went wrong with intersect_sphere.\n");

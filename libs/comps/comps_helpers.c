@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comps_helpers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:18:37 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:00:50 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 11:21:12 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,34 +66,40 @@ static void	empty_container(t_shape **containers)
 	*containers = NULL;
 }
 
-void	get_refractive_indices(const t_intersection hit, t_intersection *xs,
-		t_comps *comps)
+void process_intersection(t_intersection* ptr, const t_intersection hit, t_shape** containers, t_comps* comps) 
 {
-	t_shape			*containers;
-	t_intersection	*ptr;
-	t_shape			*curr_shape;
+	t_shape* curr_shape;
+	
+	curr_shape = (t_shape*)ptr->object_ptr;
+	if (ptr->t == hit.t) 
+	{
+		if (!*containers)
+			comps->n1 = 1.0;
+		else
+			comps->n1 = find_last_reflective_index(*containers);
+	}
+	find_shape_and_remove(containers, curr_shape);
+	if (ptr->t == hit.t) 
+	{
+		if (!*containers)
+			comps->n2 = 1.0;
+		else
+			comps->n2 = find_last_reflective_index(*containers);
+	}
+}
+
+void get_refractive_indices(const t_intersection hit, t_intersection* xs, t_comps* comps) 
+{
+	t_shape *containers;
+	t_intersection *ptr;
 
 	containers = NULL;
 	ptr = xs;
-	while (ptr)
+	while (ptr) 
 	{
-		curr_shape = (t_shape *)ptr->object_ptr;
+		process_intersection(ptr, hit, &containers, comps);
 		if (ptr->t == hit.t)
-		{
-			if (!containers)
-				comps->n1 = 1.0;
-			else
-				comps->n1 = find_last_reflective_index(containers);
-		}
-		find_shape_and_remove(&containers, curr_shape);
-		if (ptr->t == hit.t)
-		{
-			if (!containers)
-				comps->n2 = 1.0;
-			else
-				comps->n2 = find_last_reflective_index(containers);
-			break ;
-		}
+			break;
 		ptr = ptr->next;
 	}
 	empty_container(&containers);

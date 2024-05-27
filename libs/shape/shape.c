@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shape.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:12 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 14:53:31 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:58:32 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shape.h"
 
-t_shape	*abstract_shape(void)
+t_shape	*abstract_shape(void);
 
 void	shape(t_elem type, t_shape *shape)
 {

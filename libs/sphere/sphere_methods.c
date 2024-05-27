@@ -25,17 +25,17 @@ void	sphere_normal_at(void *s, const t_tuple object_point, t_tuple **normal)
 	}
 }
 
-static	double *get_vars( void )
+static double	*get_vars( void )
 {
-	static double vars[3];
+	static double	vars[3];
 
-	return vars;
+	return (vars);
 }
 
 static double	calculate_discriminant(const t_ray r, const t_tuple s_o)
 {
 	t_tuple	*sphere_to_ray;
-	double *vars;
+	double	*vars;
 	double	d;
 
 	sphere_to_ray = sub_tuple((*r.o), s_o);
@@ -47,7 +47,6 @@ static double	calculate_discriminant(const t_ray r, const t_tuple s_o)
 	free(sphere_to_ray);
 	return (d);
 }
-
 
 void	intersect_sphere(void *s, const t_ray transformed_ray,
 		t_intersection **xs_list)
@@ -66,8 +65,9 @@ void	intersect_sphere(void *s, const t_ray transformed_ray,
 	vars = get_vars();
 	if (d > 0)
 	{
-		*xs_list = intersections(xs((-vars[1] - sqrt(d)) / (2 * vars[0]), SPHERE,
-					(void *)sphere), xs((-vars[1] + sqrt(d)) / (2 * vars[0]), SPHERE,
+		*xs_list = intersections(xs((-vars[1] - sqrt(d))
+					/ (2 * vars[0]), SPHERE, (void *)sphere),
+				xs((-vars[1] + sqrt(d)) / (2 * vars[0]), SPHERE,
 					(void *)sphere), NULL);
 		if (!*xs_list)
 			printf("Error: something went wrong with intersect_sphere.\n");

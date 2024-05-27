@@ -66,12 +66,13 @@ static void	empty_container(t_shape **containers)
 	*containers = NULL;
 }
 
-void process_intersection(t_intersection* ptr, const t_intersection hit, t_shape** containers, t_comps* comps) 
+void	process_intersection(t_intersection *ptr, const t_intersection hit,
+	t_shape **containers, t_comps *comps)
 {
-	t_shape* curr_shape;
-	
-	curr_shape = (t_shape*)ptr->object_ptr;
-	if (ptr->t == hit.t) 
+	t_shape	*curr_shape;
+
+	curr_shape = (t_shape *)ptr->object_ptr;
+	if (ptr->t == hit.t)
 	{
 		if (!*containers)
 			comps->n1 = 1.0;
@@ -79,7 +80,7 @@ void process_intersection(t_intersection* ptr, const t_intersection hit, t_shape
 			comps->n1 = find_last_reflective_index(*containers);
 	}
 	find_shape_and_remove(containers, curr_shape);
-	if (ptr->t == hit.t) 
+	if (ptr->t == hit.t)
 	{
 		if (!*containers)
 			comps->n2 = 1.0;
@@ -88,18 +89,19 @@ void process_intersection(t_intersection* ptr, const t_intersection hit, t_shape
 	}
 }
 
-void get_refractive_indices(const t_intersection hit, t_intersection* xs, t_comps* comps) 
+void	get_refractive_indices(const t_intersection hit, t_intersection *xs,
+	t_comps *comps)
 {
-	t_shape *containers;
-	t_intersection *ptr;
+	t_shape			*containers;
+	t_intersection	*ptr;
 
 	containers = NULL;
 	ptr = xs;
-	while (ptr) 
+	while (ptr)
 	{
 		process_intersection(ptr, hit, &containers, comps);
 		if (ptr->t == hit.t)
-			break;
+			break ;
 		ptr = ptr->next;
 	}
 	empty_container(&containers);

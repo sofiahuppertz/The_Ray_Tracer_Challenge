@@ -68,4 +68,7 @@ int					close_window(void *param);
 int					key_press(int keycode, void *param);
 int					set_events_and_display(t_canvas *canvas);
 
+t_attributes		*new_attr(void);
+t_attributes		*double_attr(void);
+
 #endif

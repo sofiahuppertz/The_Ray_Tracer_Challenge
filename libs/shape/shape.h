@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:15 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:53:25 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:53:37 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_shape
 }						t_shape;
 
 // Constructors
-t_shape					*abstract_shape(void);
 void					shape(t_elem type, t_shape *shape);
 
 // Setters

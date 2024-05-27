@@ -6,50 +6,13 @@
 /*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:12 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 12:59:29 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:53:31 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shape.h"
 
 t_shape	*abstract_shape(void)
-{
-	static int	id;
-	t_shape		*shape;
-
-	id = 0;
-	shape = (t_shape *)calloc(sizeof(t_shape), 1);
-	if (!shape)
-	{
-		printf("Error: shape: calloc failed.\n");
-		return (NULL);
-	}
-	shape->id = id;
-	id++;
-	shape->tf.type = SHAPE;
-	shape->tf.transform = set_transform;
-	shape->material = default_material();
-	if (!shape->material)
-	{
-		printf("Error: shape: default_material failed.\n");
-		free(shape);
-		return (NULL);
-	}
-	shape->tr = identity(4);
-	{
-		if (!shape->tr)
-		{
-			printf("Error: shape: identity failed.\n");
-			free(shape->material);
-			free(shape);
-			return (NULL);
-		}
-	}
-	shape->next = NULL;
-	shape->container_next = NULL;
-	shape->can_cast_shadow = 1;
-	return (shape);
-}
 
 void	shape(t_elem type, t_shape *shape)
 {

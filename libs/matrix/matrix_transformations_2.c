@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_transformations_2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:20:14 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/27 15:55:31 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 16:26:09 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_matrix	*chain_tfs(t_matrix *initial, ...)
 	return (result);
 }
 
-static void calculate_rotation_matrix(t_matrix *r, t_rotation_matrix rm) 
+static void	calculate_rotation_matrix(t_matrix *r, t_rotation_matrix rm)
 {
 	r->m[0][0] = (rm.x * rm.x * rm.oneminuscos) + rm.costheta;
 	r->m[0][1] = (rm.x * rm.y * rm.oneminuscos) - (rm.z * rm.sintheta);
@@ -62,10 +62,10 @@ static void calculate_rotation_matrix(t_matrix *r, t_rotation_matrix rm)
 	r->m[2][2] = (rm.z * rm.z * rm.oneminuscos) + rm.costheta;
 }
 
-t_matrix *rotation_matrix(double angle, double x, double y, double z) 
+t_matrix	*rotation_matrix(double angle, double x, double y, double z)
 {
-	t_matrix *r;
-	t_rotation_matrix rm;
+	t_matrix			*r;
+	t_rotation_matrix	rm;
 
 	r = identity(4);
 	if (!r)

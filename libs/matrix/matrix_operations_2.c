@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_operations_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:27:29 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/27 15:42:58 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 16:25:12 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
 
-static void copy_values(t_matrix *after, t_matrix *before)
+static void	copy_values(t_matrix *after, t_matrix *before)
 {
 	int	i;
 	int	j;

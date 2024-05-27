@@ -45,8 +45,12 @@ t_color				*refracted_color(const t_world w, const t_comps comps,
 						int remaining);
 double				schlick(const t_comps comps);
 int					is_shadowed(const t_world w, const t_tuple point);
+t_color				*rfl_tsy_pos(const t_world w, const t_comps comps,
+						int remaining, t_color *surface);
 
 // Free functions
 void				free_world(t_world **w);
+
+t_sphere			*set(t_sphere *s1, t_sphere *s2, t_material *m, t_world *w);
 
 #endif

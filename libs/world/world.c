@@ -29,6 +29,7 @@ t_world	*default_world(void)
 	t_sphere	*s1;
 	t_sphere	*s2;
 
+	s2 = NULL;
 	w = (t_world *)calloc(sizeof(t_world), 1);
 	if (!w)
 		return (NULL);
@@ -40,21 +41,9 @@ t_world	*default_world(void)
 		return (NULL);
 	}
 	m = default_material();
-	set_pattern(m, solid(color(0.8, 1.0, 0.6)));
-	set_ambient(m, 0.1);
-	set_diffuse(m, 0.7);
-	set_specular(m, 0.2);
-	set_shininess(m, 200.0);
-	set_material(&s1->shape, m);
-	s2 = sphere();
-	if (!s2)
-	{
-		free_world(&w);
+	s2 = set(s1, s2, m, w);
+	if (s2 == NULL)
 		return (NULL);
-	}
-	transform((void *)&s2->shape, scaling(0.5, 0.5, 0.5));
-	set_shape(w, (t_shape *)&s1->shape);
-	set_shape(w, (t_shape *)&s2->shape);
 	return (w);
 }
 

@@ -50,6 +50,22 @@ t_color	*sum_color(const t_color c1, const t_color c2)
 	return (sum);
 }
 
+int	add_color_util(t_color *next_add, t_color *result)
+{
+	if (next_add == NULL)
+		return (1);
+	result->r += next_add->r;
+	if (result->r > 1)
+		result->r = 1;
+	result->g += next_add->g;
+	if (result->g > 1)
+		result->g = 1;
+	result->b += next_add->b;
+	if (result->b > 1)
+		result->b = 1;
+	return (0);
+}
+
 t_color	*add_colors(t_color *initial, ...)
 {
 	t_color	*result;
@@ -66,17 +82,8 @@ t_color	*add_colors(t_color *initial, ...)
 	while (1)
 	{
 		next_add = va_arg(args, t_color *);
-		if (next_add == NULL)
+		if (add_color_util(next_add, result) == 1)
 			break ;
-		result->r += next_add->r;
-		if (result->r > 1)
-			result->r = 1;
-		result->g += next_add->g;
-		if (result->g > 1)
-			result->g = 1;
-		result->b += next_add->b;
-		if (result->b > 1)
-			result->b = 1;
 		free(next_add);
 	}
 	va_end(args);

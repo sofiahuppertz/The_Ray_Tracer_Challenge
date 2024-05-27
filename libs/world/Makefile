@@ -1,6 +1,7 @@
 NAME = world.a
 
 SRC = world.c \
+	world_utils.c \
 	world_methods.c \
 	shadow.c \
 	reflection.c \

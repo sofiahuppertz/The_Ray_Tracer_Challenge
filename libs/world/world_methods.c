@@ -20,36 +20,39 @@ t_intersection	*intersect_world(const t_world w, const t_ray r)
 	return (xs);
 }
 
-t_color	*shade_hit(const t_world w, const t_comps comps, int remaining)
+t_color	*rfl_tsy_pos(const t_world w, const t_comps comps, int remaining,
+	t_color *surface)
 {
-	t_color		*surface;
+	double		reflectance;
 	t_color		*reflected;
 	t_color		*refracted;
-	t_material	*material;
-	double		reflectance;
-	int			shadowed;
 	t_color		*reflected_frac;
 	t_color		*refracted_frac;
 
-	material = NULL;
+	reflectance = schlick(comps);
+	reflected = reflected_color(w, comps, remaining);
+	refracted = refracted_color(w, comps, remaining);
+	reflected_frac = scalar_color(*reflected, reflectance);
+	free(reflected);
+	refracted_frac = scalar_color(*refracted, 1 - reflectance);
+	free(refracted);
+	return (add_colors(surface, reflected_frac, refracted_frac, NULL));
+}
+
+t_color	*shade_hit(const t_world w, const t_comps comps, int remaining)
+{
+	t_material	*material;
+	int			shadowed;
+	t_color		*surface;
+
 	material = ((t_shape *)(comps.object_ptr))->material;
 	shadowed = is_shadowed(w, *comps.over_point);
 	surface = lighting(*material, *comps.object_ptr, *w.light,
 			*comps.over_point, *comps.eyev, *comps.normalv, shadowed);
 	if (material->reflective > 0 && material->transparency > 0)
-	{
-		reflectance = schlick(comps);
-		reflected = reflected_color(w, comps, remaining);
-		refracted = refracted_color(w, comps, remaining);
-		reflected_frac = scalar_color(*reflected, reflectance);
-		free(reflected);
-		refracted_frac = scalar_color(*refracted, 1 - reflectance);
-		free(refracted);
-		return (add_colors(surface, reflected_frac, refracted_frac, NULL));
-	}
-	reflected = reflected_color(w, comps, remaining);
-	refracted = refracted_color(w, comps, remaining);
-	return (add_colors(surface, reflected, refracted, NULL));
+		return (rfl_tsy_pos(w, comps, remaining, surface));
+	return (add_colors(surface, reflected_color(w, comps, remaining),
+			refracted_color(w, comps, remaining), NULL));
 }
 
 t_color	*color_at(const t_world w, const t_ray r, int remaining)

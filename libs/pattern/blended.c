@@ -6,27 +6,18 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:22:39 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:34:07 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:42:00 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pattern.h"
 
-t_color	*blended_at(void *pattern, const t_tuple point)
+void	while_loop(t_pattern *curr, const t_tuple point, t_color *res,
+	t_color *temp)
 {
 	t_tuple		*object_p;
-	t_pattern	*curr;
-	t_color		*res;
 	t_color		*next;
-	t_color		*temp;
 
-	res = NULL;
-	curr = (t_pattern *)pattern;
-	if (!curr || !curr->next)
-	{
-		printf("Error: blended_at called with no patterns.\n");
-		return (NULL);
-	}
 	curr = curr->next;
 	while (curr)
 	{
@@ -45,6 +36,23 @@ t_color	*blended_at(void *pattern, const t_tuple point)
 		free(next);
 		curr = curr->next;
 	}
+}
+
+t_color	*blended_at(void *pattern, const t_tuple point)
+{
+	t_pattern	*curr;
+	t_color		*res;
+	t_color		*temp;
+
+	res = NULL;
+	temp = NULL;
+	curr = (t_pattern *)pattern;
+	if (!curr || !curr->next)
+	{
+		printf("Error: blended_at called with no patterns.\n");
+		return (NULL);
+	}
+	while_loop(curr, point, res, temp);
 	return (res);
 }
 

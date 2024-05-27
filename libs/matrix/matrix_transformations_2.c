@@ -6,7 +6,7 @@
 /*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:20:14 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/27 15:38:29 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:55:31 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,33 +49,35 @@ t_matrix	*chain_tfs(t_matrix *initial, ...)
 	return (result);
 }
 
-static void calculate_rotation_matrix(t_matrix *r, double x, double y, double z, double costheta, double sintheta, double oneminuscos) {
-	r->m[0][0] = (x * x * oneminuscos) + costheta;
-	r->m[0][1] = (x * y * oneminuscos) - (z * sintheta);
-	r->m[0][2] = (x * z * oneminuscos) + (y * sintheta);
-	r->m[1][0] = (y * x * oneminuscos) + (z * sintheta);
-	r->m[1][1] = (y * y * oneminuscos) + costheta;
-	r->m[1][2] = (y * z * oneminuscos) - (x * sintheta);
-	r->m[2][0] = (z * x * oneminuscos) - (y * sintheta);
-	r->m[2][1] = (z * y * oneminuscos) + (x * sintheta);
-	r->m[2][2] = (z * z * oneminuscos) + costheta;
+static void calculate_rotation_matrix(t_matrix *r, t_rotation_matrix rm) 
+{
+	r->m[0][0] = (rm.x * rm.x * rm.oneminuscos) + rm.costheta;
+	r->m[0][1] = (rm.x * rm.y * rm.oneminuscos) - (rm.z * rm.sintheta);
+	r->m[0][2] = (rm.x * rm.z * rm.oneminuscos) + (rm.y * rm.sintheta);
+	r->m[1][0] = (rm.y * rm.x * rm.oneminuscos) + (rm.z * rm.sintheta);
+	r->m[1][1] = (rm.y * rm.y * rm.oneminuscos) + rm.costheta;
+	r->m[1][2] = (rm.y * rm.z * rm.oneminuscos) - (rm.x * rm.sintheta);
+	r->m[2][0] = (rm.z * rm.x * rm.oneminuscos) - (rm.y * rm.sintheta);
+	r->m[2][1] = (rm.z * rm.y * rm.oneminuscos) + (rm.x * rm.sintheta);
+	r->m[2][2] = (rm.z * rm.z * rm.oneminuscos) + rm.costheta;
 }
 
-t_matrix *rotation_matrix(double angle, double x, double y, double z) {
+t_matrix *rotation_matrix(double angle, double x, double y, double z) 
+{
 	t_matrix *r;
-	double costheta, sintheta, oneminuscos, length;
+	t_rotation_matrix rm;
 
 	r = identity(4);
 	if (!r)
 		return (NULL);
-	costheta = cos(angle);
-	sintheta = sin(angle);
-	oneminuscos = 1 - costheta;
-	length = sqrt(x * x + y * y + z * z);
-	x /= length;
-	y /= length;
-	z /= length;
-	calculate_rotation_matrix(r, x, y, z, costheta, sintheta, oneminuscos);
+	rm.costheta = cos(angle);
+	rm.sintheta = sin(angle);
+	rm.oneminuscos = 1 - rm.costheta;
+	rm.length = sqrt(x * x + y * y + z * z);
+	rm.x = x / rm.length;
+	rm.y = y / rm.length;
+	rm.z = z / rm.length;
+	calculate_rotation_matrix(r, rm);
 	return (r);
 }
 

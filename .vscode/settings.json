@@ -10,6 +10,8 @@
         "optional": "c",
         "shape.h": "c",
         "cylindrical.h": "c",
-        "scene.h": "c"
+        "scene.h": "c",
+        "string": "c",
+        "string_view": "c"
     }
 }

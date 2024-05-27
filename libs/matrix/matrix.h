@@ -6,7 +6,7 @@
 /*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:31 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 14:39:42 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:53:23 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ typedef enum e_element
 	PLANE,
 	CYLINDRICAL
 }						t_elem;
+
+
+typedef struct t_rotation_matrix
+{
+	double				x;
+	double				y;
+	double				z;
+	double				costheta;
+	double				sintheta;
+	double				oneminuscos;
+	double				length;
+}						t_rotation_matrix;
 
 typedef struct s_matrix
 {

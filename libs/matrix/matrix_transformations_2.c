@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_transformations_2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:20:14 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/27 14:39:27 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:19:50 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ void	transform(void *elem, t_matrix *transformation)
 
 	if (!elem || !transformation)
 	{
-		printf("Error: transform: couldn't perform transformation: null arguments.\n");
+		printf("Error: transform: couldn't perform\
+			transformation: null arguments.\n");
 		free_matrix(&transformation);
 		return ;
 	}

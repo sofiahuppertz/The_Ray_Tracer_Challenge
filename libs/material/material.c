@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:06 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 13:11:23 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:07:54 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_material	*default_material(void)
 	set_pattern(material, solid(white()));
 	return (material);
 }
-
 
 t_material	*materialcpy(const t_material material)
 {

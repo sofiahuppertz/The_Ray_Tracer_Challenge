@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone_methods.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:18:49 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 14:22:16 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:08:12 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	print_cone(void *s)
 	print_material(*(cone->c.shape.material));
 }
 
-double	disc_cone(void *cyl, const t_ray ray, t_intersection **_xs, t_disc_vars *vars)
+double	disc_cone(void *cyl, const t_ray ray, t_intersection **_xs,
+	t_disc_vars *vars)
 {
 	double			c;
 	double			disc;

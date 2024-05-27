@@ -6,19 +6,38 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:30:10 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/23 14:30:40 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:36:21 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
 
+t_matrix	*test(const t_matrix m, const int col, t_matrix *sub, int i_sub, int i)
+{
+	int	j;
+	int	j_sub;
+
+	j = 0;
+	j_sub = 0;
+	while (j < m.cols)
+	{
+		if (j == col)
+			j++;
+		else
+		{
+			sub->m[i_sub][j_sub] = m.m[i][j];
+			j++;
+			j_sub++;
+		}
+	}
+	return (sub);
+}
+
 t_matrix	*submatrix(const t_matrix m, const int row, const int col)
 {
 	t_matrix	*sub;
 	int			i;
-	int			j;
 	int			i_sub;
-	int			j_sub;
 
 	sub = matrix(m.rows - 1, m.cols - 1);
 	if (!sub)
@@ -31,19 +50,7 @@ t_matrix	*submatrix(const t_matrix m, const int row, const int col)
 			i++;
 		else
 		{
-			j = 0;
-			j_sub = 0;
-			while (j < m.cols)
-			{
-				if (j == col)
-					j++;
-				else
-				{
-					sub->m[i_sub][j_sub] = m.m[i][j];
-					j++;
-					j_sub++;
-				}
-			}
+			sub = test(m, col, sub, i_sub, i);
 			i++;
 			i_sub++;
 		}
@@ -66,8 +73,8 @@ t_matrix	*inverse(const t_matrix m)
 		return (NULL);
 	}
 	inv = matrix(m.rows, m.cols);
-	i = 0;
-	while (i < m.rows)
+	i = -1;
+	while (++i < m.rows)
 	{
 		j = 0;
 		while (j < m.cols)
@@ -76,7 +83,6 @@ t_matrix	*inverse(const t_matrix m)
 			inv->m[j][i] = cof / det;
 			j++;
 		}
-		i++;
 	}
 	return (inv);
 }

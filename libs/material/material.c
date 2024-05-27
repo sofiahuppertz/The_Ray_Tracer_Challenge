@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:06 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:14:31 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 13:11:23 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,6 @@ t_material	*default_material(void)
 	return (material);
 }
 
-t_material	*material(t_pattern *pat, double ambient, double diffuse,
-		double specular, double shininess)
-{
-	t_material	*material;
-
-	if (!pat)
-	{
-		printf("Error: material: NULL parameter.\n");
-		return (NULL);
-	}
-	material = (t_material *)calloc(1, sizeof(t_material));
-	if (!material)
-	{
-		printf("Error: material: unable to allocate memory.\n");
-		return (NULL);
-	}
-	set_ambient(material, ambient);
-	set_ambient_color(material, color(1, 1, 1));
-	set_diffuse(material, diffuse);
-	set_specular(material, specular);
-	set_shininess(material, shininess);
-	set_reflective(material, 0.0);
-	set_transparency(material, 0.0);
-	set_refrac_index(material, 1.0);
-	set_pattern(material, pat);
-	return (material);
-}
 
 t_material	*materialcpy(const t_material material)
 {
@@ -67,16 +40,12 @@ t_material	*materialcpy(const t_material material)
 
 	cpy = (t_material *)calloc(1, sizeof(t_material));
 	if (!cpy)
-	{
-		printf("Error: materialcpy: unable to allocate memory.\n");
 		return (NULL);
-	}
 	if (material.pattern)
 	{
 		cpy->pattern = patterncpy(*material.pattern);
 		if (!cpy->pattern)
 		{
-			printf("Error: materialcpy: patterncpy failed.\n");
 			free_material(&cpy);
 			return (NULL);
 		}

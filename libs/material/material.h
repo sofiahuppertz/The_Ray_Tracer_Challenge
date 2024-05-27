@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:10 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:14:24 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 13:11:03 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ typedef struct s_material
 }				t_material;
 
 t_material		*default_material(void);
-t_material		*material(t_pattern *pat, double ambient, double diffuse,
-					double specular, double shininess);
 t_material		*materialcpy(const t_material material);
 
 void			print_material(const t_material material);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:21 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:35:03 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 13:08:13 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,34 @@ t_plane	*plane(void)
 	return (plane);
 }
 
-t_matrix	*find_rotation_matrix(const t_tuple normal)
+void calculate_rotation(double dot_product, t_tuple* object_normal, const t_tuple normal, double* rotation_angle, t_tuple** axis) 
 {
-	t_matrix	*rotate;
-	t_tuple		*object_normal;
-	t_tuple		*axis;
-	double		dot_product;
-	double		rotation_angle;
+	if (dot_product == -1) 
+	{
+		*rotation_angle = M_PI;
+		*axis = vector(0, 0, 1);
+	} else {
+		*rotation_angle = acos(dot_product);
+		*axis = cross(*object_normal, normal);
+	}
+}
+
+t_matrix* find_rotation_matrix(const t_tuple normal) 
+{
+	t_matrix* rotate;
+	t_tuple* object_normal;
+	t_tuple* axis;
+	double dot_product;
+	double rotation_angle;
 
 	object_normal = vector(0, 1, 0);
 	dot_product = dot(*object_normal, normal);
-	if (dot_product == 1)
+	if (dot_product == 1) 
 	{
 		free(object_normal);
 		return (identity(4));
 	}
-	if (dot_product == -1)
-	{
-		rotation_angle = M_PI;
-		axis = vector(0, 0, 1);
-	}
-	else
-	{
-		rotation_angle = acos(dot_product);
-		axis = cross(*object_normal, normal);
-	}
+	calculate_rotation(dot_product, object_normal, normal, &rotation_angle, &axis);
 	rotate = rotation_matrix(rotation_angle, axis->x, axis->y, axis->z);
 	free_tuples(&object_normal, &axis, NULL);
 	return (rotate);

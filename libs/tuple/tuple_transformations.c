@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuple_transformations.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:33 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:55:32 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 13:12:10 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,11 @@ void	transform_tuple(void *tuple, t_matrix *transformation)
 	if (!before)
 	{
 		free_matrix(&transformation);
-		printf("Error 1: transform_tuple failed.\n");
 		return ;
 	}
 	after = mult_matrices(*transformation, *before);
 	if (!after)
-	{
 		free_matrices(transformation, before, NULL);
-		printf("Error 2: transform_tuple failed.\n");
-	}
 	t->x = after->m[0][0];
 	t->y = after->m[1][0];
 	t->z = after->m[2][0];

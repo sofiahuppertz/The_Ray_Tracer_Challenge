@@ -6,7 +6,7 @@
 /*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:19 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 15:47:57 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 16:31:04 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,20 @@ int	is_square(const t_matrix m)
 	return (m.rows == m.cols);
 }
 
-t_matrix	*mult_matrices(const t_matrix a, const t_matrix b)
-{
-	t_matrix	*result;
-	int			i;
-	int			j;
-	int			k;
 
-	if (a.cols != b.rows)
-	{
-		printf("Error: mult_matrices: incompatible matrices.\n");
-		return (NULL);
-	}
-	result = matrix(a.rows, b.cols);
-	if (!result)
-		return (NULL);
+static void calculate_mult_matrices(t_matrix *result, const t_matrix a, const t_matrix b) {
+	int i;
+	int j;
+	int k;
+
 	i = 0;
-	while (i < a.rows)
+	while (i < a.rows) 
 	{
 		j = 0;
-		while (j < b.cols)
+		while (j < b.cols) 
 		{
 			k = 0;
-			while (k < a.cols)
+			while (k < a.cols) 
 			{
 				result->m[i][j] += a.m[i][k] * b.m[k][j];
 				k++;
@@ -70,6 +61,20 @@ t_matrix	*mult_matrices(const t_matrix a, const t_matrix b)
 		}
 		i++;
 	}
+}
+
+t_matrix *mult_matrices(const t_matrix a, const t_matrix b) 
+{
+	t_matrix *result;
+
+	if (a.cols != b.rows) {
+		printf("Error: mult_matrices: incompatible matrices.\n");
+		return (NULL);
+	}
+	result = matrix(a.rows, b.cols);
+	if (!result)
+		return (NULL);
+	calculate_mult_matrices(result, a, b);
 	return (result);
 }
 

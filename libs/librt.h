@@ -6,12 +6,12 @@
 /*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:58:01 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/23 12:59:00 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 16:36:05 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_H
-# define RT_H
+#ifndef LIBRT_H
+# define LIBRT_H
 
 # include "camera/camera.h"
 # include "canvas/canvas.h"

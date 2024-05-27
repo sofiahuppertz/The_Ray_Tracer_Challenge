@@ -12,9 +12,7 @@
 
 #include "parse.h"
 
-// check_point(split[2], "pos") == 1
-
-int	parse_cylinder_utils(t_parse *p, char **split)
+int	parse_cylinder_utils(t_parse *p, char **split, char *str)
 {
 	char	**split_tmp;
 	int		i;
@@ -32,15 +30,12 @@ int	parse_cylinder_utils(t_parse *p, char **split)
 			return (1);
 		}
 	}
-	make_cylinder(point(p->x, p->y, p->z), vector(p->vr_1, p->vr_2, p->vr_3),
-		ft_atof(split[3]), ft_atof(split[4]), color(div_255(p->r),
-			div_255(p->g), div_255(p->b)), p->params[0], p->params[1],
-		p->params[2], p->params[3], p->params[4], p->params[5]);
+	make_cy_or_co(p, split, str);
 	free_split(split_tmp);
 	return (0);
 }
 
-int	parse_cylinder(t_parse *p, char *line)
+int	parse_cylinder(t_parse *p, char *line, char *str)
 {
 	char	**split;
 
@@ -63,15 +58,15 @@ int	parse_cylinder(t_parse *p, char *line)
 		free_split(split);
 		return (1);
 	}
-	if (parse_cylinder_utils(p, split) == 1)
+	if (parse_cylinder_utils(p, split, str) == 1)
 		return (1);
 	free_split(split);
 	return (0);
 }
 
-int	parse_cone(t_parse *p, char *line)
+int	parse_cone(t_parse *p, char *line, char *str)
 {
-	if (parse_cylinder(p, line) == 1)
+	if (parse_cylinder(p, line, str) == 1)
 		return (1);
 	return (0);
 }

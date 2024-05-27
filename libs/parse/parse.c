@@ -26,12 +26,12 @@ int	identify_2(t_parse *p, char *line)
 	}
 	else if (ft_strncmp("cy", line, 2) == 0)
 	{
-		if (parse_cylinder(p, line) == 1)
+		if (parse_cylinder(p, line, "cy") == 1)
 			return (1);
 	}
 	else if (ft_strncmp("co", line, 2) == 0)
 	{
-		if (parse_cone(p, line) == 1)
+		if (parse_cone(p, line, "co") == 1)
 			return (1);
 	}
 	return (0);

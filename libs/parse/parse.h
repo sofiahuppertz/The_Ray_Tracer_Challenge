@@ -92,9 +92,9 @@ int		parse_plan(t_parse *p, char *line);
 int		parse_sphere(t_parse *p, char *line);
 
 /* scene element 2 */
-int		parse_cylinder_utils(t_parse *p, char **split);
-int		parse_cylinder(t_parse *p, char *line);
-int		parse_cone(t_parse *p, char *line);
+int		parse_cylinder_utils(t_parse *p, char **split, char *str);
+int		parse_cylinder(t_parse *p, char *line, char *str);
+int		parse_cone(t_parse *p, char *line, char *str);
 int		parse_plan_utils(t_parse *p, char **split);
 int		parse_sphere_utils(t_parse *p, char **split);
 
@@ -132,5 +132,7 @@ int		check_third(char **split, char *tmp, t_parse *p);
 int		check_sec(char **split, char *tmp, t_parse *p);
 int		check_first(char **split, char *tmp, t_parse *p);
 int		check_extra(char **split, t_parse *p);
+
+void	make_cy_or_co(t_parse *p, char **split, char *str);
 
 #endif

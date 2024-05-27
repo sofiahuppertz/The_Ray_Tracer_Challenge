@@ -11,6 +11,7 @@ SRC = parse.c \
 		check_extra.c \
 		extra.c \
 		extra_utils.c \
+		make_utils.c \
 
 SCENE_DIR = ../scene
 LIBFT_DIR = ../libft

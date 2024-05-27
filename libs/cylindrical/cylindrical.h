@@ -6,7 +6,7 @@
 /*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:19:26 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 14:23:07 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:56:29 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ typedef struct s_disc_vars
 	double a;
 	double b;
 } t_disc_vars;
+
+typedef struct s_inter_info
+{
+	double	t0;
+	double	t1;
+	double	y0;
+	double	y1;
+} t_inter_info;
+
 
 typedef double	(*t_calc_disc)(void *cyl, const t_ray ray, t_intersection **_xs,
 		t_disc_vars *vars);

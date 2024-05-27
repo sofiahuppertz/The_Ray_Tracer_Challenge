@@ -5,7 +5,7 @@ SRC = light.c \
 
 OBJ = $(SRC:.c=.o)
 
-SHAPE_DIR = ../shape
+COMPS_DIR = ../comps
 
 
 .SECONDARY: $(OBJ)
@@ -13,12 +13,12 @@ SHAPE_DIR = ../shape
 %.o: %.c
 	cc -g -Wall -Wextra -Werror  -I. -c $< -o $@
 
-$(NAME): $(OBJ) $(SHAPE_DIR)/shape.a
+$(NAME): $(OBJ) $(COMPS_DIR)/comps.a
 	ar rcs $(NAME) $(OBJ)
 
 
-$(SHAPE_DIR)/shape.a:
-	$(MAKE) -C $(SHAPE_DIR)
+$(COMPS_DIR)/comps.a:
+	$(MAKE) -C $(COMPS_DIR)
 
 	
 all: $(NAME)
@@ -30,6 +30,6 @@ fclean: clean
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) -C $(SHAPE_DIR) fclean
+	$(MAKE) -C $(COMPS_DIR) fclean
 
 .PHONY: clean re fclean all

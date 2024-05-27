@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world_methods.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:30:06 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:55:12 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:13:40 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ t_color	*shade_hit(const t_world w, const t_comps comps, int remaining)
 
 	material = ((t_shape *)(comps.object_ptr))->material;
 	shadowed = is_shadowed(w, *comps.over_point);
-	surface = lighting(*material, *comps.object_ptr, *w.light,
-			*comps.over_point, *comps.eyev, *comps.normalv, shadowed);
+	surface = lighting(*material, comps, *w.light, shadowed);
 	if (material->reflective > 0 && material->transparency > 0)
 		return (rfl_tsy_pos(w, comps, remaining, surface));
 	return (add_colors(surface, reflected_color(w, comps, remaining),

@@ -3,65 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   phong_reflection_model.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:01 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:07:07 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 15:28:39 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "light.h"
 
-t_color	*lighting(const t_material material, const t_shape object,
-		const t_point_light light, const t_tuple position, const t_tuple eyev,
-		const t_tuple normalv, int in_shadow)
+static t_color *calculate_effective_color(const t_material material, t_comps comps, const t_point_light light) 
 {
-	t_color	*temp;
-	t_color	*effective_color;
-	t_color	*ambient;
-	t_color	*diffuse;
-	t_color	*specular;
-	t_tuple	*lightv;
-	t_tuple	*reflectv;
-	double	lDotN;
-	double	eDotR;
-	double	factor;
-	t_color	*final;
+	t_light_calculation w;
+	w.temp = pattern_at_object(material.pattern, *comps.object_ptr, *comps.over_point);
+	w.effective_color = shur_product(*w.temp, *(light.intensity));
+	free(w.temp);
+	w.temp = shur_product(*material.ambient_color, *w.effective_color);
+	free(w.effective_color);
+	return w.temp;
+}
 
-	reflectv = NULL;
-	temp = pattern_at_object(material.pattern, object, position);
-	effective_color = shur_product(*temp, *(light.intensity));
-	free(temp);
-	temp = shur_product(*material.ambient_color, *effective_color);
-	free(effective_color);
-	effective_color = temp;
-	lightv = norm(sub_tuple(*light.position, position));
-	ambient = scalar_color(*effective_color, material.ambient);
-	if (in_shadow)
-	{
-		free_tuples(&lightv, NULL);
-		free(effective_color);
-		return (ambient);
+static t_color *calculate_ambient(t_color *effective_color, double ambient) 
+{
+	return scalar_color(*effective_color, ambient);
+}
+
+static void calculate_diffuse_and_specular(t_light_calculation *w, const t_material material, t_comps comps, const t_point_light light) 
+{
+	double eDotR;
+	double factor;
+	t_tuple *reflectv;
+
+	w->diffuse = scalar_color(*w->effective_color, material.diffuse * w->lDotN);
+	neg_tuple(w->lightv);
+	reflectv = reflection(*w->lightv, *comps.normalv);
+	eDotR = dot(*reflectv, *comps.eyev);
+	if (eDotR > 0) {
+		free(w->specular);
+		factor = pow(eDotR, material.shininess) * material.specular;
+		w->specular = scalar_color(*(light.intensity), factor);
 	}
-	diffuse = black();
-	specular = black();
-	lDotN = dot(*lightv, normalv);
-	if (lDotN >= 0)
-	{
-		free(diffuse);
-		diffuse = scalar_color(*effective_color, material.diffuse * lDotN);
-		neg_tuple(lightv);
-		reflectv = reflection(*lightv, normalv);
-		eDotR = dot(*reflectv, eyev);
-		if (eDotR > 0)
-		{
-			free(specular);
-			factor = pow(eDotR, material.shininess) * material.specular;
-			specular = scalar_color(*(light.intensity), factor);
-		}
+	free_tuples(&w->lightv, &reflectv, NULL);
+}
+
+t_color *lighting(const t_material material, t_comps comps, const t_point_light light, int in_shadow) 
+{
+	t_light_calculation w;
+
+	w.effective_color = calculate_effective_color(material, comps, light);
+	w.lightv = norm(sub_tuple(*light.position, *comps.over_point));
+	w.ambient = calculate_ambient(w.effective_color, material.ambient);
+	if (in_shadow) {
+		free_tuples(&w.lightv, NULL);
+		free(w.effective_color);
+		return w.ambient;
 	}
-	free(effective_color);
-	free_tuples(&lightv, &reflectv, NULL);
-	final = add_colors(ambient, specular, diffuse, NULL);
-	return (final);
+	w.diffuse = black();
+	w.specular = black();
+	w.lDotN = dot(*w.lightv, *comps.normalv);
+	if (w.lDotN >= 0) 
+	{
+		calculate_diffuse_and_specular(&w, material, comps, light);
+	}
+	free(w.effective_color);
+	w.final = add_colors(w.ambient, w.specular, w.diffuse, NULL);
+	return w.final;
 }

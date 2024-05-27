@@ -3,34 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:27 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 16:12:36 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 16:16:19 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
 
-
-static int alloc_rows(t_matrix *matrix)
+t_matrix	*init_matrix(const int rows, const int cols, t_matrix *matrix)
 {
 	int	i;
 
 	i = 0;
-	while (i < matrix->rows)
+	while (i < rows)
 	{
-		matrix->m[i] = (double *)calloc(matrix->cols, sizeof(double));
+		matrix->m[i] = (double *)calloc(cols, sizeof(double));
 		if (!matrix->m[i])
 		{
 			printf("Error: matrix: memory allocation failed.\n");
 			free_matrix(&matrix);
-			return 1;
+			return (NULL);
 		}
 		i++;
 	}
 	matrix->m[i] = NULL;
-	return 0;
+	return (matrix);
 }
 
 t_matrix	*matrix(const int rows, const int cols)
@@ -47,8 +46,7 @@ t_matrix	*matrix(const int rows, const int cols)
 		free(matrix);
 		return (NULL);
 	}
-	if (alloc_rows(matrix))
-		return (NULL);
+	matrix = init_matrix(rows, cols, matrix);
 	return (matrix);
 }
 
@@ -91,21 +89,4 @@ void	free_matrix(t_matrix **matrix)
 double	degrees_to_radians(double degrees)
 {
 	return (degrees * PI / 180);
-}
-
-void	free_matrices(t_matrix *initial, ...)
-{
-	va_list		ap;
-	t_matrix	*m;
-
-	va_start(ap, initial);
-	m = initial;
-	while (m)
-	{
-		free_matrix(&m);
-		m = va_arg(ap, t_matrix *);
-		if (!m)
-			break ;
-	}
-	va_end(ap);
 }

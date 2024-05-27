@@ -1,6 +1,7 @@
 NAME = matrix.a
 
 SRC = matrix.c \
+	matrix_utils.c \
 	matrix_operations.c \
 	matrix_operations_2.c \
 	matrix_operations_3.c \

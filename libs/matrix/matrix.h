@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:31 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 15:53:23 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 16:17:32 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef enum e_element
 	PLANE,
 	CYLINDRICAL
 }						t_elem;
-
 
 typedef struct t_rotation_matrix
 {
@@ -110,5 +109,8 @@ int						equal(const double a, const double b);
 
 // Apply transformation to other objects
 void					transform(void *elem, t_matrix *transformation);
+
+t_matrix				*init_matrix(const int rows, const int cols,
+							t_matrix *matrix);
 
 #endif

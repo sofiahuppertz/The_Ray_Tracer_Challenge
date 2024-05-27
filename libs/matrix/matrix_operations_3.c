@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_operations_3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:30:10 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/27 16:17:01 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 16:25:53 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
 
-t_matrix	*test(const t_matrix m, const int col, t_matrix *sub, int indexes[2])
+t_matrix	*test(const t_matrix m, const int col, t_matrix *sub,
+		int indexes[2])
 {
 	int	j;
 	int	j_sub;
@@ -33,10 +34,10 @@ t_matrix	*test(const t_matrix m, const int col, t_matrix *sub, int indexes[2])
 	return (sub);
 }
 
-
-static void calculate_submatrix(t_matrix *sub, const t_matrix m, const int row, const int col)
+static void	calculate_submatrix(t_matrix *sub, const t_matrix m, const int row,
+		const int col)
 {
-	int indexes[2];
+	int	indexes[2];
 
 	indexes[0] = 0;
 	indexes[1] = 0;
@@ -64,17 +65,19 @@ t_matrix	*submatrix(const t_matrix m, const int row, const int col)
 	return (sub);
 }
 
-
-static void calculate_inverse_matrix(t_matrix *inv, const t_matrix m, double det) 
+static void	calculate_inverse_matrix(t_matrix *inv, const t_matrix m,
+		double det)
 {
-	double cof;
-	int i;
-	int j;
+	double	cof;
+	int		i;
+	int		j;
 
 	i = -1;
-	while (++i < m.rows) {
+	while (++i < m.rows)
+	{
 		j = 0;
-		while (j < m.cols) {
+		while (j < m.cols)
+		{
 			cof = cofactor(m, i, j);
 			inv->m[j][i] = cof / det;
 			j++;
@@ -82,9 +85,10 @@ static void calculate_inverse_matrix(t_matrix *inv, const t_matrix m, double det
 	}
 }
 
-t_matrix *inverse(const t_matrix m) {
-	double det;
-	t_matrix *inv;
+t_matrix	*inverse(const t_matrix m)
+{
+	double		det;
+	t_matrix	*inv;
 
 	det = determinant(m);
 	if (!is_square(m) || det == 0)

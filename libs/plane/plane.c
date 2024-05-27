@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:21 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 14:32:43 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:57:13 by lchiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ t_plane	*plane(void)
 	return (plane);
 }
 
-t_tuple *calculate_axis(double dot_product, t_tuple* object_normal, const t_tuple normal, double* rotation_angle) 
+t_tuple	*calculate_axis(double dot_product, t_tuple *object_normal,
+		const t_tuple normal, double *rotation_angle)
 {
-	t_tuple* axis;
+	t_tuple	*axis;
 
 	axis = NULL;
-	if (dot_product == -1) 
+	if (dot_product == -1)
 	{
 		*rotation_angle = M_PI;
 		axis = vector(0, 0, 1);
-		return axis;
+		return (axis);
 	}
 	*rotation_angle = acos(dot_product);
 	axis = cross(*object_normal, normal);
-
-	return axis;
+	return (axis);
 }
 
 t_matrix	*find_rotation_matrix(const t_tuple normal)

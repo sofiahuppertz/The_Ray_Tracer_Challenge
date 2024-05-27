@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   shape.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:24:12 by shuppert          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/27 14:58:43 by sofia            ###   ########.fr       */
+=======
+/*   Updated: 2024/05/27 14:58:32 by lchiu            ###   ########.fr       */
+>>>>>>> 6f72c726e33093c2bd3bb478ba1bc5fa4cd205fe
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shape.h"
 
+<<<<<<< HEAD
+=======
+t_shape	*abstract_shape(void);
+
+>>>>>>> 6f72c726e33093c2bd3bb478ba1bc5fa4cd205fe
 void	shape(t_elem type, t_shape *shape)
 {
 	static int	id;

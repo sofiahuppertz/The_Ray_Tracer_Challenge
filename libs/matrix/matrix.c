@@ -3,18 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:27 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:31:44 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 16:12:36 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
 
+
+static int alloc_rows(t_matrix *matrix)
+{
+	int	i;
+
+	i = 0;
+	while (i < matrix->rows)
+	{
+		matrix->m[i] = (double *)calloc(matrix->cols, sizeof(double));
+		if (!matrix->m[i])
+		{
+			printf("Error: matrix: memory allocation failed.\n");
+			free_matrix(&matrix);
+			return 1;
+		}
+		i++;
+	}
+	matrix->m[i] = NULL;
+	return 0;
+}
+
 t_matrix	*matrix(const int rows, const int cols)
 {
-	int			i;
 	t_matrix	*matrix;
 
 	matrix = (t_matrix *)calloc(sizeof(t_matrix), 1);
@@ -27,19 +47,8 @@ t_matrix	*matrix(const int rows, const int cols)
 		free(matrix);
 		return (NULL);
 	}
-	i = 0;
-	while (i < rows)
-	{
-		matrix->m[i] = (double *)calloc(cols, sizeof(double));
-		if (!matrix->m[i])
-		{
-			printf("Error: matrix: memory allocation failed.\n");
-			free_matrix(&matrix);
-			return (NULL);
-		}
-		i++;
-	}
-	matrix->m[i] = NULL;
+	if (alloc_rows(matrix))
+		return (NULL);
 	return (matrix);
 }
 

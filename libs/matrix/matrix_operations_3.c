@@ -6,13 +6,13 @@
 /*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:30:10 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/27 16:00:31 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 16:17:01 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
 
-t_matrix	*test(const t_matrix m, const int col, t_matrix *sub, int i_sub, int i)
+t_matrix	*test(const t_matrix m, const int col, t_matrix *sub, int indexes[2])
 {
 	int	j;
 	int	j_sub;
@@ -25,7 +25,7 @@ t_matrix	*test(const t_matrix m, const int col, t_matrix *sub, int i_sub, int i)
 			j++;
 		else
 		{
-			sub->m[i_sub][j_sub] = m.m[i][j];
+			sub->m[indexes[1]][j_sub] = m.m[indexes[0]][j];
 			j++;
 			j_sub++;
 		}
@@ -36,20 +36,19 @@ t_matrix	*test(const t_matrix m, const int col, t_matrix *sub, int i_sub, int i)
 
 static void calculate_submatrix(t_matrix *sub, const t_matrix m, const int row, const int col)
 {
-	int i;
-	int i_sub;
+	int indexes[2];
 
-	i = 0;
-	i_sub = 0;
-	while (i < m.rows)
+	indexes[0] = 0;
+	indexes[1] = 0;
+	while (indexes[0] < m.rows)
 	{
-		if (i == row)
-			i++;
+		if (indexes[0] == row)
+			indexes[0]++;
 		else
 		{
-			sub = test(m, col, sub, i_sub, i);
-			i++;
-			i_sub++;
+			sub = test(m, col, sub, indexes);
+			indexes[0]++;
+			indexes[1]++;
 		}
 	}
 }

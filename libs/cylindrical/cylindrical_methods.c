@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cylindrical_methods.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:19:15 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:03:31 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:18:44 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cylindrical.h"
 
 static t_intersection	*find_solutions(t_cyl *cyl, const t_ray ray,
-		double disc, double a, double b)
+		double disc, t_disc_vars *vars)
 {
 	t_intersection	*_xs;
 	t_intersection	*cap_xs;
@@ -25,8 +25,8 @@ static t_intersection	*find_solutions(t_cyl *cyl, const t_ray ray,
 
 	_xs = NULL;
 	cap_xs = NULL;
-	t0 = (-b - sqrt(disc)) / (2 * a);
-	t1 = (-b + sqrt(disc)) / (2 * a);
+	t0 = (-vars->b - sqrt(disc)) / (2 * vars->a);
+	t1 = (-vars->b + sqrt(disc)) / (2 * vars->a);
 	if (t0 > t1)
 	{
 		tmp = t0;
@@ -49,17 +49,16 @@ void	intersect_cyl(void *s, const t_ray transformed_ray,
 {
 	t_cyl	*cyl;
 	double	disc;
-	double	a;
-	double	b;
+	t_disc_vars	vars;
 
-	a = 0;
-	b = 0;
+	vars.a = 0;
+	vars.b = 0;
 	cyl = (t_cyl *)s;
 	*_xs = NULL;
-	disc = cyl->local_calc_disc(cyl, transformed_ray, _xs, &a, &b);
+	disc = cyl->local_calc_disc(cyl, transformed_ray, _xs, &vars);
 	if (disc < 0)
 		return ;
-	*_xs = find_solutions(cyl, transformed_ray, disc, a, b);
+	*_xs = find_solutions(cyl, transformed_ray, disc, &vars);
 }
 
 void	intersect_caps(t_cyl *cyl, const t_ray r, t_intersection **_xs)

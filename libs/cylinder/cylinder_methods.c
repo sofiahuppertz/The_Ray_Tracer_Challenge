@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_methods.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:19:03 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:44:51 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:21:00 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,20 @@ void	print_cylinder(void *s)
 }
 
 double	disc_cylinder(void *cyl, const t_ray ray, t_intersection **_xs,
-		double *a, double *b)
+		t_disc_vars *vars)
 {
 	double	c;
 	double	disc;
 
-	*a = pow(ray.di->x, 2) + pow(ray.di->z, 2);
-	if (equal(*a, 0))
+	vars->a = pow(ray.di->x, 2) + pow(ray.di->z, 2);
+	if (equal(vars->a, 0))
 	{
 		intersect_caps((t_cyl *)cyl, ray, _xs);
 		return (-1);
 	}
-	*b = 2 * ray.o->x * ray.di->x + (2 * ray.o->z * ray.di->z);
+	vars->b = 2 * ray.o->x * ray.di->x + (2 * ray.o->z * ray.di->z);
 	c = pow(ray.o->x, 2) + pow(ray.o->z, 2) - 1;
-	disc = pow(*b, 2) - 4 * *a * c;
+	disc = pow(vars->b, 2) - 4 * vars->a * c;
 	return (disc);
 }
 

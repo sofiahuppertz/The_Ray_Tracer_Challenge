@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylindrical.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:19:26 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 14:04:29 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:23:07 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,17 @@
 
 # include "../shape/shape.h"
 
-typedef double	(*calc_disc)(void *cyl, const t_ray ray, t_intersection **_xs,
-		double *a, double *b);
-typedef int		(*check_cap)(const t_ray r, double t, double y);
-typedef void	(*cyl_normal)(const t_tuple object_point, t_tuple **normal);
+typedef struct s_disc_vars
+{
+	double a;
+	double b;
+} t_disc_vars;
+
+typedef double	(*t_calc_disc)(void *cyl, const t_ray ray, t_intersection **_xs,
+		t_disc_vars *vars);
+typedef int		(*t_check_cap)(const t_ray r, double t, double y);
+typedef void	(*t_cyl_normal)(const t_tuple object_point, t_tuple **normal);
+
 
 typedef struct s_cyl
 {
@@ -27,11 +34,14 @@ typedef struct s_cyl
 	double		max_y;
 	double		min_y;
 	int			closed;
-	calc_disc	local_calc_disc;
-	check_cap	local_check_cap;
-	cyl_normal	local_cyl_normal;
+	t_calc_disc	local_calc_disc;
+	t_check_cap	local_check_cap;
+	t_cyl_normal	local_cyl_normal;
 
 }				t_cyl;
+
+
+
 
 void			cyl(t_cyl *cyl);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:19:10 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:45:05 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:21:09 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		free_cylinder(void *s);
 
 void		print_cylinder(void *s);
 double		disc_cylinder(void *cyl, const t_ray ray, t_intersection **_xs,
-				double *a, double *b);
+				t_disc_vars *vars);
 int			cylinder_check_cap(const t_ray r, double t, double y);
 void		cylinder_normal(const t_tuple object_point, t_tuple **normal);
 

@@ -6,7 +6,7 @@
 /*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:21 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 13:08:13 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:29:48 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,21 @@ t_plane	*plane(void)
 	return (plane);
 }
 
-void calculate_rotation(double dot_product, t_tuple* object_normal, const t_tuple normal, double* rotation_angle, t_tuple** axis) 
+t_tuple *calculate_axis(double dot_product, t_tuple* object_normal, const t_tuple normal, double* rotation_angle) 
 {
+	t_tuple* axis;
+
+	axis = NULL;
 	if (dot_product == -1) 
 	{
 		*rotation_angle = M_PI;
-		*axis = vector(0, 0, 1);
-	} else {
-		*rotation_angle = acos(dot_product);
-		*axis = cross(*object_normal, normal);
+		axis = vector(0, 0, 1);
+		return axis;
 	}
+	*rotation_angle = acos(dot_product);
+	axis = cross(*object_normal, normal);
+
+	return axis;
 }
 
 t_matrix* find_rotation_matrix(const t_tuple normal) 
@@ -57,7 +62,7 @@ t_matrix* find_rotation_matrix(const t_tuple normal)
 		free(object_normal);
 		return (identity(4));
 	}
-	calculate_rotation(dot_product, object_normal, normal, &rotation_angle, &axis);
+	axis = calculate_axis(dot_product, object_normal, normal, &rotation_angle);
 	rotate = rotation_matrix(rotation_angle, axis->x, axis->y, axis->z);
 	free_tuples(&object_normal, &axis, NULL);
 	return (rotate);

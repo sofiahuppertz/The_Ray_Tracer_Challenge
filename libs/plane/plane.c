@@ -6,7 +6,7 @@
 /*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:23:21 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/27 14:29:48 by sofia            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:32:43 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ t_tuple *calculate_axis(double dot_product, t_tuple* object_normal, const t_tupl
 	return axis;
 }
 
-t_matrix* find_rotation_matrix(const t_tuple normal) 
+t_matrix	*find_rotation_matrix(const t_tuple normal)
 {
-	t_matrix* rotate;
-	t_tuple* object_normal;
-	t_tuple* axis;
-	double dot_product;
-	double rotation_angle;
+	t_matrix	*rotate;
+	t_tuple		*object_normal;
+	t_tuple		*axis;
+	double		dot_product;
+	double		rotation_angle;
 
 	object_normal = vector(0, 1, 0);
 	dot_product = dot(*object_normal, normal);
-	if (dot_product == 1) 
+	if (dot_product == 1)
 	{
 		free(object_normal);
 		return (identity(4));

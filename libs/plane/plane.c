@@ -30,34 +30,38 @@ t_plane	*plane(void)
 	return (plane);
 }
 
-void calculate_rotation(double dot_product, t_tuple* object_normal, const t_tuple normal, double* rotation_angle, t_tuple** axis) 
+void	calculate_rotation(double dot_product, t_tuple *object_normal,
+	const t_tuple normal, double *rotation_angle, t_tuple **axis)
 {
-	if (dot_product == -1) 
+	if (dot_product == -1)
 	{
 		*rotation_angle = M_PI;
 		*axis = vector(0, 0, 1);
-	} else {
+	}
+	else
+	{
 		*rotation_angle = acos(dot_product);
 		*axis = cross(*object_normal, normal);
 	}
 }
 
-t_matrix* find_rotation_matrix(const t_tuple normal) 
+t_matrix	*find_rotation_matrix(const t_tuple normal)
 {
-	t_matrix* rotate;
-	t_tuple* object_normal;
-	t_tuple* axis;
-	double dot_product;
-	double rotation_angle;
+	t_matrix	*rotate;
+	t_tuple		*object_normal;
+	t_tuple		*axis;
+	double		dot_product;
+	double		rotation_angle;
 
 	object_normal = vector(0, 1, 0);
 	dot_product = dot(*object_normal, normal);
-	if (dot_product == 1) 
+	if (dot_product == 1)
 	{
 		free(object_normal);
 		return (identity(4));
 	}
-	calculate_rotation(dot_product, object_normal, normal, &rotation_angle, &axis);
+	calculate_rotation(dot_product, object_normal, normal,
+		&rotation_angle, &axis);
 	rotate = rotation_matrix(rotation_angle, axis->x, axis->y, axis->z);
 	free_tuples(&object_normal, &axis, NULL);
 	return (rotate);

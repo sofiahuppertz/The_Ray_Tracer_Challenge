@@ -73,7 +73,8 @@ int	parse_cone(t_parse *p, char *line, char *str)
 
 int	parse_plan_utils(t_parse *p, char **split)
 {
-	t_make_plane  pl;
+	t_make_plane	pl;
+
 	if (check_xyz(p, split) == 1 || check_rgb(split[3], p) == 1
 		|| vector_range(split, p) == 1)
 	{
@@ -84,7 +85,7 @@ int	parse_plan_utils(t_parse *p, char **split)
 	pl.normal = vector(p->vr_1, p->vr_2, p->vr_3);
 	pl.color = color(div_255(p->r), div_255(p->g), div_255(p->b));
 	make_plane(pl, p->params[0], p->params[1], p->params[2], p->params[3],
-	p->params[4], p->params[5]);
+		p->params[4], p->params[5]);
 	return (0);
 }
 

@@ -14,7 +14,7 @@
 
 void	make_cy_or_co(t_parse *p, char **split, char *str)
 {
-	t_make_cylindrical c;
+	t_make_cylindrical	c;
 
 	c.center = point(p->x, p->y, p->z);
 	c.axis = vector(p->vr_1, p->vr_2, p->vr_3);
@@ -23,12 +23,12 @@ void	make_cy_or_co(t_parse *p, char **split, char *str)
 	c.color = color(div_255(p->r), div_255(p->g), div_255(p->b));
 	if (ft_strncmp(str, "cy", 2) == 0)
 	{
-		make_cylinder(c, p->params[0], p->params[1], p->params[2], 
-		p->params[3], p->params[4], p->params[5]);
+		make_cylinder(c, p->params[0], p->params[1], p->params[2], p->params[3],
+			p->params[4], p->params[5]);
 	}
 	else if (ft_strncmp(str, "co", 2) == 0)
 	{
-		make_cone(c, p->params[0], p->params[1], p->params[2],
-		p->params[3], p->params[4], p->params[5]);
+		make_cone(c, p->params[0], p->params[1], p->params[2], p->params[3],
+			p->params[4], p->params[5]);
 	}
 }

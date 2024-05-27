@@ -55,7 +55,6 @@ void	shape(t_elem type, t_shape *shape)
 {
 	static int	id;
 
-	id = 0;
 	shape->id = id++;
 	shape->tf.type = type;
 	shape->tf.transform = set_transform;

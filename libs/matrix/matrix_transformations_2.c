@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_transformations_2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:20:14 by lchiu             #+#    #+#             */
-/*   Updated: 2024/05/23 14:24:35 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:39:27 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,6 @@ t_matrix	*rotation_z(double rad)
 	rotation->m[1][0] = sin(rad);
 	rotation->m[1][1] = cos(rad);
 	return (rotation);
-}
-
-t_matrix	*shearing(double xy, double xz, double yx, double yz, double zx,
-		double zy)
-{
-	t_matrix	*shearing;
-
-	shearing = identity(4);
-	if (!shearing)
-		return (NULL);
-	shearing->m[0][1] = xy;
-	shearing->m[0][2] = xz;
-	shearing->m[1][0] = yx;
-	shearing->m[1][2] = yz;
-	shearing->m[2][0] = zx;
-	shearing->m[2][1] = zy;
-	return (shearing);
 }
 
 t_matrix	*chain_tfs(t_matrix *initial, ...)

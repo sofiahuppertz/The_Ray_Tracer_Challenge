@@ -1,29 +1,38 @@
 #include "scene.h"
 
-void	make_cylinder(t_make_cylindrical c, t_attributes *attributes, ...)
+static void setup_cylinder(t_cylinder *cy, t_make_cylindrical c, t_matrix *rotate, double radius) 
 {
-	t_scene		*_scene;
-	t_cylinder	*cy;
-	t_matrix	*rotate;
-	double		radius;
-	va_list		extras;
+	t_scene *_scene;
 
 	_scene = scene();
-	if (!_scene || !c.center || !c.axis || !c.color)
-		return ;
-	cy = cylinder();
-	if (!cy)
-		return ;
+	if (!_scene)
+		return;
 	set_material(&cy->c.shape, materialcpy(*_scene->material));
-	rotate = find_rotation_matrix(*c.axis);
 	set_bounds(&cy->c, -c.height / 2.0, c.height / 2.0);
 	set_closed(&cy->c, 1);
-	radius = c.diameter / 2.0;
 	transform(&cy->c.shape, chain_tfs(translation(c.center->x, c.center->y,
 				c.center->z), rotate, scaling(radius, 1, radius), NULL));
 	set_pattern(cy->c.shape.material, solid(c.color));
-	if (attributes)
-	{
+}
+
+void make_cylinder(t_make_cylindrical c, t_attributes *attributes, ...) 
+{
+	t_scene	*_scene;
+	t_cylinder *cy;
+	t_matrix *rotate;
+	double radius;
+	va_list extras;
+
+	_scene = scene();
+	if (!_scene || !c.center || !c.axis || !c.color)
+		return;
+	cy = cylinder();
+	if (!cy)
+		return;
+	rotate = find_rotation_matrix(*c.axis);
+	radius = c.diameter / 2.0;
+	setup_cylinder(cy, c, rotate, radius);
+	if (attributes) {
 		va_start(extras, attributes);
 		set_extras(&cy->c.shape, attributes, extras);
 		va_end(extras);

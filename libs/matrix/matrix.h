@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchiu <lchiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sofia <sofia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:20:31 by shuppert          #+#    #+#             */
-/*   Updated: 2024/05/23 12:47:28 by lchiu            ###   ########.fr       */
+/*   Updated: 2024/05/27 14:39:42 by sofia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ t_matrix				*rotation_y(double rad);
 t_matrix				*rotation_z(double rad);
 t_matrix				*rotation_matrix(double angle, double x, double y,
 							double z);
-t_matrix				*shearing(double xy, double xz, double yx, double yz,
-							double zx, double zy);
 t_matrix				*chain_tfs(t_matrix *initial, ...);
 
 // Utility functions

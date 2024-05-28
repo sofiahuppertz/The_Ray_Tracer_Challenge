@@ -68,10 +68,8 @@ int	count_nb_elm(char **line, int j)
 	i = 0;
 	while (line[i])
 		i++;
-	if (i > j)
+	if (i != j)
 		return (1);
-	if (i < j)
-		return (2);
 	return (0);
 }
 

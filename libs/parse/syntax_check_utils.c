@@ -65,6 +65,7 @@ int	check_vector_syntax(char **split_tmp, char *split_tmp_str, char *tmp)
 	if (ft_atof(split_tmp_str) < -1 || ft_atof(split_tmp_str) > 1)
 	{
 		free_split(split_tmp);
+		free(tmp);
 		return (1);
 	}
 	if (tmp)
